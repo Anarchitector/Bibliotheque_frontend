@@ -4,6 +4,7 @@ const App = () => {
   return (
     <BrowserRouter>
      <p>New project</p>
+     <p>Home page</p>
     </BrowserRouter>
   )
 }
