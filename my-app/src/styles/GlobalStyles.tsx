@@ -1,8 +1,10 @@
-import { Global, css } from '@emotion/react';
+import { Global, css } from "@emotion/react"
 
 const globalStyles = css`
+  @import url("https://fonts.googleapis.com/css2?family=Chonburi&display=swap");
+
   * {
-  box-sizing: border-box;
+    box-sizing: border-box;
   }
 
   body,
@@ -10,6 +12,7 @@ const globalStyles = css`
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Chonburi', sans-serif;  // Применение шрифта к телу документа
   }
 
   h1,
@@ -21,6 +24,7 @@ const globalStyles = css`
   p {
     margin: 0;
     padding: 0;
+    font-family: 'Chonburi', sans-serif;  // Применение шрифта к заголовкам и абзацам
   }
 
   #root {
@@ -35,4 +39,4 @@ function GlobalStyles() {
   return <Global styles={globalStyles} />
 }
 
-export default GlobalStyles;
+export default GlobalStyles
