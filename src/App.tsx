@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { AuthorizationForm } from "pages/UserRegistration/styles"
-import UserLogin from "pages/UserLogin/UserLogin"
+import UserLogin from "components/UserLogin/UserLogin"
 
 const App = () => {
   return ( 
