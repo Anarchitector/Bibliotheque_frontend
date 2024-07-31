@@ -9,7 +9,8 @@ import {
     LinkComponent,
     FormUserLoginContainer
 } from "./styles"
-import { LOGIN_FORM_NAMES, LoginFormValues } from "./types"
+import type { LoginFormValues } from "./types";
+import { LOGIN_FORM_NAMES } from "./types"
 
 function UserLogin() {
 
