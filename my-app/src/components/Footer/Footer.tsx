@@ -1,9 +1,11 @@
 import {FooterComponent, Copyright} from './styles'
 
 function Footer() {
+    var year = new Date().getFullYear();
+
     return (
         <FooterComponent>
-            <Copyright>© BiblioHub 2024</Copyright>
+            <Copyright>© BiblioHub {year}</Copyright>
         </FooterComponent>
     )
 }
