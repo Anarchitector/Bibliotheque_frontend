@@ -47,7 +47,7 @@ function LibraryRegistration() {
         .min(2, "A city's name can't be that short"),
     [LIB_REGISTR_FORM_NAMES.STREET]: Yup.string()
         .required("We need to record the street where your library is located")
-        .min(4, "A country's name can't be that short"),
+        .min(4, "A street's name can't be that short"),
     [LIB_REGISTR_FORM_NAMES.NUMBER]: Yup.string()
         .required("We need to record the house number where your library is located")
         .max(7, "That's a bit too long for a house number, isn't it?")

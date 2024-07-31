@@ -4,7 +4,7 @@ import { SearchBoxComponent, SearchConteiner, Title } from "./styles"
 function Home() {
   return (
     <SearchBoxComponent>
-      <Title>Все доступные книги и библиотеки мира для тебя.</Title>
+      <Title>All available books and libraries - for you.</Title>
       <SearchConteiner>
         <Search
           onSearch={function (query: string): void {
