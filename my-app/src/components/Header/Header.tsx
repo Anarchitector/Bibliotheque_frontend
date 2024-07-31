@@ -39,8 +39,8 @@ function Header() {
         <MobileMenuContainer>
           <CloseButton onClick={toggleMenu}>×</CloseButton>
           <MobileMenu>
-            <MobileStyledNavLink to='/"' onClick={toggleMenu}>Главная страница</MobileStyledNavLink>
-            <MobileStyledNavLink to='/api/auth/login"' onClick={toggleMenu}>Авторизоваться</MobileStyledNavLink>
+            <MobileStyledNavLink to='/' onClick={toggleMenu}>Главная страница</MobileStyledNavLink>
+            <MobileStyledNavLink to='/api/auth/login' onClick={toggleMenu}>Авторизоваться</MobileStyledNavLink>
             <MobileStyledNavLink to='/api/auth/register' onClick={toggleMenu}>Зарегистрироваться</MobileStyledNavLink>
           </MobileMenu>
         </MobileMenuContainer>
