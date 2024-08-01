@@ -33,25 +33,25 @@ function FormRegistrUser() {
 
   const schema = Yup.object().shape({
     [REGISTR_FORM_NAMES.EMAIL]: Yup.string()
-      .required("Поле email обязательно для заполнения")
-      .email("Значение не соответствует формату email"),
+      .required("Email required.")
+      .email("Input does not correspond with an email"),
     [REGISTR_FORM_NAMES.PASSWORD]: Yup.string()
-      .required("Поле password обязательно для заполнения")
-      .min(8, "Пароль должен содержать минимум 8 символов")
-      .matches(/[a-z]/, "Пароль должен содержать хотя бы одну строчную букву")
-      .matches(/[A-Z]/, "Пароль должен содержать хотя бы одну заглавную букву")
-      .matches(/\d/, "Пароль должен содержать хотя бы одну цифру")
+      .required("Password required.")
+      .min(8, "Password must contain at least 8 symbols.")
+      .matches(/[a-z]/, "Password must contain at least one small letter.")
+      .matches(/[A-Z]/, "Password must contain at least one capital letter.")
+      .matches(/\d/, "Password must contain at least one numerical digit.")
       .matches(
         /[!@#$%^&*(),.?":{}|<>]/,
-        "Пароль должен содержать хотя бы один специальный символ",
+        "Password must contain at least one special symbol",
       ),
     [REGISTR_FORM_NAMES.REPEAT_PASSWORD]: Yup.string()
       .oneOf(
         [Yup.ref(REGISTR_FORM_NAMES.PASSWORD), undefined],
-        "Пароли должны совпадать",
+        "Passwords must coincide.",
       )
       .required(
-        "Поле обязательно для заполнения и оно должно совпадать с вашим паролем",
+        "Repeat password is required. It must coincide with your password.",
       ),
   })
 
@@ -76,13 +76,13 @@ function FormRegistrUser() {
       method="POST"
       onSubmit={formik.handleSubmit}
     >
-      <FormTitle>Создать учетную запись</FormTitle>
+      <FormTitle>Create an account</FormTitle>
       <InputForm>
         <Input
           name={REGISTR_FORM_NAMES.EMAIL}
           type="email"
           label="Email*"
-          placeholder="Введите email"
+          placeholder="Enter email"
           value={formik.values[REGISTR_FORM_NAMES.EMAIL]}
           onChange={formik.handleChange}
           error={formik.errors[REGISTR_FORM_NAMES.EMAIL]}
@@ -91,7 +91,7 @@ function FormRegistrUser() {
           name={REGISTR_FORM_NAMES.PASSWORD}
           type="password"
           label="Password*"
-          placeholder="Введите пароль"
+          placeholder="Enter password"
           value={formik.values[REGISTR_FORM_NAMES.PASSWORD]}
           onChange={formik.handleChange}
           error={formik.errors[REGISTR_FORM_NAMES.PASSWORD]}
@@ -100,7 +100,7 @@ function FormRegistrUser() {
           name={REGISTR_FORM_NAMES.REPEAT_PASSWORD}
           type="password"
           label="Repeat password*"
-          placeholder="Повторите пароль"
+          placeholder="Repeat password"
           value={formik.values[REGISTR_FORM_NAMES.REPEAT_PASSWORD]}
           onChange={formik.handleChange}
           error={formik.errors[REGISTR_FORM_NAMES.REPEAT_PASSWORD]}
@@ -115,7 +115,7 @@ function FormRegistrUser() {
             checked={selectedOption === "user"}
             onChange={handleRadioChange}
           />
-          Пользователь
+          User
         </label>
         <label>
           <input
@@ -125,15 +125,15 @@ function FormRegistrUser() {
             checked={selectedOption === "library"}
             onChange={handleRadioChange}
           />
-          Библиотека
+          Library
         </label>
       </RadioBatComponent>
       <Button
-        name="Зарегистрироваться"
+        name="Register"
         type="submit"
         disabled={!formik.isValid || !formik.dirty}
       />
-      <LinkComponent href="/api/auth/login">Уже есть учетная запись</LinkComponent>
+      <LinkComponent href="/api/auth/login">Do you already have an account?</LinkComponent>
     </FormRegistContainer>
   )
 }

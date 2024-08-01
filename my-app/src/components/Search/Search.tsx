@@ -1,16 +1,17 @@
-import { ChangeEvent, useState } from "react"
+import type { ChangeEvent} from "react";
+import { useState } from "react"
 import {
   InputField,
   SearchButton,
   SearchContainer,
   SelectField,
 } from "./styles"
-import { SearchProps, SearchType } from "./types"
+import type { SearchProps, SearchType } from "./types"
 
 function Search({ onSearch }: SearchProps) {
   const placeholderTexts: Record<SearchType, string> = {
-    book: "Введите название книги",
-    author: "Введите фамилию автора",
+    book: "Enter book's title",
+    author: "Enter author's name",
   }
 
   const [query, setQuery] = useState("")
@@ -33,8 +34,8 @@ function Search({ onSearch }: SearchProps) {
   return (
     <SearchContainer>
       <SelectField value={searchType} onChange={handleSearchTypeChange}>
-        <option value="book">Книга</option>
-        <option value="author">Автор</option>
+        <option value="book">Book</option>
+        <option value="author">Author</option>
       </SelectField>
       <InputField
         type="text"
@@ -43,7 +44,7 @@ function Search({ onSearch }: SearchProps) {
         onChange={handleInputChange}
       />
       <SearchButton onClick={handleSearch} disabled={!query.trim()}>
-        Поиск
+        Search
       </SearchButton>
     </SearchContainer>
   )

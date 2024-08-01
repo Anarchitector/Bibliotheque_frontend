@@ -25,9 +25,9 @@ function Header() {
         <Logo>BiblioHub</Logo>
       </LogoLink>
       <NavContainer>
-        <StyledNavLink to="/api/auth/login">Авторизоваться</StyledNavLink>
+        <StyledNavLink to="/api/auth/login">Log In</StyledNavLink>
         <StyledNavLink to="/api/auth/register">
-          Зарегистрироваться
+          Register
         </StyledNavLink>
       </NavContainer>
       <HamburgerButton onClick={toggleMenu}>
@@ -39,9 +39,9 @@ function Header() {
         <MobileMenuContainer>
           <CloseButton onClick={toggleMenu}>×</CloseButton>
           <MobileMenu>
-            <MobileStyledNavLink to='/' onClick={toggleMenu}>Главная страница</MobileStyledNavLink>
-            <MobileStyledNavLink to='/api/auth/login' onClick={toggleMenu}>Авторизоваться</MobileStyledNavLink>
-            <MobileStyledNavLink to='/api/auth/register' onClick={toggleMenu}>Зарегистрироваться</MobileStyledNavLink>
+            <MobileStyledNavLink to='/' onClick={toggleMenu}>Main Page</MobileStyledNavLink>
+            <MobileStyledNavLink to='/api/auth/login' onClick={toggleMenu}>Log in</MobileStyledNavLink>
+            <MobileStyledNavLink to='/api/auth/register' onClick={toggleMenu}>Register</MobileStyledNavLink>
           </MobileMenu>
         </MobileMenuContainer>
       )}
