@@ -77,7 +77,7 @@ function PersonalCabinet() {
       .required("We need to record your house number")
       .max(7, "That's a bit too long for a house number, isn't it?")
       .matches(/^[^\s].*$/, "A house number can't start with an empty space")
-      .matches(/\d/, "House number must contain at least one numerical digit"),
+      .matches(/\d/, "House number must contain one numerical digit at very least"),
   })
 
   // ------------------- //
