@@ -29,6 +29,10 @@ function Header() {
         <StyledNavLink to="/api/auth/register">
           Register
         </StyledNavLink>
+        {/* to be removed*/ }
+        <StyledNavLink to="/api/users/id">
+          (!Personal Cabinet)
+        </StyledNavLink>
       </NavContainer>
       <HamburgerButton onClick={toggleMenu}>
         <span></span>
