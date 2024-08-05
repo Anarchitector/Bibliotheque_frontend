@@ -3,7 +3,7 @@ import { ButtonProps } from './type'
 
 function Button({ name, type = 'button', onClick, disabled = false }: ButtonProps) {
   return (
-    <ButtonCompanent type={type} onClick={onClick} disabled={disabled} >
+    <ButtonCompanent type={type} onClick={onClick} disabled={disabled}>
       {name}
     </ButtonCompanent>
   )
