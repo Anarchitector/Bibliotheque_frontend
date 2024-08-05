@@ -28,11 +28,11 @@ function PersonalCabinet() {
   const schema = Yup.object().shape({
     [USER_REGISTR_FORM_NAMES.FIRST_NAME]: Yup.string()
       .required("Your first name is required to complete your registration")
-      .matches(/^[^\s].*$/, "A name must not start with an empty space")
+      .matches(/^[^\s].*$/, "A first name must not start with an empty space")
       .min(1, "You have a name, don't you?"),
     [USER_REGISTR_FORM_NAMES.LAST_NAME]: Yup.string()
       .required("Your last name is required to complete your registration")
-      .matches(/^[^\s].*$/, "A name must not start with an empty space")
+      .matches(/^[^\s].*$/, "A last name must not start with an empty space")
       .min(1, "Your family name is not that embarrassing, is it?"),
     [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string()
       //placeholder="+38 (097) 123 45 99"
