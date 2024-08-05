@@ -33,7 +33,7 @@ function PersonalCabinet() {
     [USER_REGISTR_FORM_NAMES.LAST_NAME]: Yup.string()
       .required("Your last name is required to complete your registration")
       .matches(/^[^\s].*$/, "A last name must not start with an empty space")
-      .min(1, "Your family name is not that embarrassing, is it?"),
+      .min(1, "Your family name isn't that embarrassing, is it?"),
     [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string()
       //placeholder="+38 (097) 123 45 99"
       .matches(/^\+\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$/, "Please provide your phone in following format: +38 (097) 123 45 99")
