@@ -37,7 +37,7 @@ function PersonalCabinet() {
     [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string()
       //placeholder="+38 (097) 123 45 99"
       .matches(/^\+\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$/, "Please provide your phone in following format: +38 (097) 123 45 99")
-      .required("Please don't forget library's phone number")
+      .required("Please don't forget your phone number")
       .matches(/^[^\s].*$/, "A phone can't start with an empty space")
       .min(5, "A phone number can't be that short"),
     [USER_REGISTR_FORM_NAMES.EMAIL]: Yup.string()
@@ -56,25 +56,25 @@ function PersonalCabinet() {
         "Password must contain at least one special symbol",
       ),
     [USER_REGISTR_FORM_NAMES.COUNTRY]: Yup.string()
-      .required("We need to record the country of your library's origin")
+      .required("We need to record your country of origin")
       .matches(/^[^\s].*$/, "A country name can't start with an empty space")
       .matches(/^[a-zA-Z\s]*$/, "There probably aren't but letter and spaces in your country's name")
       .min(4, "A country's name can't be that short"),
     [USER_REGISTR_FORM_NAMES.ZIP]: Yup.string()
-      .required("We need your library's ZIP code")
+      .required("We need your ZIP code")
       .min(5, "A zip number can't be that short")
       .matches(/^[^\s].*$/, "A postal code can't start with an empty space")
       .max(9, "A zip number can't be that long"),      
     [USER_REGISTR_FORM_NAMES.CITY]: Yup.string()
-      .required("We need to record the city of your library's origin")
+      .required("We need to record your city of origin")
       .matches(/^[^\s].*$/, "A city name can't start with an empty space")
       .min(2, "A city's name can't be that short"),
     [USER_REGISTR_FORM_NAMES.STREET]: Yup.string()
-      .required("We need to record the street where your library is located")
+      .required("We need to record your street")
       .matches(/^[^\s].*$/, "A street name can't start with an empty space")
       .min(4, "A street's name can't be that short"),
     [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: Yup.string()
-      .required("We need to record the house number where your library is located")
+      .required("We need to record your house number")
       .max(7, "That's a bit too long for a house number, isn't it?")
       .matches(/^[^\s].*$/, "A house number can't start with an empty space")
       .matches(/\d/, "House number must contain at least one numerical digit"),
