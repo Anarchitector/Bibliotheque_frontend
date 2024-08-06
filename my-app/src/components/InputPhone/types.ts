@@ -1,6 +1,6 @@
 import type { ChangeEvent } from "react"
 
-export interface InputProps {
+export interface InputPhoneProps {
   name: string
   type?: string
   placeholder: string

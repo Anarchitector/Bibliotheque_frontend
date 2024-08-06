@@ -3,11 +3,11 @@ import * as Yup from "yup"
 
 import Input from "components/Input/Input"
 import Button from "components/Button/Button"
+import InputPhone from "components/InputPhone/InputPhone"
 import {
   FormRegistContainer,
   FormTitle,
   InputForm,
-  InputForm2,
   LinkComponent,
   MainColumn,
   TwoButtons,
@@ -15,7 +15,8 @@ import {
 import type { UserRegistrationFormValues } from "./types";
 import { USER_REGISTR_FORM_NAMES } from "./types"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import InputPhone2 from "components/InputPhone2/InputPhone2"
+
 
 function PersonalCabinet() {
 
@@ -36,10 +37,8 @@ function PersonalCabinet() {
       .min(1, "Your family name is not that embarrassing, is it?"),
     [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string()
       //placeholder="+38 (097) 123 45 99"
-      .matches(/^\+\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$/, "Please provide your phone in following format: +38 (097) 123 45 99")
-      .required("Please don't forget your phone number")
-      .matches(/^[^\s].*$/, "A phone can't start with an empty space")
-      .min(5, "A phone number can't be that short"),
+      //.matches(/^\+\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$/, "Please provide your phone in following format: +38 (097) 123 45 99")
+      .required("Please don't forget your phone number"),
     [USER_REGISTR_FORM_NAMES.EMAIL]: Yup.string()
       //.required("Email required for registration")
       .matches(/^[^\s].*$/, "An email can't start with an empty space")
@@ -96,12 +95,15 @@ function PersonalCabinet() {
       [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: ""
     } as UserRegistrationFormValues,
     validationSchema: schema,
-    // validateOnChange: true,
+    //validateOnChange: true,
     // validateOnMount: true,
     onSubmit: values => {
       console.log(values)
     },
   })
+
+  // ------------------- //
+  
 
   // ------------------- //
 
@@ -135,7 +137,28 @@ function PersonalCabinet() {
             error={formik.errors[USER_REGISTR_FORM_NAMES.LAST_NAME]}
             disabled={!isEdit}
           />
-          <Input
+          
+          <InputPhone
+            name="phoneNumber"
+            label="Phone Number"
+            placeholder="Enter your phone number"
+            value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
+            onChange={formik.handleChange}
+            error={formik.errors[USER_REGISTR_FORM_NAMES.PHONE]}
+            disabled={!isEdit}
+            
+
+            /*
+              name="phoneNumber"
+            placeholder="Enter your phone number"
+            value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
+            onChange={handlePhoneNumberChange}
+            error={errors.phoneNumber}
+            label="Phone Number"
+            disabled={!isEdit}
+            */
+
+            /*
             name={USER_REGISTR_FORM_NAMES.PHONE}
             type="text"
             label="Phone"
@@ -144,8 +167,9 @@ function PersonalCabinet() {
             onChange={formik.handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.PHONE]}
             disabled={!isEdit}
+            */
           />
-          <Input
+          <Input    
             name={USER_REGISTR_FORM_NAMES.EMAIL}
             type="email"
             label="Email"
@@ -168,7 +192,7 @@ function PersonalCabinet() {
             disabled={true}  
           />
         </InputForm>
-        <InputForm2>
+        <InputForm>
           <Input
             name={USER_REGISTR_FORM_NAMES.COUNTRY}
             type="text"
@@ -219,7 +243,7 @@ function PersonalCabinet() {
             error={formik.errors[USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]}
             disabled={!isEdit}
           />
-        </InputForm2>
+        </InputForm>
       </MainColumn>
 
       <div>
