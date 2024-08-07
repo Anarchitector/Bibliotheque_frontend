@@ -1,10 +1,10 @@
-import FormRegistrUser from "components/FormRegistUser/FormRegistrUser"
 import { PageComponent } from "./styles"
+import FormRegistrUserNew from "components/FormRegistrUserNew/FormRegistrUserNew"
 
 function UserRegistr() {
   return (
     <PageComponent>
-      <FormRegistrUser />
+      <FormRegistrUserNew />
     </PageComponent>
   )
 }

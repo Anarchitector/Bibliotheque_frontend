@@ -6,8 +6,13 @@ export const SearchBoxComponent = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px;
+  margin-top: 43px;
   gap: 40px;
   background-color: #f5f5f5;
+
+  @media (max-width: 1000px) {
+    margin-top: 43px;
+  }
 `
 
 export const SearchConteiner = styled.div`
