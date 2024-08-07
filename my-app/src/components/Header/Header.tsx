@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react";
 import {
   HeaderComponent,
   Logo,
@@ -10,14 +10,31 @@ import {
   CloseButton,
   MobileMenu,
   MobileStyledNavLink,
-} from "./styles"
+} from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { userSliceActions } from "../../store/redux/userSlice/userSlice";
+import { RootState } from "../../store/store"; // Корневое состояния
 
 function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.USER); // Получение данных пользователя из глобального состояния
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(userSliceActions.clearUser());
+  };
+
+  const getUsername = () => {
+    // Написать логику когда появиться имя пользователя
+    // if (user.name) {
+    //   return user.name;
+    // }
+    return `Пользователь ${user.id}`;
+  };
 
   return (
     <HeaderComponent>
@@ -25,14 +42,21 @@ function Header() {
         <Logo>BiblioHub</Logo>
       </LogoLink>
       <NavContainer>
-        <StyledNavLink to="/api/auth/login">Log In</StyledNavLink>
-        <StyledNavLink to="/api/auth/register">
-          Register
-        </StyledNavLink>
-        {/* to be removed*/ }
-        <StyledNavLink to="/api/users/id">
-          (!Personal Cabinet)
-        </StyledNavLink>
+        {user.id ? (
+          <>
+            <StyledNavLink to={`/api/users/${user.id}`}>
+              {getUsername()}
+            </StyledNavLink>
+            <StyledNavLink onClick={handleLogout} to={""}>
+              Unlogin
+            </StyledNavLink>
+          </>
+        ) : (
+          <>
+            <StyledNavLink to="/api/auth/login">Log In</StyledNavLink>
+            <StyledNavLink to="/api/auth/register">Register</StyledNavLink>
+          </>
+        )}
       </NavContainer>
       <HamburgerButton onClick={toggleMenu}>
         <span></span>
@@ -43,14 +67,27 @@ function Header() {
         <MobileMenuContainer>
           <CloseButton onClick={toggleMenu}>×</CloseButton>
           <MobileMenu>
-            <MobileStyledNavLink to='/' onClick={toggleMenu}>Main Page</MobileStyledNavLink>
-            <MobileStyledNavLink to='/api/auth/login' onClick={toggleMenu}>Log in</MobileStyledNavLink>
-            <MobileStyledNavLink to='/api/auth/register' onClick={toggleMenu}>Register</MobileStyledNavLink>
+            <MobileStyledNavLink to="/" onClick={toggleMenu}>Main Page</MobileStyledNavLink>
+            {user.id ? (
+              <>
+                <MobileStyledNavLink to={`/api/users/${user.id}`} onClick={toggleMenu}>
+                  {getUsername()}
+                </MobileStyledNavLink>
+                <MobileStyledNavLink onClick={() => { handleLogout(); toggleMenu(); } } to={""}>
+                  Unlogin
+                </MobileStyledNavLink>
+              </>
+            ) : (
+              <>
+                <MobileStyledNavLink to="/api/auth/login" onClick={toggleMenu}>Log in</MobileStyledNavLink>
+                <MobileStyledNavLink to="/api/auth/register" onClick={toggleMenu}>Register</MobileStyledNavLink>
+              </>
+            )}
           </MobileMenu>
         </MobileMenuContainer>
       )}
     </HeaderComponent>
-  )
+  );
 }
 
-export default Header
+export default Header;

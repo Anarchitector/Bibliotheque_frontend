@@ -15,7 +15,6 @@ import {
 import type { UserRegistrationFormValues } from "./types";
 import { USER_REGISTR_FORM_NAMES } from "./types"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 
 function PersonalCabinet() {
 
@@ -248,7 +247,7 @@ function PersonalCabinet() {
         )}
       </div>
 
-      <LinkComponent href="/">Return to the main page</LinkComponent>
+      <LinkComponent to="/">Return to the main page</LinkComponent>
     </FormRegistContainer>
   )
 }

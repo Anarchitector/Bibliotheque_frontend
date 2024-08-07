@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { Link } from "react-router-dom"
 
 export const FormRegistContainer = styled.form`
   display: flex;
@@ -68,7 +69,7 @@ export const InputForm2 = styled.div`
   }
 `
 
-export const LinkComponent = styled.a`
+export const LinkComponent = styled(Link)`
   font-size: 16px;
   text-decoration: none;
   color: inherit; /* Использует текущий цвет текста */

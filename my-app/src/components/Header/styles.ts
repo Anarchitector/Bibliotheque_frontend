@@ -7,11 +7,12 @@ export const HeaderComponent = styled.header`
   align-items: center; // Центрирует элементы по вертикали
   justify-content: center; // Центрирует элементы по горизонтали
   padding: 0 30px; // Отступы по бокам
-  margin: 30px 0; // Вертикальный отступ
-  position: relative; // Необходим для абсолютного позиционирования элементов внутри
+  margin: 0; // Убираем вертикальный отступ
+  position: fixed; // Фиксируем хедер
+  top: 0; // Привязываем к верхней части экрана
   width: 100%;
-  margin-left: auto;
-  margin-right: auto; // Центрирует HeaderComponent по горизонтали в родительском контейнере
+  background-color: white; // Фон белого цвета
+  z-index: 1000; // Устанавливаем z-index для отображения поверх контента
 `
 
 // Логотип
@@ -80,11 +81,10 @@ export const MobileStyledNavLink = styled(NavLink)`
   color: black;
   position: relative;
   padding: 0 10px;
-  
 
   &:hover {
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
-    color: #4a90e2; /* Замените на нужный цвет */
+    color: #4a90e2;
   }
 
   &.active {
@@ -128,7 +128,7 @@ export const MobileMenuContainer = styled.div`
 `
 
 export const MobileMenu = styled.div`
-  background: #F5F5F5;
+  background: #f5f5f5;
   width: 80%;
   max-width: 300px;
   padding: 30px;
