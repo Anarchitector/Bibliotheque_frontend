@@ -21,7 +21,7 @@ function PersonalCabinet() {
   const [isEdit, setIsEdit] = useState(false);
 
 
-
+// Актуальная версия //
   // ------------------- //
 
   const schema = Yup.object().shape({
