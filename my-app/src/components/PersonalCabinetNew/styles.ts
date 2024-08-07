@@ -1,4 +1,53 @@
+import { MaskedInput } from 'react-text-mask';
 import styled from "@emotion/styled"
+import { css } from '@emotion/react';
+
+
+export const globalMaskedInputStyle = css`
+  .masked-input {
+    width: 100%;
+  height: 40px;
+  border: 1px solid #d9d9d9;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  padding: 15px;
+  font-family: "Chonburi", sans-serif;
+  font-size: 12px;
+  text-align: left;
+  color: #000;
+
+  &::placeholder {
+    color: white;
+  }
+
+  &:focus {
+    border-color: #4a90e2;
+    outline: none;
+  }
+  }
+`;
+
+export const InputField = styled.div`
+  width: 100%;
+  height: 40px;
+  border: 1px solid #d9d9d9;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  padding: 15px;
+  font-family: "Chonburi", sans-serif;
+  font-size: 12px;
+  text-align: left;
+  color: #000;
+
+  &::placeholder {
+    color: white;
+  }
+
+  &:focus {
+    border-color: #4a90e2;
+    outline: none;
+  }
+`
 
 export const FormRegistContainer = styled.form`
   display: flex;

@@ -1,5 +1,8 @@
-import { useFormik } from "formik"
+import { Field, useFormik } from "formik"
 import * as Yup from "yup"
+
+import { css } from '@emotion/react';
+
 
 import Input from "components/Input/Input"
 import Button from "components/Button/Button"
@@ -11,15 +14,23 @@ import {
   LinkComponent,
   MainColumn,
   TwoButtons,
+  maskedInputStyle 
 } from "./styles"
 import type { UserRegistrationFormValues } from "./types";
 import { USER_REGISTR_FORM_NAMES } from "./types"
-import { useState } from "react"
-import InputPhone2 from "components/InputPhone2/InputPhone2"
+import { useEffect, useState } from "react"
+import InputPhoneMask from "components/InputPhoneMask/InputPhoneMask"
+import InputPhoneRev from "components/InputPhone/InputPhoneRev"
+import OriginalInput from "components/InputPhone/OriginalInput"
+import MaskedInput from "react-text-mask"
+import { Global } from '@emotion/react';
+import { globalMaskedInputStyle } from './styles'; // Import the global style
+
+
 
 
 function PersonalCabinet() {
-
+  <Global styles={globalMaskedInputStyle} />
   const [isEdit, setIsEdit] = useState(false);
 
 
@@ -42,7 +53,7 @@ function PersonalCabinet() {
     [USER_REGISTR_FORM_NAMES.EMAIL]: Yup.string()
       //.required("Email required for registration")
       .matches(/^[^\s].*$/, "An email can't start with an empty space")
-      .email("This is not an acceptable email"),      
+      .email("This is not an acceptable email"),
     [USER_REGISTR_FORM_NAMES.PASSWORD]: Yup.string()
       //.required("Password required for registration")
       .min(8, "Password must contain 8 symbols")
@@ -63,7 +74,7 @@ function PersonalCabinet() {
       .required("We need your ZIP code")
       .min(5, "A zip number can't be that short")
       .matches(/^[^\s].*$/, "A postal code can't start with an empty space")
-      .max(9, "A zip number can't be that long"),      
+      .max(9, "A zip number can't be that long"),
     [USER_REGISTR_FORM_NAMES.CITY]: Yup.string()
       .required("We need to record your city of origin")
       .matches(/^[^\s].*$/, "A city name can't start with an empty space")
@@ -79,7 +90,6 @@ function PersonalCabinet() {
       .matches(/\d/, "House number must contain at least one numerical digit"),
   })
 
-  // ------------------- //
 
   const formik = useFormik({
     initialValues: {
@@ -93,7 +103,7 @@ function PersonalCabinet() {
       [USER_REGISTR_FORM_NAMES.CITY]: "",
       [USER_REGISTR_FORM_NAMES.STREET]: "",
       [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: ""
-    } as UserRegistrationFormValues,
+    },
     validationSchema: schema,
     //validateOnChange: true,
     // validateOnMount: true,
@@ -103,15 +113,22 @@ function PersonalCabinet() {
   })
 
   // ------------------- //
-  
 
-  // ------------------- //
+  const phoneNumberMask = ["+", /\d/, /\d/, " ", "(", /[1-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, " ", /\d/, /\d/, " ", /\d/, /\d/];
+  const [formValues, setFormValues] = useState(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFormValues({ phone: '123004005060' });
+    }, 2000)
+  }, []);
+
+
 
   return (
-    // <FormRegistContainer action="/submit-form" method="POST">
     <FormRegistContainer
-      action="/submit-form"
-      method="POST"
+      //action="/submit-form"
+      //method="POST"
       onSubmit={formik.handleSubmit}
     >
       <FormTitle>Welcome to your profile page</FormTitle>
@@ -137,48 +154,25 @@ function PersonalCabinet() {
             error={formik.errors[USER_REGISTR_FORM_NAMES.LAST_NAME]}
             disabled={!isEdit}
           />
-          
-          <InputPhone
-            name="phoneNumber"
-            label="Phone Number"
-            placeholder="Enter your phone number"
-            value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
-            onChange={formik.handleChange}
-            error={formik.errors[USER_REGISTR_FORM_NAMES.PHONE]}
-            disabled={!isEdit}
-            
-
-            /*
-              name="phoneNumber"
-            placeholder="Enter your phone number"
-            value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
-            onChange={handlePhoneNumberChange}
-            error={errors.phoneNumber}
-            label="Phone Number"
-            disabled={!isEdit}
-            */
-
-            /*
+          <MaskedInput 
             name={USER_REGISTR_FORM_NAMES.PHONE}
-            type="text"
-            label="Phone"
-            placeholder="+38 (097) 123 45 99"
-            value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
+            type="text"              
+            mask={phoneNumberMask}
+            guide={true}
+            placeholder="Enter your phone number"
             onChange={formik.handleChange}
-            error={formik.errors[USER_REGISTR_FORM_NAMES.PHONE]}
+            value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
             disabled={!isEdit}
-            */
-          />
-          <Input    
+          />     
+          <Input
             name={USER_REGISTR_FORM_NAMES.EMAIL}
-            type="email"
+            type="string"
             label="Email"
             placeholder="Enter your email here"
             value={formik.values[USER_REGISTR_FORM_NAMES.EMAIL]}
             onChange={formik.handleChange}
-            error={formik.errors[USER_REGISTR_FORM_NAMES.EMAIL]}     
-            //TODO change later!!!
-            disabled={true}   
+            error={formik.errors[USER_REGISTR_FORM_NAMES.EMAIL]}
+            disabled={true}
           />
           <Input
             name={USER_REGISTR_FORM_NAMES.PASSWORD}
@@ -188,8 +182,7 @@ function PersonalCabinet() {
             value={formik.values[USER_REGISTR_FORM_NAMES.PASSWORD]}
             onChange={formik.handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.PASSWORD]}
-            //TODO change later!!!
-            disabled={true}  
+            disabled={true}
           />
         </InputForm>
         <InputForm>
@@ -246,6 +239,8 @@ function PersonalCabinet() {
         </InputForm>
       </MainColumn>
 
+      {/* <button type="submit">Submit</button> */}
+      
       <div>
         {isEdit ? (
           <TwoButtons>
@@ -271,6 +266,7 @@ function PersonalCabinet() {
           </div>
         )}
       </div>
+     
 
       <LinkComponent href="/">Return to the main page</LinkComponent>
     </FormRegistContainer>

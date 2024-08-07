@@ -1,7 +1,7 @@
 export interface UserRegistrationFormValues {
     firstName: string
     lastName: string
-    phone: string
+    phone: string 
     email: string
     password: string
     country: string

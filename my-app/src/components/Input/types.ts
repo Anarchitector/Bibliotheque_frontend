@@ -9,4 +9,5 @@ export interface InputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   error?: string
   disabled?: boolean
+  mask?: RegExp[]
 }
