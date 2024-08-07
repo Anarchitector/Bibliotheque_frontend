@@ -1,4 +1,4 @@
-import PersonalCabinet from "components/PersonalCabinetNew/PersonalCabinet"
+import PersonalCabinet from "components/PersonalCabinet/PersonalCabinet"
 import { PageComponent } from "./styles"
 
 import { useParams } from "react-router-dom";

@@ -12,7 +12,7 @@ import {
   MainColumn,
   TwoButtons,
 } from "./styles"
-import type { UserRegistrationFormValues } from "./types";
+import type { UserRegistrationFormValues } from "./types"
 import { USER_REGISTR_FORM_NAMES } from "./types"
 import { useState } from "react"
 
