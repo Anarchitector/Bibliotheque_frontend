@@ -11,17 +11,35 @@ import {
   LinkComponent,
   MainColumn,
   TwoButtons,
+  InputMaskContainer,
+  LabelComponent,
+  InputField,
+  InputContainer
 } from "./styles"
 import type { UserRegistrationFormValues } from "./types"
 import { USER_REGISTR_FORM_NAMES } from "./types"
 import { useState } from "react"
+import MaskedInput from "react-text-mask"
+
+import './styles.css';
+import Label from "components/Label/Label"
+
+
+
+
 
 function PersonalCabinet() {
 
   const [isEdit, setIsEdit] = useState(false);
 
 
-// Актуальная версия //
+  // Актуальная версия //
+  
+  //American, German, English postal codes
+  const zipRegex = /^\d{5}(-\d{4})?$ | ^\d{5}$ | ^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}$ /;
+  const phoneNumberMask = ["+", /\d/, /\d/, " ", "(", /[1-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, " ", /\d/, /\d/, " ", /\d/, /\d/];
+
+
   // ------------------- //
 
   const schema = Yup.object().shape({
@@ -34,15 +52,11 @@ function PersonalCabinet() {
       .matches(/^[^\s].*$/, "A last name must not start with an empty space")
       .min(1, "Your family name is not that embarrassing, is it?"),
     [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string()
-      //placeholder="+38 (097) 123 45 99"
-      .matches(/^\+\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$/, "Please provide your phone in following format: +38 (097) 123 45 99")
-      .required("Please don't forget your phone number")
-      .matches(/^[^\s].*$/, "A phone can't start with an empty space")
-      .min(5, "A phone number can't be that short"),
+      .required("Please don't forget your phone number"),
     [USER_REGISTR_FORM_NAMES.EMAIL]: Yup.string()
       //.required("Email required for registration")
       .matches(/^[^\s].*$/, "An email can't start with an empty space")
-      .email("This is not an acceptable email"),      
+      .email("This is not an acceptable email"),
     [USER_REGISTR_FORM_NAMES.PASSWORD]: Yup.string()
       //.required("Password required for registration")
       .min(8, "Password must contain 8 symbols")
@@ -61,9 +75,7 @@ function PersonalCabinet() {
       .min(4, "A country's name can't be that short"),
     [USER_REGISTR_FORM_NAMES.ZIP]: Yup.string()
       .required("We need your ZIP code")
-      .min(5, "A zip number can't be that short")
-      .matches(/^[^\s].*$/, "A postal code can't start with an empty space")
-      .max(9, "A zip number can't be that long"),      
+      .matches(zipRegex, "Your postal code doesn't patch a known pattern"),
     [USER_REGISTR_FORM_NAMES.CITY]: Yup.string()
       .required("We need to record your city of origin")
       .matches(/^[^\s].*$/, "A city name can't start with an empty space")
@@ -104,6 +116,10 @@ function PersonalCabinet() {
 
   // ------------------- //
 
+  
+
+  // ------------------- //
+
   return (
     // <FormRegistContainer action="/submit-form" method="POST">
     <FormRegistContainer
@@ -134,16 +150,21 @@ function PersonalCabinet() {
             error={formik.errors[USER_REGISTR_FORM_NAMES.LAST_NAME]}
             disabled={!isEdit}
           />
-          <Input
-            name={USER_REGISTR_FORM_NAMES.PHONE}
-            type="text"
-            label="Phone"
-            placeholder="+38 (097) 123 45 99"
-            value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
-            onChange={formik.handleChange}
-            error={formik.errors[USER_REGISTR_FORM_NAMES.PHONE]}
-            disabled={!isEdit}
-          />
+          <InputContainer>
+          <LabelComponent>Phone Number</LabelComponent>
+          <div className="masked-input-wrapper">
+            <MaskedInput
+              name={USER_REGISTR_FORM_NAMES.PHONE}
+              type="text"
+              mask={phoneNumberMask}
+              guide={true}
+              placeholder="Enter your phone number"
+              onChange={formik.handleChange}
+              value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
+              disabled={!isEdit}
+            />
+          </div>
+          </InputContainer>
           <Input
             name={USER_REGISTR_FORM_NAMES.EMAIL}
             type="email"
@@ -151,9 +172,9 @@ function PersonalCabinet() {
             placeholder="Enter your email here"
             value={formik.values[USER_REGISTR_FORM_NAMES.EMAIL]}
             onChange={formik.handleChange}
-            error={formik.errors[USER_REGISTR_FORM_NAMES.EMAIL]}     
+            error={formik.errors[USER_REGISTR_FORM_NAMES.EMAIL]}
             //TODO change later!!!
-            disabled={true}   
+            disabled={true}
           />
           <Input
             name={USER_REGISTR_FORM_NAMES.PASSWORD}
@@ -164,7 +185,7 @@ function PersonalCabinet() {
             onChange={formik.handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.PASSWORD]}
             //TODO change later!!!
-            disabled={true}  
+            disabled={true}
           />
         </InputForm>
         <InputForm2>
