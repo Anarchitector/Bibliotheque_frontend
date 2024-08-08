@@ -28,7 +28,11 @@ function FormRegistrUserNew() {
   const schema = Yup.object().shape({
     [REGISTR_FORM_NAMES.EMAIL]: Yup.string()
       .required("Email required.")
-      .email("Input does not correspond with an email"),
+      .email("Input does not correspond with an email")
+      .matches(
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        "Email must contain a valid domain with a dot (e.g., example.com)"
+    ),
     [REGISTR_FORM_NAMES.PASSWORD]: Yup.string()
       .required("Password required.")
       .min(8, "Password must contain at least 8 symbols.")

@@ -7,6 +7,7 @@ const userInitialState: UserSlaceState = {
   role: null,
   accessToken: null,
   refreshToken: null,
+  isAuthenticated: false
 }
 
 export const userSlice = createSlice({
@@ -17,12 +18,13 @@ export const userSlice = createSlice({
       (
         state: UserSlaceState,
         action: PayloadAction<
-          Omit<UserSlaceState, "accessToken" | "refreshToken">
+          Omit<UserSlaceState, "accessToken" | "refreshToken" | "isAuthenticated">
         >,
       ) => {
         state.id = action.payload.id
         state.email = action.payload.email
         state.role = action.payload.role
+        state.isAuthenticated = true // Устанавливаем флаг аутентификации в true
       },
     ),
     setTokens: create.reducer(
@@ -40,6 +42,7 @@ export const userSlice = createSlice({
       state.role = null
       state.accessToken = null
       state.refreshToken = null
+      state.isAuthenticated = false // Устанавливаем флаг аутентификации в false
     }),
   }),
 })

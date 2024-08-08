@@ -48,7 +48,7 @@ function Header() {
               {getUsername()}
             </StyledNavLink>
             <StyledNavLink onClick={handleLogout} to={""}>
-              Unlogin
+              Log out
             </StyledNavLink>
           </>
         ) : (
@@ -74,7 +74,7 @@ function Header() {
                   {getUsername()}
                 </MobileStyledNavLink>
                 <MobileStyledNavLink onClick={() => { handleLogout(); toggleMenu(); } } to={""}>
-                  Unlogin
+                  Log out
                 </MobileStyledNavLink>
               </>
             ) : (
