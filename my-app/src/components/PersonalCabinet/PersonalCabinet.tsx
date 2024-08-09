@@ -36,7 +36,7 @@ function PersonalCabinet() {
   // Актуальная версия //
   
   //American, German, English postal codes
-  const zipRegex = /^\d{5}(-\d{4})?$ | ^\d{5}$ | ^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}$ /;
+  const zipRegex = /^\d{5}(-\d{4})?$|^\d{5}$|^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}$/;
   const phoneNumberMask = ["+", /\d/, /\d/, " ", "(", /[1-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, " ", /\d/, /\d/, " ", /\d/, /\d/];
 
 
@@ -244,17 +244,22 @@ function PersonalCabinet() {
 
       <div>
         {isEdit ? (
-          <TwoButtons>
+          <TwoButtons>           
             <Button
               name="Save"
               type="submit"
               disabled={!formik.isValid || !formik.dirty}
-              onClick={() => setIsEdit(false)}
+              onClick={() => {
+                formik.handleSubmit(); // Trigger Formik's submit function
+                setIsEdit(false);
+              }}
             />
             <Button
               name="Cancel"
               type="submit"
-              onClick={() => setIsEdit(false)}
+              onClick={() => {
+                setIsEdit(false);
+              }}
             />
           </TwoButtons>
         ) : (
@@ -268,7 +273,7 @@ function PersonalCabinet() {
         )}
       </div>
 
-      <LinkComponent to="/">Return to the main page</LinkComponent>
+      <LinkComponent href="/">Return to the main page</LinkComponent>
     </FormRegistContainer>
   )
 }
