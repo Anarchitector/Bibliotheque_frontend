@@ -11,34 +11,45 @@ import {
   LinkComponent,
   MainColumn,
   TwoButtons,
-  InputMaskContainer,
   LabelComponent,
-  InputField,
-  InputContainer
+  InputContainer,
 } from "./styles"
 import type { UserRegistrationFormValues } from "./types"
 import { USER_REGISTR_FORM_NAMES } from "./types"
 import { useState } from "react"
 import MaskedInput from "react-text-mask"
 
-import './styles.css';
-import Label from "components/Label/Label"
-
-
-
-
+import "./styles.css"
 
 function PersonalCabinet() {
-
-  const [isEdit, setIsEdit] = useState(false);
-
+  const [isEdit, setIsEdit] = useState(false)
 
   // Актуальная версия //
-  
-  //American, German, English postal codes
-  const zipRegex = /^\d{5}(-\d{4})?$|^\d{5}$|^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}$/;
-  const phoneNumberMask = ["+", /\d/, /\d/, " ", "(", /[1-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, " ", /\d/, /\d/, " ", /\d/, /\d/];
 
+  //American, German, English postal codes
+  const zipRegex =
+    /^\d{5}(-\d{4})?$|^\d{5}$|^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}$/
+  const phoneNumberMask = [
+    "+",
+    /\d/,
+    /\d/,
+    " ",
+    "(",
+    /[1-9]/,
+    /\d/,
+    /\d/,
+    ")",
+    " ",
+    /\d/,
+    /\d/,
+    /\d/,
+    " ",
+    /\d/,
+    /\d/,
+    " ",
+    /\d/,
+    /\d/,
+  ]
 
   // ------------------- //
 
@@ -51,8 +62,9 @@ function PersonalCabinet() {
       .required("Your last name is required to complete your registration")
       .matches(/^[^\s].*$/, "A last name must not start with an empty space")
       .min(1, "Your family name is not that embarrassing, is it?"),
-    [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string()
-      .required("Please don't forget your phone number"),
+    [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string().required(
+      "Please don't forget your phone number",
+    ),
     [USER_REGISTR_FORM_NAMES.EMAIL]: Yup.string()
       //.required("Email required for registration")
       .matches(/^[^\s].*$/, "An email can't start with an empty space")
@@ -71,7 +83,10 @@ function PersonalCabinet() {
     [USER_REGISTR_FORM_NAMES.COUNTRY]: Yup.string()
       .required("We need to record your country of origin")
       .matches(/^[^\s].*$/, "A country name can't start with an empty space")
-      .matches(/^[a-zA-Z\s]*$/, "There probably aren't but letter and spaces in your country's name")
+      .matches(
+        /^[a-zA-Z\s]*$/,
+        "There probably aren't but letter and spaces in your country's name",
+      )
       .min(4, "A country's name can't be that short"),
     [USER_REGISTR_FORM_NAMES.ZIP]: Yup.string()
       .required("We need your ZIP code")
@@ -104,7 +119,7 @@ function PersonalCabinet() {
       [USER_REGISTR_FORM_NAMES.ZIP]: "",
       [USER_REGISTR_FORM_NAMES.CITY]: "",
       [USER_REGISTR_FORM_NAMES.STREET]: "",
-      [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: ""
+      [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: "",
     } as UserRegistrationFormValues,
     validationSchema: schema,
     // validateOnChange: true,
@@ -115,8 +130,6 @@ function PersonalCabinet() {
   })
 
   // ------------------- //
-
-  
 
   // ------------------- //
 
@@ -151,19 +164,19 @@ function PersonalCabinet() {
             disabled={!isEdit}
           />
           <InputContainer>
-          <LabelComponent>Phone Number</LabelComponent>
-          <div className="masked-input-wrapper">
-            <MaskedInput
-              name={USER_REGISTR_FORM_NAMES.PHONE}
-              type="text"
-              mask={phoneNumberMask}
-              guide={true}
-              placeholder="Enter your phone number"
-              onChange={formik.handleChange}
-              value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
-              disabled={!isEdit}
-            />
-          </div>
+            <LabelComponent>Phone Number</LabelComponent>
+            <div className="masked-input-wrapper">
+              <MaskedInput
+                name={USER_REGISTR_FORM_NAMES.PHONE}
+                type="text"
+                mask={phoneNumberMask}
+                guide={true}
+                placeholder="Enter your phone number"
+                onChange={formik.handleChange}
+                value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
+                disabled={!isEdit}
+              />
+            </div>
           </InputContainer>
           <Input
             name={USER_REGISTR_FORM_NAMES.EMAIL}
@@ -244,21 +257,21 @@ function PersonalCabinet() {
 
       <div>
         {isEdit ? (
-          <TwoButtons>           
+          <TwoButtons>
             <Button
               name="Save"
               type="submit"
               disabled={!formik.isValid || !formik.dirty}
               onClick={() => {
-                formik.handleSubmit(); // Trigger Formik's submit function
-                setIsEdit(false);
+                formik.handleSubmit() // Trigger Formik's submit function
+                setIsEdit(false)
               }}
             />
             <Button
               name="Cancel"
               type="submit"
               onClick={() => {
-                setIsEdit(false);
+                setIsEdit(false)
               }}
             />
           </TwoButtons>
@@ -273,7 +286,7 @@ function PersonalCabinet() {
         )}
       </div>
 
-      <LinkComponent href="/">Return to the main page</LinkComponent>
+      <LinkComponent to="/">Return to the main page</LinkComponent>
     </FormRegistContainer>
   )
 }
