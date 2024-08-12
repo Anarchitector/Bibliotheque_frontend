@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 import {
   HeaderComponent,
   Logo,
@@ -10,31 +10,31 @@ import {
   CloseButton,
   MobileMenu,
   MobileStyledNavLink,
-} from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import { userSliceActions } from "../../store/redux/userSlice/userSlice";
-import { RootState } from "../../store/store"; // Корневое состояния
+} from "./styles"
+import { useDispatch, useSelector } from "react-redux"
+import { userSliceActions } from "../../store/redux/userSlice/userSlice"
+import { RootState } from "../../store/store" // Корневое состояния
 
 function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.USER); // Получение данных пользователя из глобального состояния
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const dispatch = useDispatch()
+  const user = useSelector((state: RootState) => state.USER) // Получение данных пользователя из глобального состояния
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   const handleLogout = () => {
-    dispatch(userSliceActions.clearUser());
-  };
+    dispatch(userSliceActions.clearUser())
+  }
 
   const getUsername = () => {
     // Написать логику когда появиться имя пользователя
     // if (user.name) {
     //   return user.name;
     // }
-    return `Пользователь ${user.id}`;
-  };
+    return `Пользователь ${user.id}`
+  }
 
   return (
     <HeaderComponent>
@@ -67,27 +67,45 @@ function Header() {
         <MobileMenuContainer>
           <CloseButton onClick={toggleMenu}>×</CloseButton>
           <MobileMenu>
-            <MobileStyledNavLink to="/" onClick={toggleMenu}>Main Page</MobileStyledNavLink>
+            <MobileStyledNavLink to="/" onClick={toggleMenu}>
+              Main Page
+            </MobileStyledNavLink>
             {user.id ? (
               <>
-                <MobileStyledNavLink to={`/api/users/${user.id}`} onClick={toggleMenu}>
+                <MobileStyledNavLink
+                  to={`/api/users/${user.id}`}
+                  onClick={toggleMenu}
+                >
                   {getUsername()}
                 </MobileStyledNavLink>
-                <MobileStyledNavLink onClick={() => { handleLogout(); toggleMenu(); } } to={""}>
+                <MobileStyledNavLink
+                  onClick={() => {
+                    handleLogout()
+                    toggleMenu()
+                  }}
+                  to={""}
+                >
                   Log out
                 </MobileStyledNavLink>
               </>
             ) : (
               <>
-                <MobileStyledNavLink to="/api/auth/login" onClick={toggleMenu}>Log in</MobileStyledNavLink>
-                <MobileStyledNavLink to="/api/auth/register" onClick={toggleMenu}>Register</MobileStyledNavLink>
+                <MobileStyledNavLink to="/api/auth/login" onClick={toggleMenu}>
+                  Log in
+                </MobileStyledNavLink>
+                <MobileStyledNavLink
+                  to="/api/auth/register"
+                  onClick={toggleMenu}
+                >
+                  Register
+                </MobileStyledNavLink>
               </>
             )}
           </MobileMenu>
         </MobileMenuContainer>
       )}
     </HeaderComponent>
-  );
+  )
 }
 
-export default Header;
+export default Header

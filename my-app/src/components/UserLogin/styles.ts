@@ -29,7 +29,7 @@ export const LinkComponent = styled.a`
 
   &:hover {
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
-    color: #4a90e2; /* Замените на нужный цвет */
+    color: #2275D3; /* Замените на нужный цвет */
   }
   @media (max-width: 600px) {
     font-size: 14px;

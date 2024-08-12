@@ -23,8 +23,8 @@ export const ButtonCompanent = styled.button`
     !disabled &&
     `
   &:hover {
-    border: 1px solid #4a90e2;
-    color: #4a90e2;
+    border: 1px solid #2275D3;
+    color: #2275D3;
   }
 `}
 `
