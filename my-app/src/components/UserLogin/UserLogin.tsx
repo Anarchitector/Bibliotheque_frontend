@@ -92,6 +92,7 @@ function UserLogin() {
                 <Input
                     name={LOGIN_FORM_NAMES.EMAIL}
                     type="email"
+                    label="Email*"
                     placeholder="Enter your email"
                     value={formik.values[LOGIN_FORM_NAMES.EMAIL]}
                     onChange={formik.handleChange}
@@ -100,6 +101,7 @@ function UserLogin() {
                 <Input
                     name={LOGIN_FORM_NAMES.PASSWORD}
                     type="password"
+                    label="Password*"
                     placeholder="Enter your password"
                     value={formik.values[LOGIN_FORM_NAMES.PASSWORD]}
                     onChange={formik.handleChange}

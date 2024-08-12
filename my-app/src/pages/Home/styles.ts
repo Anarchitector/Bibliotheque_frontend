@@ -31,7 +31,7 @@ export const SearchConteiner = styled.div`
   }
 `
 
-export const Title = styled.h3`
+export const Title = styled.h2`
   font-size: 20px;
   font-weight: 100;
   text-align: center;

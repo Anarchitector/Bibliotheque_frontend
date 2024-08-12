@@ -169,6 +169,7 @@ function PersonalCabinet() {
               <MaskedInput
                 name={USER_REGISTR_FORM_NAMES.PHONE}
                 type="text"
+                aria-label="Phone Number"
                 mask={phoneNumberMask}
                 guide={true}
                 placeholder="Enter your phone number"

@@ -29,9 +29,9 @@ export const InputField = styled.input`
 export const SearchButton = styled.button`
 height: 40px;
   padding: 10px 15px;
-  border: 1px solid #4a90e2;
+  border: 1px solid #2275D3;
   border-radius: 0 5px 5px 0;
-  background-color: #4a90e2;
+  background-color: #2275D3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   color: white;
   font-size: 12px;
@@ -52,14 +52,14 @@ export const SelectField = styled.select`
   height: 40px;
   padding: 8px;
   font-size: 12px;
-  border: 1px solid #4a90e2;
+  border: 1px solid #2275D3;
   border-radius: 5px 0 0 5px;
-  background-color: #4a90e2;
+  background-color: #2275D3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   color: white;
 
   &:focus {
     outline: none;
-    border-color: #4a90e2;
+    border-color: #2275D3;
   }
 `

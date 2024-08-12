@@ -33,12 +33,13 @@ function Search({ onSearch }: SearchProps) {
 
   return (
     <SearchContainer>
-      <SelectField value={searchType} onChange={handleSearchTypeChange}>
+      <SelectField aria-label="Select search type" value={searchType} onChange={handleSearchTypeChange}>
         <option value="book">Book</option>
         <option value="author">Author</option>
       </SelectField>
       <InputField
         type="text"
+        aria-label="Book-Search"
         placeholder={placeholderTexts[searchType]} // Типизированный доступ к объекту
         value={query}
         onChange={handleInputChange}

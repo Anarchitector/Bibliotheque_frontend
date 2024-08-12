@@ -16,7 +16,7 @@ export const HeaderComponent = styled.header`
 `
 
 // Логотип
-export const Logo = styled.div`
+export const Logo = styled.h1`
   font-size: 36px;
   font-weight: 400;
   text-align: center; // Центрирует текст в логотипе
@@ -53,11 +53,12 @@ export const StyledNavLink = styled(NavLink)`
 
   &:hover {
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
-    color: #4a90e2; /* Замените на нужный цвет */
+    color: #2275D3; /* Замените на нужный цвет */
   }
 
   &.active {
-    color: #4a90e2; // Цвет для активной ссылки
+    color: #2275D3; // Цвет для активной ссылки
+    font-weight: 400;
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
   }
 
@@ -84,11 +85,11 @@ export const MobileStyledNavLink = styled(NavLink)`
 
   &:hover {
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
-    color: #4a90e2;
+    color: #2275D3;
   }
 
   &.active {
-    color: #4a90e2; // Цвет для активной ссылки
+    color: #2275D3; // Цвет для активной ссылки
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
   }
 `
