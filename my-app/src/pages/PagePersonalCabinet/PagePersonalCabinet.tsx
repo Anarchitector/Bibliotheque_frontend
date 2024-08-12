@@ -17,8 +17,20 @@ function PagePersonalCabinet() {
     navigate("/api/library"); // Перенаправляем пользователя на страницу библиотеки
   };
 
+  // Функция для обработки клика по кнопке
+  const handleUsersListButtonClick = () => {
+    navigate("/users"); // Перенаправляем пользователя на страницу библиотеки
+  }
+
   return (
     <PageComponent>
+      {userRole === "ROLE_ADMIN" && (
+        // Добавляем кнопку на странице, только если соответствует роли пользователя
+        <Button 
+          name="List of all users" 
+          onClick={handleUsersListButtonClick}  // Обработка клика
+        />
+      )}
       <PersonalCabinet />
       {userRole === "ROLE_LIBRARY" && (
         // Добавляем кнопку на странице, только если соответствует роли пользователя
