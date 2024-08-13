@@ -5,4 +5,5 @@ export interface ButtonProps {
   type?: ButtonType
   onClick?: () => void,
   disabled?: boolean
+  color?: string
 }

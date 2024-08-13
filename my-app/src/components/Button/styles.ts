@@ -4,6 +4,7 @@ import styled from "@emotion/styled"
 interface StyledButtonProps {
   disabled: boolean
   buttonType: string
+  customColor?: string
 }
 
 export const ButtonComponent = styled.button<StyledButtonProps>`
@@ -17,15 +18,15 @@ export const ButtonComponent = styled.button<StyledButtonProps>`
   font-size: 14px;
   opacity: ${({ disabled }) =>
     disabled ? 0.5 : 1}; // Прозрачность для неактивной кнопки
-  background: ${({ disabled }) => (disabled ? "lightgray" : "#fff")};
+  background: ${({ disabled, customColor }) => (disabled ? ("lightgray") : ((customColor) ? (customColor) : ("#fff")) )};
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 
-  ${({ disabled }) =>
+  ${({ disabled, customColor }) =>
     !disabled &&
     `
   &:hover {
     border: 1px solid #2275D3;
-    color: #2275D3;
+    color: ${customColor ? "black" : "#2275D3"};
   }
 `}
 
