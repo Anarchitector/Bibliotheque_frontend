@@ -37,7 +37,7 @@ export const LinkComponent = styled.a`
 
   &:hover {
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
-    color: #4a90e2; /* Замените на нужный цвет */
+    color: #2275d3; /* Замените на нужный цвет */
   }
 
   @media (max-width: 600px) {
@@ -53,4 +53,14 @@ export const RadioBatComponent = styled.div`
     flex-direction: column;
     gap: 15px;
   }
+`
+
+export const FieldSetComponent = styled.fieldset`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #2275D3;
+  border-radius: 5px;
 `

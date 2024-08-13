@@ -1,12 +1,11 @@
-import {ButtonCompanent} from './styles'
+import { ButtonComponent } from './styles'
 import type { ButtonProps } from './type'
-
 
 function Button({ name, type="button", onClick, disabled = false, color }: ButtonProps) {
   return (
-    <ButtonCompanent type={type} onClick={onClick} disabled={disabled} customColor={color}  >
+    <ButtonComponent type={type} onClick={onClick} disabled={disabled} buttonType={name} customColor={color}>
       {name}
-    </ButtonCompanent>
+    </ButtonComponent>
   )
 }
 

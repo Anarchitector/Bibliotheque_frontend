@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { store } from "store/store";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute"; // Импортируем ProtectedRoute
+import PageUsersList from "pages/PageUsersList/PageUsersList";
 
 const App = () => {
   return (
@@ -34,6 +35,12 @@ const App = () => {
               element={<ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_ADMIN", "ROLE_LIBRARY"]} />}
             >
               <Route path="/api/users/:id" element={<PagePersonalCabinet />} />
+            </Route>
+
+            <Route
+              element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]} />}
+            >
+              <Route path="/users" element={<PageUsersList />} />
             </Route>
             {/* Защищенные маршруты */}
 

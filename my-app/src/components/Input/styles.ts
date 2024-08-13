@@ -24,7 +24,7 @@ export const InputField = styled.input`
   }
 
   &:focus {
-    border-color: #4a90e2;
+    border-color: #2275D3;
     outline: none;
   }
 `
