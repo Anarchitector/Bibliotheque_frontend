@@ -14,13 +14,13 @@ function PagePersonalCabinet() {
 
   // Функция для обработки клика по кнопке
   const handleLibraryButtonClick = () => {
-    navigate("/api/library"); // Перенаправляем пользователя на страницу библиотеки
+    navigate("/api/bibliotek"); // Перенаправляем пользователя на страницу библиотеки
   };
 
   // Функция для обработки клика по кнопке
   const handleUsersListButtonClick = () => {
     navigate("/users"); // Перенаправляем пользователя на страницу библиотеки
-  }
+  } 
 
   return (
     <PageComponent>
@@ -39,6 +39,7 @@ function PagePersonalCabinet() {
           onClick={handleLibraryButtonClick}  // Обработка клика
         />
       )}
+     
     </PageComponent>
   );
 }
