@@ -1,4 +1,4 @@
-import LibraryRegistration from "components/LibraryRegistration/LibraryRegistration"
+import LibraryRegistration from "components/obsolete_LibraryRegistration/LibraryRegistration"
 import { PageComponent } from "./styles"
 
 function LibraryRegistr() {

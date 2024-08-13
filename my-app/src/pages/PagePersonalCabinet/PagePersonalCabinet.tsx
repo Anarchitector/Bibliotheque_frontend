@@ -14,7 +14,7 @@ function PagePersonalCabinet() {
 
   // Функция для обработки клика по кнопке
   const handleLibraryButtonClick = () => {
-    navigate("/api/library"); // Перенаправляем пользователя на страницу библиотеки
+    navigate("/api/bibliotek"); // Перенаправляем пользователя на страницу библиотеки
   };
 
   return (

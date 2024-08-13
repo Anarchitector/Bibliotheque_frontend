@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LibraryBox } from "./styles";
 import { RootState } from "store/store";
+import { PageComponent } from "./styles";
+import LibraryManager from "components/LibraryManager/LibraryManager";
 
 function PageLibrary() {
   const navigate = useNavigate();
@@ -16,9 +17,9 @@ function PageLibrary() {
   }
 
   return (
-    <LibraryBox>
-      <h3>Page bibliotek</h3>
-    </LibraryBox>
+    <PageComponent>
+      <LibraryManager/>
+    </PageComponent>
   );
 }
 

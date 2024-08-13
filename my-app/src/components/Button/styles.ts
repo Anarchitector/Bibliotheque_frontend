@@ -5,7 +5,7 @@ interface StyledButtonProps {
   disabled: boolean
 }
 
-export const ButtonCompanent = styled.button`
+export const ButtonCompanent = styled.button<{customColor?: string}>`
   width: auto;
   height: auto;
   padding: 10px;
@@ -16,15 +16,17 @@ export const ButtonCompanent = styled.button`
   font-size: 14px;
   opacity: ${({ disabled }) =>
     disabled ? 0.5 : 1}; // Прозрачность для неактивной кнопки
-  background: ${({ disabled }) => (disabled ? "lightgray" : "#fff")};
+  // передача необязательного цвета кнопки
+  background: ${({ disabled, customColor }) => (disabled ? ("lightgray") : ((customColor) ? (customColor) : ("#fff")) )};
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 
-  ${({ disabled }) =>
+  // осветление текста при наводе курсора выглядит хорошо с белой кнопкой, но с другими цветами не очень. 
+  ${({ disabled, customColor }) =>
     !disabled &&
     `
   &:hover {
-    border: 1px solid #4a90e2;
-    color: #4a90e2;
+    border: 1px solid #2275D3;
+    color: ${customColor ? "black" : "#4a90e2"};;
   }
 `}
 `

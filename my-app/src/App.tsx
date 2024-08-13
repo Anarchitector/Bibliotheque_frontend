@@ -27,7 +27,7 @@ const App = () => {
             <Route
               element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
             >
-            <Route path="/api/library" element={<PageLibrary />} />
+            <Route path="/api/bibliotek" element={<PageLibrary />} />
             </Route>
 
             <Route
