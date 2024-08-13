@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { store } from "store/store";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute"; // Импортируем ProtectedRoute
 import PageUsersList from "pages/PageUsersList/PageUsersList";
+import PageBooks from "pages/PageBooks/PageBooks";
 
 const App = () => {
   return (
@@ -29,6 +30,12 @@ const App = () => {
               element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
             >
             <Route path="/api/bibliotek" element={<PageLibrary />} />
+            </Route>
+
+            <Route
+              element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
+            >
+            <Route path="/api/books" element={<PageBooks />} />
             </Route>
 
             <Route

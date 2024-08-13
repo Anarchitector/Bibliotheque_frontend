@@ -20,7 +20,7 @@ function PagePersonalCabinet() {
   // Функция для обработки клика по кнопке
   const handleUsersListButtonClick = () => {
     navigate("/users"); // Перенаправляем пользователя на страницу библиотеки
-  }
+  } 
 
   return (
     <PageComponent>
@@ -39,6 +39,7 @@ function PagePersonalCabinet() {
           onClick={handleLibraryButtonClick}  // Обработка клика
         />
       )}
+     
     </PageComponent>
   );
 }
