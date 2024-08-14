@@ -3,6 +3,7 @@ import { UserSlaceState } from "./types"
 
 const userInitialState: UserSlaceState = {
   id: null,
+  name: null,
   email: null,
   role: null,
   accessToken: null,

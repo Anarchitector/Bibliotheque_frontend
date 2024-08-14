@@ -32,7 +32,7 @@ export const ButtonComponent = styled.button<StyledButtonProps>`
 
   ${({ buttonType }) => {
     switch (buttonType) {
-      case 'Delete':
+      case "Delete":
         return css`
           border: 1px solid red;
           color: red;
@@ -41,8 +41,8 @@ export const ButtonComponent = styled.button<StyledButtonProps>`
             color: white;
             border: 1px solid red;
           }
-        `;
-      case 'Block':
+        `
+      case "Block":
         return css`
           border: 1px solid darkorange;
           color: darkorange;
@@ -51,8 +51,18 @@ export const ButtonComponent = styled.button<StyledButtonProps>`
             color: white;
             border: 1px solid darkorange;
           }
-        `;
-      case 'Activate':
+        `
+      case "Update Info":
+        return css`
+          border: 1px solid darkorange;
+          color: darkorange;
+          &:hover {
+            background: darkorange;
+            color: white;
+            border: 1px solid darkorange;
+          }
+        `
+      case "Activate":
         return css`
           /* background: green; */
           border: 1px solid darkgreen;
@@ -62,9 +72,9 @@ export const ButtonComponent = styled.button<StyledButtonProps>`
             color: white;
             border: 1px solid darkgreen;
           }
-        `;
+        `
       default:
-        return css``; // Для остальных кнопок применяем стандартные стили
+        return css`` // Для остальных кнопок применяем стандартные стили
     }
   }}
 `

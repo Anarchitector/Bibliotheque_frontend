@@ -1,120 +1,83 @@
-import { useFormik } from "formik"
-import * as Yup from "yup"
-
-import Input from "components/Input/Input"
-import Button from "components/Button/Button"
+import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import Input from "components/Input/Input";
+import Button from "components/Button/Button";
 import {
   FormRegistContainer,
   FormTitle,
   InputForm,
   InputForm2,
-  LinkComponent,
   MainColumn,
   TwoButtons,
   LabelComponent,
   InputContainer,
-} from "./styles"
-import type { UserRegistrationFormValues } from "./types"
-import { USER_REGISTR_FORM_NAMES } from "./types"
-import { useState } from "react"
-import MaskedInput from "react-text-mask"
-
-import "./styles.css"
+} from "./styles";
+import type { UserRegistrationFormValues } from "./types";
+import { USER_REGISTR_FORM_NAMES } from "./types";
+import MaskedInput from "react-text-mask";
+import "./styles.css";
+import { RootState } from "../../store/store";
+import { userSliceActions } from "../../store/redux/userSlice/userSlice";
 
 function PersonalCabinet() {
-  const [isEdit, setIsEdit] = useState(false)
+  const [isEdit, setIsEdit] = useState(false);
+  const [initialValues, setInitialValues] = useState<UserRegistrationFormValues | null>(null); // Начальные значения
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false); // Флаг для отслеживания несохраненных изменений
+  const dispatch = useDispatch();
+  const userRole = useSelector((state: RootState) => state.USER.role);
+  const userEmail = useSelector((state: RootState) => state.USER.email);
 
-  // Актуальная версия //
-
-  //American, German, English postal codes
-  const zipRegex =
-    /^\d{5}(-\d{4})?$|^\d{5}$|^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}$/
+  const zipRegex = /^\d{5}(-\d{4})?$|^\d{5}$|^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}$/;
   const phoneNumberMask = [
-    "+",
-    /\d/,
-    /\d/,
-    " ",
-    "(",
-    /[1-9]/,
-    /\d/,
-    /\d/,
-    ")",
-    " ",
-    /\d/,
-    /\d/,
-    /\d/,
-    " ",
-    /\d/,
-    /\d/,
-    " ",
-    /\d/,
-    /\d/,
-  ]
-
-  // ------------------- //
+    "+", /\d/, /\d/, " ", "(", /[1-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, " ", /\d/, /\d/, " ", /\d/, /\d/,
+  ];
 
   const schema = Yup.object().shape({
     [USER_REGISTR_FORM_NAMES.FIRST_NAME]: Yup.string()
-      .required("Your first name is required to complete your registration")
+      .required("The field must not be empty")
       .matches(/^[^\s].*$/, "A first name must not start with an empty space")
       .min(1, "You have a name, don't you?"),
     [USER_REGISTR_FORM_NAMES.LAST_NAME]: Yup.string()
-      .required("Your last name is required to complete your registration")
+      .required("The field must not be empty")
       .matches(/^[^\s].*$/, "A last name must not start with an empty space")
       .min(1, "Your family name is not that embarrassing, is it?"),
     [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string().required(
-      "Please don't forget your phone number",
+      "The field must not be empty"
     ),
-    [USER_REGISTR_FORM_NAMES.EMAIL]: Yup.string()
-      //.required("Email required for registration")
-      .matches(/^[^\s].*$/, "An email can't start with an empty space")
-      .email("This is not an acceptable email"),
-    [USER_REGISTR_FORM_NAMES.PASSWORD]: Yup.string()
-      //.required("Password required for registration")
-      .min(8, "Password must contain 8 symbols")
-      .matches(/^[^\s].*$/, "A password must not start with an empty space")
-      .matches(/[a-z]/, "Password must contain at least one small letter")
-      .matches(/[A-Z]/, "Password must contain at least one capital letter")
-      .matches(/\d/, "Password must contain at least one numerical digit")
-      .matches(
-        /[!@#$%^&*(),.?":{}|<>]/,
-        "Password must contain at least one special symbol",
-      ),
     [USER_REGISTR_FORM_NAMES.COUNTRY]: Yup.string()
-      .required("We need to record your country of origin")
+      .required("The field must not be empty")
       .matches(/^[^\s].*$/, "A country name can't start with an empty space")
       .matches(
         /^[a-zA-Z\s]*$/,
-        "There probably aren't but letter and spaces in your country's name",
+        "There probably aren't but letter and spaces in your country's name"
       )
       .min(4, "A country's name can't be that short"),
     [USER_REGISTR_FORM_NAMES.ZIP]: Yup.string()
-      .required("We need your ZIP code")
-      .matches(zipRegex, "Your postal code doesn't patch a known pattern"),
+      .required("The field must not be empty")
+      .matches(zipRegex, "Your postal code doesn't match a known pattern"),
     [USER_REGISTR_FORM_NAMES.CITY]: Yup.string()
-      .required("We need to record your city of origin")
+      .required("The field must not be empty")
       .matches(/^[^\s].*$/, "A city name can't start with an empty space")
       .min(2, "A city's name can't be that short"),
     [USER_REGISTR_FORM_NAMES.STREET]: Yup.string()
-      .required("We need to record your street")
+      .required("The field must not be empty")
       .matches(/^[^\s].*$/, "A street name can't start with an empty space")
       .min(4, "A street's name can't be that short"),
     [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: Yup.string()
-      .required("We need to record your house number")
+      .required("The field must not be empty")
       .max(7, "That's a bit too long for a house number, isn't it?")
       .matches(/^[^\s].*$/, "A house number can't start with an empty space")
       .matches(/\d/, "House number must contain at least one numerical digit"),
-  })
-
-  // ------------------- //
+  });
 
   const formik = useFormik({
     initialValues: {
       [USER_REGISTR_FORM_NAMES.FIRST_NAME]: "",
       [USER_REGISTR_FORM_NAMES.LAST_NAME]: "",
       [USER_REGISTR_FORM_NAMES.PHONE]: "",
-      [USER_REGISTR_FORM_NAMES.EMAIL]: "",
-      [USER_REGISTR_FORM_NAMES.PASSWORD]: "",
       [USER_REGISTR_FORM_NAMES.COUNTRY]: "",
       [USER_REGISTR_FORM_NAMES.ZIP]: "",
       [USER_REGISTR_FORM_NAMES.CITY]: "",
@@ -122,34 +85,151 @@ function PersonalCabinet() {
       [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: "",
     } as UserRegistrationFormValues,
     validationSchema: schema,
-    // validateOnChange: true,
-    // validateOnMount: true,
-    onSubmit: values => {
-      console.log(values)
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.put("http://localhost:8080/api/users/update", {
+          email: userEmail,
+          name: values[USER_REGISTR_FORM_NAMES.FIRST_NAME],
+          surname: values[USER_REGISTR_FORM_NAMES.LAST_NAME],
+          country: values[USER_REGISTR_FORM_NAMES.COUNTRY],
+          city: values[USER_REGISTR_FORM_NAMES.CITY],
+          street: values[USER_REGISTR_FORM_NAMES.STREET],
+          number: values[USER_REGISTR_FORM_NAMES.HOUSE_NUMBER],
+          zip: values[USER_REGISTR_FORM_NAMES.ZIP],
+          phone: values[USER_REGISTR_FORM_NAMES.PHONE],
+        });
+
+        dispatch(
+          userSliceActions.setUser({
+            id: response.data.id,
+            email: response.data.email,
+            name: response.data.name,
+            role: userRole,
+          })
+        );
+
+        setInitialValues(formik.values); // Обновляем начальные значения после успешного обновления
+        setHasUnsavedChanges(false); // Сброс флага после успешного сохранения
+
+        console.log("User data updated successfully", response.data);
+      } catch (error) {
+        console.error("Failed to update user data", error);
+      }
     },
-  })
+  });
 
-  // ------------------- //
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/users/useremail", {
+          data: { email: userEmail },
+        });
 
-  // ------------------- //
+        const userData = response.data;
+
+        if (userData) {
+          const userFormData: UserRegistrationFormValues = {
+            [USER_REGISTR_FORM_NAMES.FIRST_NAME]: userData.name || "",
+            [USER_REGISTR_FORM_NAMES.LAST_NAME]: userData.surname || "",
+            [USER_REGISTR_FORM_NAMES.PHONE]: userData.phone || "",
+            [USER_REGISTR_FORM_NAMES.COUNTRY]: userData.country || "",
+            [USER_REGISTR_FORM_NAMES.ZIP]: userData.zip || "",
+            [USER_REGISTR_FORM_NAMES.CITY]: userData.city || "",
+            [USER_REGISTR_FORM_NAMES.STREET]: userData.street || "",
+            [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: userData.number || "",
+          };
+
+          formik.setValues(userFormData);
+          setInitialValues(userFormData); // Сохраняем начальные данные
+        }
+      } catch (error) {
+        console.error("Failed to fetch user data", error);
+      }
+    };
+
+    if (userEmail) {
+      fetchUserData();
+    }
+  }, [userEmail]);
+
+  const handleCancel = () => {
+    if (hasUnsavedChanges) {
+      // Сброс значений формы до начального состояния
+      formik.setValues(initialValues || {
+        [USER_REGISTR_FORM_NAMES.FIRST_NAME]: "",
+        [USER_REGISTR_FORM_NAMES.LAST_NAME]: "",
+        [USER_REGISTR_FORM_NAMES.PHONE]: "",
+        [USER_REGISTR_FORM_NAMES.COUNTRY]: "",
+        [USER_REGISTR_FORM_NAMES.ZIP]: "",
+        [USER_REGISTR_FORM_NAMES.CITY]: "",
+        [USER_REGISTR_FORM_NAMES.STREET]: "",
+        [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: "",
+      });
+      setHasUnsavedChanges(false);
+    }
+    setIsEdit(false);
+  };
+
+//   Сбрасываем форму и очищаем ошибки, вместо очистки до начального состояния
+//   const handleCancel = () => {
+//     if (hasUnsavedChanges) {
+//       formik.resetForm(); // Сбрасываем форму и очищаем ошибки
+//       setHasUnsavedChanges(false);
+//     }
+//     setIsEdit(false);
+//   };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    formik.handleChange(event);
+    setHasUnsavedChanges(true); // Отмечаем, что есть несохраненные изменения
+  };
 
   return (
-    // <FormRegistContainer action="/submit-form" method="POST">
     <FormRegistContainer
       action="/submit-form"
       method="POST"
       onSubmit={formik.handleSubmit}
     >
       <FormTitle>Welcome to your profile page</FormTitle>
+      <div>Fill in your details to further order books.</div>
+      <div>
+        {isEdit ? (
+          <TwoButtons>
+            <Button
+              name="Save"
+              type="submit"
+              disabled={!formik.isValid || !formik.dirty}
+              onClick={() => {
+                formik.handleSubmit();
+                setIsEdit(false);
+              }}
+            />
+            <Button
+              name="Cancel"
+              type="button"
+              onClick={handleCancel}
+            />
+          </TwoButtons>
+        ) : (
+          <div>
+            <Button
+              name="Update Info"
+              type="button"
+              onClick={() => setIsEdit(true)}
+            />
+          </div>
+        )}
+      </div>
+
       <MainColumn>
         <InputForm>
           <Input
             name={USER_REGISTR_FORM_NAMES.FIRST_NAME}
             type="text"
             label="First Name"
-            placeholder="James"
+            placeholder="Enter your First Name"
             value={formik.values[USER_REGISTR_FORM_NAMES.FIRST_NAME]}
-            onChange={formik.handleChange}
+            onChange={handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.FIRST_NAME]}
             disabled={!isEdit}
           />
@@ -157,9 +237,9 @@ function PersonalCabinet() {
             name={USER_REGISTR_FORM_NAMES.LAST_NAME}
             type="text"
             label="Last Name"
-            placeholder="Holden"
+            placeholder="Enter your Last Name"
             value={formik.values[USER_REGISTR_FORM_NAMES.LAST_NAME]}
-            onChange={formik.handleChange}
+            onChange={handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.LAST_NAME]}
             disabled={!isEdit}
           />
@@ -173,33 +253,26 @@ function PersonalCabinet() {
                 mask={phoneNumberMask}
                 guide={true}
                 placeholder="Enter your phone number"
-                onChange={formik.handleChange}
+                onChange={handleChange}
                 value={formik.values[USER_REGISTR_FORM_NAMES.PHONE]}
                 disabled={!isEdit}
               />
             </div>
+            {formik.errors[USER_REGISTR_FORM_NAMES.PHONE] && (
+              <div className="error">
+                {formik.errors[USER_REGISTR_FORM_NAMES.PHONE]}
+              </div>
+            )}
           </InputContainer>
           <Input
-            name={USER_REGISTR_FORM_NAMES.EMAIL}
-            type="email"
-            label="Email"
-            placeholder="Enter your email here"
-            value={formik.values[USER_REGISTR_FORM_NAMES.EMAIL]}
-            onChange={formik.handleChange}
-            error={formik.errors[USER_REGISTR_FORM_NAMES.EMAIL]}
-            //TODO change later!!!
-            disabled={true}
-          />
-          <Input
-            name={USER_REGISTR_FORM_NAMES.PASSWORD}
-            type="password"
-            label="Password"
-            placeholder="Enter your password here"
-            value={formik.values[USER_REGISTR_FORM_NAMES.PASSWORD]}
-            onChange={formik.handleChange}
-            error={formik.errors[USER_REGISTR_FORM_NAMES.PASSWORD]}
-            //TODO change later!!!
-            disabled={true}
+            name={USER_REGISTR_FORM_NAMES.ZIP}
+            type="text"
+            label="ZIP Code"
+            placeholder="Enter your ZIP Code"
+            value={formik.values[USER_REGISTR_FORM_NAMES.ZIP]}
+            onChange={handleChange}
+            error={formik.errors[USER_REGISTR_FORM_NAMES.ZIP]}
+            disabled={!isEdit}
           />
         </InputForm>
         <InputForm2>
@@ -207,29 +280,19 @@ function PersonalCabinet() {
             name={USER_REGISTR_FORM_NAMES.COUNTRY}
             type="text"
             label="Country"
-            placeholder="Germany"
+            placeholder="Enter your Country"
             value={formik.values[USER_REGISTR_FORM_NAMES.COUNTRY]}
-            onChange={formik.handleChange}
+            onChange={handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.COUNTRY]}
-            disabled={!isEdit}
-          />
-          <Input
-            name={USER_REGISTR_FORM_NAMES.ZIP}
-            type="text"
-            label="ZIP"
-            placeholder="96148"
-            value={formik.values[USER_REGISTR_FORM_NAMES.ZIP]}
-            onChange={formik.handleChange}
-            error={formik.errors[USER_REGISTR_FORM_NAMES.ZIP]}
             disabled={!isEdit}
           />
           <Input
             name={USER_REGISTR_FORM_NAMES.CITY}
             type="text"
             label="City"
-            placeholder="Bamberg"
+            placeholder="Enter your City"
             value={formik.values[USER_REGISTR_FORM_NAMES.CITY]}
-            onChange={formik.handleChange}
+            onChange={handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.CITY]}
             disabled={!isEdit}
           />
@@ -237,59 +300,26 @@ function PersonalCabinet() {
             name={USER_REGISTR_FORM_NAMES.STREET}
             type="text"
             label="Street"
-            placeholder="Marktplatz"
+            placeholder="Enter your Street"
             value={formik.values[USER_REGISTR_FORM_NAMES.STREET]}
-            onChange={formik.handleChange}
+            onChange={handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.STREET]}
             disabled={!isEdit}
           />
           <Input
             name={USER_REGISTR_FORM_NAMES.HOUSE_NUMBER}
             type="text"
-            label="House number"
-            placeholder="25"
+            label="House Number"
+            placeholder="Enter your House Number"
             value={formik.values[USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]}
-            onChange={formik.handleChange}
+            onChange={handleChange}
             error={formik.errors[USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]}
             disabled={!isEdit}
           />
         </InputForm2>
       </MainColumn>
-
-      <div>
-        {isEdit ? (
-          <TwoButtons>
-            <Button
-              name="Save"
-              type="submit"
-              disabled={!formik.isValid || !formik.dirty}
-              onClick={() => {
-                formik.handleSubmit() // Trigger Formik's submit function
-                setIsEdit(false)
-              }}
-            />
-            <Button
-              name="Cancel"
-              type="submit"
-              onClick={() => {
-                setIsEdit(false)
-              }}
-            />
-          </TwoButtons>
-        ) : (
-          <div>
-            <Button
-              name="Update Your Profile Info"
-              type="submit"
-              onClick={() => setIsEdit(true)}
-            />
-          </div>
-        )}
-      </div>
-
-      <LinkComponent to="/">Return to the main page</LinkComponent>
     </FormRegistContainer>
-  )
+  );
 }
 
-export default PersonalCabinet
+export default PersonalCabinet;

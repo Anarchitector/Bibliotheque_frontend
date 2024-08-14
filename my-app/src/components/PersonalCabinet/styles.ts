@@ -6,7 +6,6 @@ export const InputContainer = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 10px;
-  padding-bottom: 30px;
 `
 
 

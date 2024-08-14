@@ -30,10 +30,11 @@ function Header() {
 
   const getUsername = () => {
     // Написать логику когда появиться имя пользователя
-    // if (user.name) {
-    //   return user.name;
-    // }
-    return `Пользователь ${user.id}`
+    if (user.name  !== null) {
+      return user.name;
+    }
+    // return `Пользователь ${user.id}`
+    return `${user.email}`
   }
 
   return (

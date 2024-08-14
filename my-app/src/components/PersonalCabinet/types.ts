@@ -2,8 +2,8 @@ export interface UserRegistrationFormValues {
     firstName: string
     lastName: string
     phone: string
-    email: string
-    password: string
+    email?: string
+    password?: string
     country: string
     zip: string
     city: string
