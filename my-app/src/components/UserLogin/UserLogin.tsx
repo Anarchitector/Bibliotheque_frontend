@@ -66,6 +66,14 @@ function UserLogin() {
                 dispatch(userSliceActions.setUser({
                     id: data.id,
                     email: data.email,
+                    name: data.name,
+                    surname: data.surname,
+                    country: data.country,
+                    city: data.city,
+                    street: data.street,
+                    number: data.number,
+                    zip: data.zip,
+                    phone: data.phone,
                     role: data.role[0].title,
                 }));
 
