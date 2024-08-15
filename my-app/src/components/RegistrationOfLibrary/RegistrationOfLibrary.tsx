@@ -18,11 +18,15 @@ import {
   TwoButtons
 } from "./styles"
 import { InputContainer, LabelComponent } from "components/Input/styles"
+import { useNavigate } from "react-router-dom"
 
 function RegistrationOfLibrary() {
-  const [isLibEdit, setIsLibEdit] = useState(false)
 
-  //American, German, English postal codes
+  // navigation //
+  const navigate = useNavigate();
+
+  // American, German, English postal codes //
+
   const zipRegex =
     /^\d{5}(-\d{4})?$|^\d{5}$|^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}$/
   const phoneNumberMask = [
@@ -47,7 +51,7 @@ function RegistrationOfLibrary() {
     /\d/,
   ]
 
-  // ------------------- //
+  // YUP for formik //
 
   const schema = Yup.object().shape({
     [LIB_REGISTR_FORM_NAMES.NAME]: Yup.string()
@@ -83,7 +87,7 @@ function RegistrationOfLibrary() {
     ),
   })
 
-  // ------------------- //
+  // FORMIK //
 
   const formik = useFormik({
     initialValues: {
@@ -103,7 +107,7 @@ function RegistrationOfLibrary() {
     },
   })
 
-  // ------------------- //
+  // RETURN //
 
   return (
     // <FormRegistContainer action="/submit-form" method="POST">
@@ -112,133 +116,101 @@ function RegistrationOfLibrary() {
       method="POST"
       onSubmit={formik.handleSubmit}
     >
-      {isLibEdit
-        ? (
-          <>
-            <FormTitle>Please fill out Library Registration Form</FormTitle>
-            <MainColumn>
-              <InputForm>
-                <Input
-                  name={LIB_REGISTR_FORM_NAMES.NAME}
-                  type="text"
-                  label="First Name"
-                  placeholder="James"
-                  value={formik.values[LIB_REGISTR_FORM_NAMES.NAME]}
-                  onChange={formik.handleChange}
-                  error={formik.errors[LIB_REGISTR_FORM_NAMES.NAME]}
-                  disabled={!isLibEdit}
-                />
-                <Input
-                  name={LIB_REGISTR_FORM_NAMES.COUNTRY}
-                  type="text"
-                  label="Country"
-                  placeholder="Germany"
-                  value={formik.values[LIB_REGISTR_FORM_NAMES.COUNTRY]}
-                  onChange={formik.handleChange}
-                  error={formik.errors[LIB_REGISTR_FORM_NAMES.COUNTRY]}
-                  disabled={!isLibEdit}
-                />
-                <Input
-                  name={LIB_REGISTR_FORM_NAMES.ZIP}
-                  type="text"
-                  label="ZIP"
-                  placeholder="96148"
-                  value={formik.values[LIB_REGISTR_FORM_NAMES.ZIP]}
-                  onChange={formik.handleChange}
-                  error={formik.errors[LIB_REGISTR_FORM_NAMES.ZIP]}
-                  disabled={!isLibEdit}
-                />
-                <Input
-                  name={LIB_REGISTR_FORM_NAMES.CITY}
-                  type="text"
-                  label="City"
-                  placeholder="Bamberg"
-                  value={formik.values[LIB_REGISTR_FORM_NAMES.CITY]}
-                  onChange={formik.handleChange}
-                  error={formik.errors[LIB_REGISTR_FORM_NAMES.CITY]}
-                  disabled={!isLibEdit}
-                />
-              </InputForm>
-              <InputForm2>
-                <Input
-                  name={LIB_REGISTR_FORM_NAMES.STREET}
-                  type="text"
-                  label="Street"
-                  placeholder="Marktplatz"
-                  value={formik.values[LIB_REGISTR_FORM_NAMES.STREET]}
-                  onChange={formik.handleChange}
-                  error={formik.errors[LIB_REGISTR_FORM_NAMES.STREET]}
-                  disabled={!isLibEdit}
-                />
-                <Input
-                  name={LIB_REGISTR_FORM_NAMES.NUMBER}
-                  type="text"
-                  label="House number"
-                  placeholder="25"
-                  value={formik.values[LIB_REGISTR_FORM_NAMES.NUMBER]}
-                  onChange={formik.handleChange}
-                  error={formik.errors[LIB_REGISTR_FORM_NAMES.NUMBER]}
-                  disabled={!isLibEdit}
-                />
-                <InputContainer>
-                  <LabelComponent>Phone Number</LabelComponent>
-                  <div className="masked-input-wrapper">
-                    <MaskedInput
-                      name={LIB_REGISTR_FORM_NAMES.PHONE}
-                      type="text"
-                      mask={phoneNumberMask}
-                      guide={true}
-                      placeholder="Enter your phone number"
-                      onChange={formik.handleChange}
-                      value={formik.values[LIB_REGISTR_FORM_NAMES.PHONE]}
-                      disabled={!isLibEdit}
-                    />
-                  </div>
-                </InputContainer>
-              </InputForm2>
-            </MainColumn>
+      <FormTitle>Please fill out Library Registration Form</FormTitle>
+      <MainColumn>
+        <InputForm>
+          <Input
+            name={LIB_REGISTR_FORM_NAMES.NAME}
+            type="text"
+            label="First Name"
+            placeholder="James"
+            value={formik.values[LIB_REGISTR_FORM_NAMES.NAME]}
+            onChange={formik.handleChange}
+            error={formik.errors[LIB_REGISTR_FORM_NAMES.NAME]}
+          />
+          <Input
+            name={LIB_REGISTR_FORM_NAMES.COUNTRY}
+            type="text"
+            label="Country"
+            placeholder="Germany"
+            value={formik.values[LIB_REGISTR_FORM_NAMES.COUNTRY]}
+            onChange={formik.handleChange}
+            error={formik.errors[LIB_REGISTR_FORM_NAMES.COUNTRY]}
+          />
+          <Input
+            name={LIB_REGISTR_FORM_NAMES.ZIP}
+            type="text"
+            label="ZIP"
+            placeholder="96148"
+            value={formik.values[LIB_REGISTR_FORM_NAMES.ZIP]}
+            onChange={formik.handleChange}
+            error={formik.errors[LIB_REGISTR_FORM_NAMES.ZIP]}
+          />
+          <Input
+            name={LIB_REGISTR_FORM_NAMES.CITY}
+            type="text"
+            label="City"
+            placeholder="Bamberg"
+            value={formik.values[LIB_REGISTR_FORM_NAMES.CITY]}
+            onChange={formik.handleChange}
+            error={formik.errors[LIB_REGISTR_FORM_NAMES.CITY]}
+          />
+        </InputForm>
+        <InputForm2>
+          <Input
+            name={LIB_REGISTR_FORM_NAMES.STREET}
+            type="text"
+            label="Street"
+            placeholder="Marktplatz"
+            value={formik.values[LIB_REGISTR_FORM_NAMES.STREET]}
+            onChange={formik.handleChange}
+            error={formik.errors[LIB_REGISTR_FORM_NAMES.STREET]}
+          />
+          <Input
+            name={LIB_REGISTR_FORM_NAMES.NUMBER}
+            type="text"
+            label="House number"
+            placeholder="25"
+            value={formik.values[LIB_REGISTR_FORM_NAMES.NUMBER]}
+            onChange={formik.handleChange}
+            error={formik.errors[LIB_REGISTR_FORM_NAMES.NUMBER]}
+          />
+          <InputContainer>
+            <LabelComponent>Phone Number</LabelComponent>
+            <div className="masked-input-wrapper">
+              <MaskedInput
+                name={LIB_REGISTR_FORM_NAMES.PHONE}
+                type="text"
+                mask={phoneNumberMask}
+                guide={true}
+                placeholder="Enter your phone number"
+                onChange={formik.handleChange}
+                value={formik.values[LIB_REGISTR_FORM_NAMES.PHONE]}
+              />
+            </div>
+          </InputContainer>
+        </InputForm2>
+      </MainColumn>
 
-            <TwoButtons>
-              {isLibEdit ? (
-                <TwoButtons>
-                  <Button
-                    name="Register"
-                    type="submit"
-                    disabled={!formik.isValid || !formik.dirty}
-                    color="#45A42D"
-                    onClick={() => {
-                      formik.handleSubmit() // Trigger Formik's submit function
-                      setIsLibEdit(false)
-                    }}
-                  />
-                  <Button
-                    name="Cancel"
-                    type="submit"
-                    onClick={() => {
-                      setIsLibEdit(false)
-                    }}
-                  />
-                  </TwoButtons>
-              ) : (
-                <div>
-                  <Button
-                    name="Update"
-                    type="submit"
-                    onClick={() => {
-                      setIsLibEdit(true)
-                    }}
-                  />
-                </div>
-              )}
-            </TwoButtons>
-          </>
-
-        )
-        : (<Button
-          name="Register a new library"
+      <TwoButtons>
+        <Button
+          name="Register"
+          type="submit"
+          disabled={!formik.isValid || !formik.dirty}
           color="#45A42D"
-          onClick={() => setIsLibEdit(true)}
-      />)}
+          onClick={() => {
+            formik.handleSubmit(); // Trigger Formik's submit function
+            navigate("/api/bibliotek");
+          }}
+        />
+        <Button
+          name="Cancel"
+          type="submit"
+          onClick={() => {
+            navigate("/api/bibliotek");
+          }}
+        />
+      </TwoButtons>
     </FormRegistContainer>
   )
 }

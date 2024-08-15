@@ -5,9 +5,17 @@ import {
   LibraryListIntro,
   LibraryListContainer
 } from "./styles"
+import Button from "components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 
 function LibraryManager() {
+
+  const navigate = useNavigate();  
+  const handleRegisterClick = () => {
+    navigate("/api/bibliotek/register");
+  }
+
   return (
     <LibraryListContainer>
       <LibraryListIntro>
@@ -19,7 +27,11 @@ function LibraryManager() {
         - manage existing libraries<br />
         - delete your libraries<br />
       </LibraryListIntro>
-      <RegistrationOfLibrary />
+      <Button
+          name="Register a new library"
+          color="#45A42D"
+          onClick={handleRegisterClick}
+      />
       <ListOfLibraries/> 
       <LinkComponent to="/">Return to the main page</LinkComponent>     
     </LibraryListContainer>

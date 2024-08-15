@@ -13,6 +13,7 @@ import { store } from "store/store";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute"; // Импортируем ProtectedRoute
 import PageUsersList from "pages/PageUsersList/PageUsersList";
 import PageBooks from "pages/PageBooks/PageBooks";
+import PageLibraryRegistration from "pages/PageLibraryRegistration/PageLibraryRegistration";
 
 const App = () => {
   return (
@@ -30,6 +31,12 @@ const App = () => {
               element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
             >
             <Route path="/api/bibliotek" element={<PageLibrary />} />
+            </Route>
+
+            <Route
+              element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
+            >
+            <Route path="/api/bibliotek/register" element={<PageLibraryRegistration />} />
             </Route>
 
             <Route
