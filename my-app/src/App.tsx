@@ -2,7 +2,6 @@ import Layout from "components/Layout/Layout";
 import Home from "pages/Home/Home";
 import Login from "pages/Login/Login";
 import PageAccessDenied from "pages/PageAccessDenied/PageAccessDenied";
-import PageLibrary from "pages/PageLibrary/PageLibrary";
 import PageNotFound from "pages/PageNotFound/PageNotFound";
 import PagePersonalCabinet from "pages/PagePersonalCabinet/PagePersonalCabinet";
 import RegistLoginError from "pages/RegistrLoginError/RegistrLoginError";
@@ -13,8 +12,11 @@ import { store } from "store/store";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute"; // Импортируем ProtectedRoute
 import PageUsersList from "pages/PageUsersList/PageUsersList";
 import PageBooks from "pages/PageBooks/PageBooks";
+import PageLibraryRegistration from "pages/PageLibraryRegistration/PageLibraryRegistration";
+import PageLibraryManager from "pages/PageLibraryManager/PageLibraryManager";
 import Notifications from "components/Notifications/Notifications";
 import Cart from "pages/Cart/Cart";
+
 
 const App = () => {
   return (
@@ -34,7 +36,13 @@ const App = () => {
             <Route
               element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
             >
-            <Route path="/api/bibliotek" element={<PageLibrary />} />
+            <Route path="/api/bibliotek" element={<PageLibraryManager />} />
+            </Route>
+
+            <Route
+              element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
+            >
+            <Route path="/api/bibliotek/register" element={<PageLibraryRegistration />} />
             </Route>
 
             <Route

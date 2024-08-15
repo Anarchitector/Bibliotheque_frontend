@@ -30,6 +30,7 @@ export const SITE_MESSAGES = {
     NUMBER_TOO_LONG: "House number can't be longer than 7 symbols",
     ZIP_REQUIRED_LIBRARY: "Library's ZIP required",
     ZIP_REQUIRED: "ZIP required",
+    ZIP_WRONG: "Your postal code doesn't patch any known pattern",
     ZIP_TOO_LONG: "ZIP code can't be longer than 9 symbols",
     ZIP_TOO_SHORT: "ZIP code can't be shorter than 5 symbols",
     PHONE_REQUIRED_LIBRARY: "Library's phone required",
