@@ -6,6 +6,7 @@ export const InputContainer = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 10px;
+  min-height: 94px; /* Зарезирвированное место для отображения ошибки */
 `
 
 

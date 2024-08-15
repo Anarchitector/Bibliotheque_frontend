@@ -2,6 +2,7 @@ import axios from "axios";
 import Button from "components/Button/Button";
 import { ButtonBox, NameBox, StatusBox, UserItemComponent } from "./styles";
 import { User } from "./types";
+import { toast } from "react-toastify";
 
 interface UserItemProps {
   user: User;
@@ -24,6 +25,8 @@ function UserItem({ user, onUserUpdate, onUserDelete }: UserItemProps) {
       });
     } catch (error) {
       console.error("Failed to update user status", error);
+       // Показываем уведомление об ошибке
+       toast.error(`"Error - ${error}`)
     }
   };
 
@@ -33,10 +36,15 @@ function UserItem({ user, onUserUpdate, onUserDelete }: UserItemProps) {
         data: { email: user.email }
       });
 
+      // Показываем уведомление об успешном удалении пользователя
+      toast.success("User successfully deleted!")
+
       // Уведомляем родительский компонент об удалении
       onUserDelete(user.id);
     } catch (error) {
       console.error("Failed to delete user", error);
+      // Показываем уведомление об ошибке
+      toast.error(`"The user has not been deleted!" - ${error}`)
     }
   };
 

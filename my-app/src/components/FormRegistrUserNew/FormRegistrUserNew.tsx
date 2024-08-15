@@ -97,8 +97,16 @@ function FormRegistrUserNew() {
         dispatch(
           userSliceActions.setUser({
             id: data.id,
-            email: data.email, // Получаем email из ответа, если он есть
-            role: role,
+            email: data.email,
+            name: data.name,
+            surname: data.surname,
+            country: data.country,
+            city: data.city,
+            street: data.street,
+            number: data.number,
+            zip: data.zip,
+            phone: data.phone,
+            role: data.role[0].title,
           }),
         )
         dispatch(
@@ -159,29 +167,29 @@ function FormRegistrUserNew() {
       </InputForm>
 
       <FieldSetComponent>
-      <legend>Select Account Type</legend>
-      <RadioBatComponent>
-        <label>
-          <input
-            type="radio"
-            value="user"
-            name="userType"
-            checked={selectedOption === "user"}
-            onChange={handleRadioChange}
-          />
-          User
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="library"
-            name="userType"
-            checked={selectedOption === "library"}
-            onChange={handleRadioChange}
-          />
-          Library
-        </label>
-      </RadioBatComponent>
+        <legend>Select Account Type</legend>
+        <RadioBatComponent>
+          <label>
+            <input
+              type="radio"
+              value="user"
+              name="userType"
+              checked={selectedOption === "user"}
+              onChange={handleRadioChange}
+            />
+            User
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="library"
+              name="userType"
+              checked={selectedOption === "library"}
+              onChange={handleRadioChange}
+            />
+            Library
+          </label>
+        </RadioBatComponent>
       </FieldSetComponent>
 
       <Button
