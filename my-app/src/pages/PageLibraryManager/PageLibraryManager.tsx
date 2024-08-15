@@ -5,7 +5,7 @@ import { PageComponent } from "./styles";
 import LibraryManager from "components/LibraryManager/LibraryManager";
 import Button from "components/Button/Button";
 
-function PageLibrary() {
+function PageLibraryManager() {
   const navigate = useNavigate();
 
   // Используем роль пользователя из глобального состоянии
@@ -37,4 +37,4 @@ function PageLibrary() {
   );
 }
 
-export default PageLibrary;
+export default PageLibraryManager;
