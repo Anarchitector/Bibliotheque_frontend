@@ -21,11 +21,7 @@ import MaskedInput from "react-text-mask"
 import "./styles.css"
 import { RootState } from "../../store/store"
 import { userSliceActions } from "../../store/redux/userSlice/userSlice"
-import { toast, ToastContainer } from "react-toastify"
-
-// Импортируем стили React-Toastify
-import "react-toastify/dist/ReactToastify.css"
-
+import { toast } from "react-toastify"
 
 function PersonalCabinet() {
   const [isEdit, setIsEdit] = useState(false)
@@ -205,21 +201,6 @@ function PersonalCabinet() {
       method="POST"
       onSubmit={formik.handleSubmit}
     >
-      {/* Контейнер для уведомлений */}
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false} // Отключить паузу при потере фокуса
-        draggable={false} // Отключить возможность перетаскивания
-        // pauseOnHover={false} // Отключить паузу при наведении мыши
-        pauseOnHover
-        limit={3} // Ограничение на количество уведомлений одновременно
-        icon={false} // Убирает иконку по умолчанию
-      />
 
       <FormTitle>Welcome to your profile page</FormTitle>
       <div>Fill in your details to further order books.</div>

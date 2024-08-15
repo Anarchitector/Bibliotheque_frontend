@@ -34,6 +34,7 @@ export const LogoLink = styled(Link)`
 // Навигационное меню
 export const NavContainer = styled.nav`
   display: flex;
+  align-items: center;
   gap: 10px; // Отступы между ссылками
   position: absolute; // Абсолютное позиционирование для размещения справа
   right: 30px; // Отступ справа
@@ -149,4 +150,28 @@ export const CloseButton = styled.button`
   top: 20px;
   right: 20px;
   cursor: pointer;
+`
+
+export const CartLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  color: #333;
+  margin-left: 10px;
+  text-decoration: none;
+
+  &:hover {
+    color: #2275D3;
+  }
+`
+
+export const MobileCartLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  color: #333;
+  margin-left: 10px;
+  text-decoration: none;
+
+  &:hover {
+    color: #2275D3;
+  }
 `
