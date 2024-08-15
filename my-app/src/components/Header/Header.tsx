@@ -10,7 +10,10 @@ import {
   CloseButton,
   MobileMenu,
   MobileStyledNavLink,
+  CartLink,
+  MobileCartLink,
 } from "./styles"
+import { FaShoppingCart } from "react-icons/fa" // Импорт иконки
 import { useDispatch, useSelector } from "react-redux"
 import { userSliceActions } from "../../store/redux/userSlice/userSlice"
 import { RootState } from "../../store/store" // Корневое состояния
@@ -30,8 +33,8 @@ function Header() {
 
   const getUsername = () => {
     // Написать логику когда появиться имя пользователя
-    if (user.name  !== null) {
-      return user.name;
+    if (user.name !== null) {
+      return user.name
     }
     // return `Пользователь ${user.id}`
     return `${user.email}`
@@ -58,6 +61,9 @@ function Header() {
             <StyledNavLink to="/api/auth/register">Register</StyledNavLink>
           </>
         )}
+        <CartLink to="/cart">
+          <FaShoppingCart size={22} />
+        </CartLink>
       </NavContainer>
       <HamburgerButton onClick={toggleMenu}>
         <span></span>
@@ -102,6 +108,9 @@ function Header() {
                 </MobileStyledNavLink>
               </>
             )}
+            <MobileCartLink to="/cart">
+              <FaShoppingCart size={22} />
+            </MobileCartLink>
           </MobileMenu>
         </MobileMenuContainer>
       )}

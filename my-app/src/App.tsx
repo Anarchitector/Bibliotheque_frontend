@@ -14,16 +14,22 @@ import PageUsersList from "pages/PageUsersList/PageUsersList";
 import PageBooks from "pages/PageBooks/PageBooks";
 import PageLibraryRegistration from "pages/PageLibraryRegistration/PageLibraryRegistration";
 import PageLibraryManager from "pages/PageLibraryManager/PageLibraryManager";
+import Notifications from "components/Notifications/Notifications";
+import Cart from "pages/Cart/Cart";
+
 
 const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Layout>
+          {/* Контейнер для уведомлений */}
+          <Notifications />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/api/auth/register" element={<UserRegistr />} />
             <Route path="/api/auth/login" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/api/auth/error" element={<RegistLoginError />} />
 
             {/* Защищенные маршруты */}
