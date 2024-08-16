@@ -61,7 +61,7 @@ function Header() {
             <StyledNavLink to="/api/auth/register">Register</StyledNavLink>
           </>
         )}
-        <CartLink to="/cart">
+        <CartLink to="/cart" aria-label="View Cart" title="View Cart">
           <FaShoppingCart size={22} />
         </CartLink>
       </NavContainer>
@@ -108,7 +108,7 @@ function Header() {
                 </MobileStyledNavLink>
               </>
             )}
-            <MobileCartLink to="/cart">
+            <MobileCartLink to="/cart" aria-label="View Cart" title="View Cart">
               <FaShoppingCart size={22} />
             </MobileCartLink>
           </MobileMenu>

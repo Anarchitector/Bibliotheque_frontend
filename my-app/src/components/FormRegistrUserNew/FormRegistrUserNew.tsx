@@ -106,7 +106,7 @@ function FormRegistrUserNew() {
             number: data.number,
             zip: data.zip,
             phone: data.phone,
-            role: data.role[0].title,
+            role: role,
           }),
         )
         dispatch(

@@ -9,7 +9,7 @@ function Home() {
 
   return (
     <SearchBoxComponent>
-      <Title>All available books and libraries - for you.</Title>
+      <Title>All available books and libraries - for you</Title>
       <SearchConteiner>
         <Search
           onSearch={function (query: string): void {

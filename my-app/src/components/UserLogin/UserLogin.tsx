@@ -24,7 +24,11 @@ function UserLogin() {
   const schema = Yup.object().shape({
     [LOGIN_FORM_NAMES.EMAIL]: Yup.string()
       .required("Email required to login")
-      .email("This is not an acceptable email"),
+      .email("This is not an acceptable email")
+      .matches(
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        "Email must contain a valid domain with a dot (e.g., example.com)",
+      ),
     [LOGIN_FORM_NAMES.PASSWORD]: Yup.string()
       .required("Password required for login")
       .min(8, "Password must contain at least 8 symbols")

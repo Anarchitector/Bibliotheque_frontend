@@ -24,7 +24,7 @@ export const InputForm = styled.div`
 
 export const LinkComponent = styled.a`
   font-size: 16px;
-  text-decoration: none;
+  /* text-decoration: none; */
   color: inherit; /* Использует текущий цвет текста */
 
   &:hover {
