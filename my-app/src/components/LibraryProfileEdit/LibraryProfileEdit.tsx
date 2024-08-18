@@ -25,11 +25,15 @@ import { librarySliceActions } from "store/redux/librarySlice/librarySlice"
 import type { RootState } from "store/store"
 import { toast } from "react-toastify"
 
-function RegistrationOfLibrary() {
+function LibraryProfileEdit() {
 
   // navigation //
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const editedLibraryId = useSelector((state: RootState) => state.LIBRARIES_LIST.selectedLibrary)
+  console.log("Library about ot be edited has id "+editedLibraryId)
+  const editedLibrary = useSelector((state:RootState) => state.LIBRARIES_LIST.librariesList.find(library => library.id === editedLibraryId))
+  console.log("That's the library we are about to edit "+JSON.stringify(editedLibrary))
 
   // American, German, English postal codes //
   const zipRegex =
@@ -94,19 +98,19 @@ function RegistrationOfLibrary() {
 
   // GETTING USER's ID //
 
-  const currentUserID = useSelector((state: RootState) => state.USER.id); //to be used as librarian_id
+  const currentUserID = useSelector((state: RootState) => state.USER.id); //to be used as librarian_id if needed
 
   // FORMIK //
 
   const formik = useFormik({
     initialValues: {
-      [LIB_REGISTR_FORM_NAMES.NAME]: "",
-      [LIB_REGISTR_FORM_NAMES.COUNTRY]: "",
-      [LIB_REGISTR_FORM_NAMES.ZIP]: "",
-      [LIB_REGISTR_FORM_NAMES.CITY]: "",
-      [LIB_REGISTR_FORM_NAMES.STREET]: "",
-      [LIB_REGISTR_FORM_NAMES.NUMBER]: "",
-      [LIB_REGISTR_FORM_NAMES.PHONE]: "",
+      [LIB_REGISTR_FORM_NAMES.NAME]: editedLibrary?.name,
+      [LIB_REGISTR_FORM_NAMES.COUNTRY]: editedLibrary?.country,
+      [LIB_REGISTR_FORM_NAMES.ZIP]: editedLibrary?.zip,
+      [LIB_REGISTR_FORM_NAMES.CITY]: editedLibrary?.city,
+      [LIB_REGISTR_FORM_NAMES.STREET]: editedLibrary?.street,
+      [LIB_REGISTR_FORM_NAMES.NUMBER]: editedLibrary?.number,
+      [LIB_REGISTR_FORM_NAMES.PHONE]: editedLibrary?.phone,
     } as LibraryRegistrationFormValues,
     validationSchema: schema,
     // validateOnChange: true,
@@ -115,26 +119,24 @@ function RegistrationOfLibrary() {
       //console.log(values);
 
       const dataToSubmit = {
+        id: editedLibraryId,
         name: values[LIB_REGISTR_FORM_NAMES.NAME],
         country: values[LIB_REGISTR_FORM_NAMES.COUNTRY],
         city: values[LIB_REGISTR_FORM_NAMES.CITY],
         street: values[LIB_REGISTR_FORM_NAMES.STREET],
         number: values[LIB_REGISTR_FORM_NAMES.NUMBER],
         zip: values[LIB_REGISTR_FORM_NAMES.ZIP],
-        phone: values[LIB_REGISTR_FORM_NAMES.PHONE],
-        //TODO
-        librarian_id: currentUserID,
+        phone: values[LIB_REGISTR_FORM_NAMES.PHONE]
       }
-      console.log("submitted data");
+
+      console.log("re-submitted data");
       console.log(dataToSubmit);
-
-
 
       try {
         const response = await fetch(
-          "http://localhost:8080/api/libraries/register",
+          `http://localhost:8080/api/libraries?=${editedLibraryId}`,
           {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
@@ -160,12 +162,12 @@ function RegistrationOfLibrary() {
             librarian_id: data.librarian_id
           }),
         )
-        toast.success("Your library has been registered!")
+        toast.success("Your library's profile has been updated!")
 
 
       } catch (error: any) {
-        console.error("Error during library registration:", error)
-        toast.error(`"Library registration failed... " - ${error}`)
+        console.error("Error during library's profile update:", error)
+        toast.error(`"Library's profile update has failed..." - ${error}`)
       }
     },
   })
@@ -257,7 +259,7 @@ function RegistrationOfLibrary() {
 
       <TwoButtons>
         <Button
-          name="Register"
+          name="Save Changes"
           type="submit"
           disabled={!formik.isValid || !formik.dirty}
           color="#45A42D"
@@ -278,4 +280,4 @@ function RegistrationOfLibrary() {
   )
 }
 
-export default RegistrationOfLibrary
+export default LibraryProfileEdit

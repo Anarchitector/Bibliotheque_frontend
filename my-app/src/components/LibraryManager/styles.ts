@@ -35,6 +35,13 @@ export const LibraryListIntro = styled.div`
   }
 `
 
+export const ListTitle = styled.h2`
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
+`
+
+
 
 
 
