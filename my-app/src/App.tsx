@@ -16,6 +16,7 @@ import PageLibraryRegistration from "pages/PageLibraryRegistration/PageLibraryRe
 import PageLibraryManager from "pages/PageLibraryManager/PageLibraryManager";
 import Notifications from "components/Notifications/Notifications";
 import Cart from "pages/Cart/Cart";
+import PageLibraryEdit from "pages/PageLibraryEdit/PageLibraryEdit";
 
 
 const App = () => {
@@ -43,6 +44,12 @@ const App = () => {
               element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
             >
             <Route path="/api/bibliotek/register" element={<PageLibraryRegistration />} />
+            </Route>
+
+            <Route
+              element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
+            >
+            <Route path="/api/bibliotek/edit" element={<PageLibraryEdit />} />
             </Route>
 
             <Route

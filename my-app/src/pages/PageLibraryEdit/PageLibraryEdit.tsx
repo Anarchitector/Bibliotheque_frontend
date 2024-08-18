@@ -2,9 +2,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "store/store";
 import { PageComponent } from "./styles";
-import LibraryBookManager from "components/LibraryBookManager/LibraryBookManager";
+import LibraryProfileEdit from "components/LibraryProfileEdit/LibraryProfileEdit";
 
-function PageBooks() {
+function PageLibraryEdit() {
   const navigate = useNavigate();
 
   // Используем роль пользователя из глобального состоянии
@@ -15,12 +15,17 @@ function PageBooks() {
     navigate("/access-denied"); // Перенаправляем на страницу с ошибкой доступа
     return null; // Не рендерим компонент, если роль не соответствует
   }
+   
+  // Функция для обработки клика по кнопке
+  const handleBooksButtonClick = () => {
+    navigate("/api/books"); // Перенаправляем пользователя на страницу c книгами
+  }  
 
   return (
     <PageComponent>
-      <LibraryBookManager/>
+      <LibraryProfileEdit/>      
     </PageComponent>
   );
 }
 
-export default PageBooks;
+export default PageLibraryEdit;

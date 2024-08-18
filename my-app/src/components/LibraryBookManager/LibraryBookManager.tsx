@@ -8,9 +8,15 @@ import {
 import Button from "components/Button/Button";
 import BookRegistration from "components/BookRegistration/BookRegistration";
 import BookList from "components/BookList/BookList";
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 
 
-function BookManager() {
+function LibraryBookManager() {
+
+  const chosenLibrary = useSelector(
+    (state: RootState) => state.LIBRARIES_LIST.selectedLibrary,
+  )  
 
   const [isAddBook, setAddBook] = useState(false);
   return (
@@ -43,6 +49,9 @@ function BookManager() {
       <div>
         {isAddBook ? (<BookRegistration/>) : (<BookList/>) }
       </div>
+      <div>
+        <p>Your current library number is ${chosenLibrary}</p>
+      </div>
 
      
       <LinkComponent to="/">Return to the main page</LinkComponent>     
@@ -50,4 +59,4 @@ function BookManager() {
   )
 }
 
-export default BookManager
+export default LibraryBookManager
