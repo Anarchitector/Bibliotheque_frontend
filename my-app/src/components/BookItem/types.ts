@@ -1,6 +1,6 @@
 export interface BookProps {
     book: {
-      id: number;
+      id: string;
       title: string;
       author: string;
       isbn: string;

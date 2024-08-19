@@ -3,8 +3,9 @@ import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import {userSlice} from "./redux/userSlice/userSlice"
 import { librarySlice } from './redux/librarySlice/librarySlice';
 import { libraryListSlice } from "./redux/libraryListSlice/libraryListSlice";
+import { cartSlice } from "./redux/cartSlice/cartSlice";
 
-const rootReducer = combineSlices(userSlice, librarySlice, libraryListSlice)
+const rootReducer = combineSlices(userSlice, librarySlice, libraryListSlice, cartSlice)
 
 export type RootState = ReturnType<typeof rootReducer>
 
