@@ -20,10 +20,30 @@ function Pagination({
     navigate(`?page=${number}`); // Обновляем URL с номером страницы
   };
 
+  const handlePreviousClick = () => {
+    if (currentPage > 1) {
+      handlePageClick(currentPage - 1);
+    }
+  };
+
+  const handleNextClick = () => {
+    if (currentPage < pageNumbers.length) {
+      handlePageClick(currentPage + 1);
+    }
+  };
+
   return (
     <PaginationComponent>
       <nav>
         <PaginationList>
+          {/* Кнопка Previous */}
+          <PageLi className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+            <a onClick={handlePreviousClick} className="page-link">
+              Previous
+            </a>
+          </PageLi>
+
+          {/* Номера страниц */}
           {pageNumbers.map((number) => (
             <PageLi
               key={number}
@@ -37,6 +57,17 @@ function Pagination({
               </a>
             </PageLi>
           ))}
+
+          {/* Кнопка Next */}
+          <PageLi
+            className={`page-item ${
+              currentPage === pageNumbers.length ? "disabled" : ""
+            }`}
+          >
+            <a onClick={handleNextClick} className="page-link">
+              Next
+            </a>
+          </PageLi>
         </PaginationList>
       </nav>
     </PaginationComponent>

@@ -1,13 +1,15 @@
 import Search from "components/Search/Search"
-import { SearchBoxComponent, SearchConteiner, Title } from "./styles"
+import { HomePageComponent, SearchBoxComponent, SearchConteiner, Title } from "./styles"
 import { useSelector } from "react-redux"
 import { RootState } from "store/store"
+import BooksList from "components/BookItem/BooksList"
 
 function Home() {
 
   const user = useSelector((state: RootState) => state.USER)
 
   return (
+    <HomePageComponent>
     <SearchBoxComponent>
       <Title>All available books and libraries - for you</Title>
       <SearchConteiner>
@@ -17,12 +19,14 @@ function Home() {
           }}
         />
       </SearchConteiner>
-      <div>
+      {/* <div>
         <p>ID: {user.id}</p>
         <p>Email: {user.email}</p>
         <p>Role: {user.role}</p>
-      </div>
+      </div> */}
     </SearchBoxComponent>
+    <BooksList />
+    </HomePageComponent>
   )
 }
 

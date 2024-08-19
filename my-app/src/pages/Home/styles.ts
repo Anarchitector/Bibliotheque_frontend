@@ -1,12 +1,19 @@
 import styled from "@emotion/styled"
 
+export const HomePageComponent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 43px;
+`
+
 export const SearchBoxComponent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 20px;
-  margin-top: 43px;
   gap: 40px;
   background-color: #f5f5f5;
 

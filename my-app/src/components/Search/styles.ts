@@ -58,8 +58,12 @@ export const SelectField = styled.select`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   color: white;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &:focus {
-    outline: none;
+    /* outline: none; */
     border-color: #2275D3;
   }
 `

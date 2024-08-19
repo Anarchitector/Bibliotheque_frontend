@@ -1,4 +1,4 @@
-import type { ChangeEvent} from "react";
+import type { ChangeEvent } from "react"
 import { useState } from "react"
 import {
   InputField,
@@ -33,7 +33,11 @@ function Search({ onSearch }: SearchProps) {
 
   return (
     <SearchContainer>
-      <SelectField aria-label="Select search type" value={searchType} onChange={handleSearchTypeChange}>
+      <SelectField
+        aria-label="Select search type"
+        value={searchType}
+        onChange={handleSearchTypeChange}
+      >
         <option value="book">Book</option>
         <option value="author">Author</option>
       </SelectField>

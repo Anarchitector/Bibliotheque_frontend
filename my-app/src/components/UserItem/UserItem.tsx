@@ -18,6 +18,7 @@ function UserItem({ user, onUserUpdate, onUserDelete }: UserItemProps) {
         email: user.email,
       });
 
+      toast.success("User status updated successfully!")
       // Обновляем состояние пользователя, чтобы отразить изменения на UI
       onUserUpdate({
         ...user,
