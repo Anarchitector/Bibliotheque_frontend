@@ -17,6 +17,7 @@ import PageLibraryManager from "pages/PageLibraryManager/PageLibraryManager";
 import Notifications from "components/Notifications/Notifications";
 import Cart from "pages/Cart/Cart";
 import PageLibraryEdit from "pages/PageLibraryEdit/PageLibraryEdit";
+import PageLibrariesList from "pages/PageLibrariesList/PageLibrariesList";
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/api/auth/login" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/api/auth/error" element={<RegistLoginError />} />
+            <Route path="/api/libraries/all" element={<PageLibrariesList />} />            
 
             {/* Защищенные маршруты */}
             <Route
