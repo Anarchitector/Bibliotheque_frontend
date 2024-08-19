@@ -26,13 +26,13 @@ function PageLibraryManager() {
     <PageComponent>
       <LibraryManager/>
 
-      {userRole === "ROLE_LIBRARY" && (
+      {/* {userRole === "ROLE_LIBRARY" && (
         // Добавляем кнопку на странице, только если соответствует роли пользователя
         <Button 
           name="Go to Books List" 
           onClick={handleBooksButtonClick}  // Обработка клика
         />
-      )}
+      )} */}
     </PageComponent>
   );
 }
