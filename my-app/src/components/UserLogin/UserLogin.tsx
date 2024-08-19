@@ -27,7 +27,7 @@ function UserLogin() {
       .email("This is not an acceptable email")
       .matches(
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        "Email must contain a valid domain with a dot (e.g., example.com)",
+        "This is not an acceptable email",
       ),
     [LOGIN_FORM_NAMES.PASSWORD]: Yup.string()
       .required("Password required for login")

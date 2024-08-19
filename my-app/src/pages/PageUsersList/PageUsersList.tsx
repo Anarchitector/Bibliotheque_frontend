@@ -42,9 +42,13 @@ function PageUsersList() {
     );
   };
 
+  // Глобальная сортировка пользователей по ID перед пагинацией
+  const sortedUsers = [...users].sort((a, b) => a.id - b.id);
+
+  // Пагинация отсортированных пользователей
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = sortedUsers.slice(indexOfFirstUser, indexOfLastUser);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -66,7 +70,7 @@ function PageUsersList() {
       />
       <Pagination
         usersPerPage={usersPerPage}
-        totalUsers={users.length}
+        totalUsers={sortedUsers.length}
         paginate={paginate}
         currentPage={currentPage}
       />
