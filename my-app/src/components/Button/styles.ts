@@ -18,7 +18,8 @@ export const ButtonComponent = styled.button<StyledButtonProps>`
   font-size: 14px;
   opacity: ${({ disabled }) =>
     disabled ? 0.5 : 1}; // Прозрачность для неактивной кнопки
-  background: ${({ disabled, customColor }) => (disabled ? ("lightgray") : ((customColor) ? (customColor) : ("#fff")) )};
+  background: ${({ disabled, customColor }) =>
+    disabled ? "lightgray" : customColor ? customColor : "#fff"};
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 
   ${({ disabled, customColor }) =>
@@ -42,6 +43,17 @@ export const ButtonComponent = styled.button<StyledButtonProps>`
             border: 1px solid red;
           }
         `
+      case "Clear Cart":
+        return css`
+          border: 1px solid red;
+          color: red;
+          &:hover {
+            background: red;
+            color: white;
+            border: 1px solid red;
+          }
+        `
+
       case "Block":
         return css`
           border: 1px solid darkorange;

@@ -54,11 +54,11 @@ export const StyledNavLink = styled(NavLink)`
 
   &:hover {
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
-    color: #2275D3; /* Замените на нужный цвет */
+    color: #2275d3; /* Замените на нужный цвет */
   }
 
   &.active {
-    color: #2275D3; // Цвет для активной ссылки
+    color: #2275d3; // Цвет для активной ссылки
     font-weight: 400;
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
   }
@@ -86,11 +86,11 @@ export const MobileStyledNavLink = styled(NavLink)`
 
   &:hover {
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
-    color: #2275D3;
+    color: #2275d3;
   }
 
   &.active {
-    color: #2275D3; // Цвет для активной ссылки
+    color: #2275d3; // Цвет для активной ссылки
     text-decoration: underline; /* Добавляет подчеркивание при наведении */
   }
 `
@@ -160,7 +160,7 @@ export const CartLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    color: #2275D3;
+    color: #2275d3;
   }
 `
 
@@ -172,6 +172,10 @@ export const MobileCartLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    color: #2275D3;
+    color: #2275d3;
   }
+`
+
+export const CartItem = styled.span`
+  padding-left: 5px;
 `

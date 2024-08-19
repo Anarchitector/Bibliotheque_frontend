@@ -12,16 +12,19 @@ import {
   MobileStyledNavLink,
   CartLink,
   MobileCartLink,
+  CartItem,
 } from "./styles"
 import { FaShoppingCart } from "react-icons/fa" // Импорт иконки
 import { useDispatch, useSelector } from "react-redux"
 import { userSliceActions } from "../../store/redux/userSlice/userSlice"
 import { RootState } from "../../store/store" // Корневое состояния
+import { cartSliceActions } from "store/redux/cartSlice/cartSlice"
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.USER) // Получение данных пользователя из глобального состояния
+  const cartItemsCount = useSelector((state: RootState) => state.cart.items.length) // Берем данные о товарах в корзине
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -29,6 +32,7 @@ function Header() {
 
   const handleLogout = () => {
     dispatch(userSliceActions.clearUser())
+    dispatch(cartSliceActions.clearCart())
   }
 
   const getUsername = () => {
@@ -63,6 +67,8 @@ function Header() {
         )}
         <CartLink to="/cart" aria-label="View Cart" title="View Cart">
           <FaShoppingCart size={22} />
+          {/* // Отображаем количество книг в корзине // */}
+          {cartItemsCount > 0 && <CartItem>{cartItemsCount}</CartItem>}
         </CartLink>
       </NavContainer>
       <HamburgerButton onClick={toggleMenu}>
