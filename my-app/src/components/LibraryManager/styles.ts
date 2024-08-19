@@ -14,6 +14,18 @@ export const LibraryListContainer = styled.div`
   }
 `
 
+export const LibraryListMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  gap: 30px;
+  @media (max-width: 799px) {
+    width: 100%;
+    padding: 0 15px;
+    gap: 20px;
+  }
+`
+
 export const LibraryListIntro = styled.div`
   width: 100%;
   border: 1px solid #d9d9d9;

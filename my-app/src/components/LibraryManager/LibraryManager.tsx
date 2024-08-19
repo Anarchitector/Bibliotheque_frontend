@@ -3,6 +3,7 @@ import {
   LibraryListIntro,
   LibraryListContainer,
   ListTitle,
+  LibraryListMain,
 } from "./styles"
 import Button from "components/Button/Button"
 import { useNavigate } from "react-router-dom"
@@ -84,7 +85,7 @@ function LibraryManager() {
         {libraryList.length === 0 ? (
           <p>No libraries so far...</p>
         ) : (
-          <div>
+          <LibraryListMain>
             <ListTitle>Your Libraries</ListTitle>
             {libraryList.map(
               ({
@@ -112,7 +113,7 @@ function LibraryManager() {
                 />
               ),
             )}
-          </div>
+          </LibraryListMain>
         )}
       </div>
 
@@ -123,7 +124,7 @@ function LibraryManager() {
       
       
 
-      <LinkComponent to="/">Return to the main page</LinkComponent>
+      {/* <LinkComponent to="/">Return to the main page</LinkComponent> */}
     </LibraryListContainer>
   )
 }

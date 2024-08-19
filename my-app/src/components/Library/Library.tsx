@@ -1,5 +1,5 @@
 import Button from 'components/Button/Button';
-import { LibraryComponent, LibraryContainer } from './styles'
+import { LibraryComponent, LibraryContainer, TwoButtons } from './styles'
 import type { LibraryProps } from './type'
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
@@ -13,25 +13,25 @@ import { toast } from 'react-toastify';
 
 function Library({ id, name, country, city, street, number, zip, phone, librarian_id, onClick }: LibraryProps) {
 
-  const [ isDeleted, setIsDeleted ] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
   const dispatch: AppDispatch = useDispatch()
   const navigate = useNavigate()
 
-  function handleLibraryOpen (libraryId: string) {
+  function handleLibraryOpen(libraryId: string) {
     console.log(`Opening library with ID: ${libraryId}`);
-    dispatch(libraryListSliceActions.changeSelectedLibrary({selectedLibrary: libraryId }))
+    dispatch(libraryListSliceActions.changeSelectedLibrary({ selectedLibrary: libraryId }))
     navigate("/api/books")
   }
 
-  function handleLibraryEdit (libraryId: string) {
+  function handleLibraryEdit(libraryId: string) {
     console.log(`Editing library with ID: ${libraryId}`);
-    dispatch(libraryListSliceActions.changeSelectedLibrary({selectedLibrary: libraryId }))
+    dispatch(libraryListSliceActions.changeSelectedLibrary({ selectedLibrary: libraryId }))
     navigate("/api/bibliotek/edit")
   }
 
-  async function handleLibraryDelete (libraryId: string) {
+  async function handleLibraryDelete(libraryId: string) {
     console.log(`Deleting library with ID: ${libraryId}`);
-    dispatch(libraryListSliceActions.changeSelectedLibrary({selectedLibrary: libraryId }))
+    dispatch(libraryListSliceActions.changeSelectedLibrary({ selectedLibrary: libraryId }))
 
     try {
       const response = await fetch(
@@ -42,13 +42,13 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
             "Content-Type": "application/json",
           },
         },
-      )     
+      )
 
       if (response.ok) {
         console.log(`Library with ID: ${libraryId} successfully deleted`);
         setIsDeleted(true);
-        toast.success("Library successfully deleted!");  
-      } 
+        toast.success("Library successfully deleted!");
+      }
 
     } catch (error: any) {
       console.error("Error during library's removal:", error)
@@ -59,25 +59,27 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
 
   return (
     <>
-      { isDeleted ? (
-      <></>
-    ) : (
-      <LibraryContainer>      
-      <LibraryComponent onClick={() =>handleLibraryOpen(id)}>
-        ID: {id}, <br />
-        NAME: {name}, <br />
-        COUNTRY: {country}, <br />
-        ZIP CODE and CITY: {zip}, {city}, <br />
-        ADDRESS: {street}, {number} <br />
-        PHONE: {phone}
-      </LibraryComponent>
-      <Button name='Edit Library Profile' onClick={() =>handleLibraryEdit(id)}></Button>
-      <Button name='Delete Library' onClick={() =>handleLibraryDelete(id)}></Button>
-      </LibraryContainer>
-      ) }
+      {isDeleted ? (
+        <></>
+      ) : (
+        <LibraryContainer>
+          <LibraryComponent onClick={() => handleLibraryOpen(id)}>
+            ID: {id}, <br />
+            NAME: {name}, <br />
+            COUNTRY: {country}, <br />
+            ZIP CODE and CITY: {zip}, {city}, <br />
+            ADDRESS: {street}, {number} <br />
+            PHONE: {phone}
+          </LibraryComponent>
+          <TwoButtons>
+            <Button name='Edit Library Profile' color="#4A90E2" onClick={() => handleLibraryEdit(id)}></Button>
+            <Button name='Delete Library Profile' color="#D91F13" onClick={() => handleLibraryDelete(id)}></Button>
+          </TwoButtons>
+        </LibraryContainer>
+      )}
     </>
-    
-    
+
+
 
   )
 }

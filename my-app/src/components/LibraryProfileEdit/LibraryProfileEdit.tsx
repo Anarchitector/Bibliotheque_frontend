@@ -181,7 +181,7 @@ function LibraryProfileEdit() {
       method="POST"
       onSubmit={formik.handleSubmit}
     >
-      <FormTitle>Please fill out Library Registration Form</FormTitle>
+      <FormTitle>Please Edit Your Library Profile</FormTitle>
       <MainColumn>
         <InputForm>
           <Input
