@@ -63,7 +63,7 @@ export const SelectField = styled.select`
   }
 
   &:focus {
-    outline: none;
+    /* outline: none; */
     border-color: #2275D3;
   }
 `
