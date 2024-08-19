@@ -27,6 +27,7 @@ function Home() {
       </div> */}
     </SearchBoxComponent>
     <BooksList />
+    
     <StyledNavLink to="/api/libraries/all">Go to list of all libs!!!</StyledNavLink>
     </HomePageComponent>
   )

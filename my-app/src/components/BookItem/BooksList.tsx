@@ -26,7 +26,7 @@ function BookList() {
   return (
     <BooksListComponent>
         <PageTitle>
-            <h3>List of books</h3>
+            <h3>List of books</h3>            
         </PageTitle>
       {currentBooks.map((book) => (
         <BookItem
