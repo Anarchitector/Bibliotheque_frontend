@@ -83,7 +83,7 @@ export const libraryListSlice = createSlice({
       })
       .addCase(fetchList.rejected, () => {
         console.log("Libraries fetch FAIL!")
-      })
+      })        
   },
 })
 

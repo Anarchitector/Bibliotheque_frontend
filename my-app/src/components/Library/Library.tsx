@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 
-function Library({ id, name, country, city, street, number, zip, phone, librarian_id, onClick }: LibraryProps) {
+function Library({ id, name, country, city, street, number, zip, phone, librarian_id, onClick, clicksDisabled }: LibraryProps) {
 
   const [isDeleted, setIsDeleted] = useState(false);
   const dispatch: AppDispatch = useDispatch()
@@ -59,6 +59,18 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
 
   return (
     <>
+    { clicksDisabled? (
+      <LibraryContainer>
+      <LibraryComponent >        
+        NAME: {name}, <br />
+        COUNTRY: {country}, <br />
+        ZIP CODE and CITY: {zip}, {city}, <br />
+        ADDRESS: {street}, {number} <br />
+        PHONE: {phone}
+      </LibraryComponent>     
+    </LibraryContainer>
+    ) : (
+      <>
       {isDeleted ? (
         <></>
       ) : (
@@ -78,9 +90,15 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
         </LibraryContainer>
       )}
     </>
+      
+    )
+
+    }
+
+    
 
 
-
+</>
   )
 }
 

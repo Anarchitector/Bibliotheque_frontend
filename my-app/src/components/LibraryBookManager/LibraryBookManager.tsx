@@ -7,9 +7,9 @@ import {
 } from "./styles"
 import Button from "components/Button/Button";
 import BookRegistration from "components/BookRegistration/BookRegistration";
-import BookList from "components/BookList/BookList";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
+import BookListOld from "components/BookListOld/BookListOld";
 
 
 function LibraryBookManager() {
@@ -47,7 +47,7 @@ function LibraryBookManager() {
             />
           </TwoButtons>
       <div>
-        {isAddBook ? (<BookRegistration/>) : (<BookList/>) }
+        {isAddBook ? (<BookRegistration/>) : (<BookListOld/>) }
       </div>
       <div>
         <p>Your current library number is ${chosenLibrary}</p>

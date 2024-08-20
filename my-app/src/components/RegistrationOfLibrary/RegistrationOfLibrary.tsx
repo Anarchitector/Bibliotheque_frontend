@@ -70,7 +70,7 @@ function RegistrationOfLibrary() {
         /^[a-zA-Z\s]*$/,
         SITE_MESSAGES.COUNTRY_WRONG,
       )
-      .min(4, SITE_MESSAGES.CITY_SHORT),
+      .min(4, SITE_MESSAGES.COUNTRY_SHORT),
     [LIB_REGISTR_FORM_NAMES.CITY]: Yup.string()
       .required(SITE_MESSAGES.CITY_REQUIRED_LIBRARY)
       .matches(/^[^\s].*$/, SITE_MESSAGES.EMPTY_START)
@@ -185,8 +185,8 @@ function RegistrationOfLibrary() {
           <Input
             name={LIB_REGISTR_FORM_NAMES.NAME}
             type="text"
-            label="First Name"
-            placeholder="James"
+            label="Library's name"
+            placeholder="Berlin Free Library"
             value={formik.values[LIB_REGISTR_FORM_NAMES.NAME]}
             onChange={formik.handleChange}
             error={formik.errors[LIB_REGISTR_FORM_NAMES.NAME]}
