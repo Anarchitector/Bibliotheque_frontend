@@ -1,9 +1,9 @@
 import BookList from 'components/BookItem/BooksList';
 import LibrariesList from 'components/LibrariesList/LibrariesList';
 import React, { useState } from 'react';
-import { TabsContainer, Tab, TabContent } from './style';
+import { TabsContainer, Tab, TabContent, TabsHeader } from './style';
 
-function Tabs () {
+function HomeTabs () {
     const [activeTab, setActiveTab] = useState(0);
 
     const tabs = [
@@ -12,8 +12,8 @@ function Tabs () {
     ];
 
     return (
-        <>
-            <TabsContainer>
+        <TabsContainer>
+            <TabsHeader>
                 {tabs.map((tab) => 
                 (<Tab
                    key={tab.id}
@@ -21,13 +21,13 @@ function Tabs () {
                    onClick={() => (setActiveTab(tab.id))} 
                    >{tab.label}</Tab>
                 ))}                
-            </TabsContainer>
+            </TabsHeader>
             <TabContent>
                 {tabs.find((tab)=> tab.id === activeTab)?.content}
             </TabContent>
-        </>
+        </TabsContainer>
     )
 
 }
 
-export default Tabs;
+export default HomeTabs;

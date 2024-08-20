@@ -38,14 +38,10 @@ function LibrariesList() {
     fetchLibraries();
   }, []);
 
-
-
-
-
-  return (
+  return (     
     <LibraryListContainer>
       <LibraryListMain>
-        <ListTitle>List of all libraries</ListTitle>
+        {/* <ListTitle>List of all libraries</ListTitle> */}
         {allLibraries.map(
           ({
             id,
@@ -74,7 +70,7 @@ function LibrariesList() {
           ),
         )}
       </LibraryListMain>
-    </LibraryListContainer>
+    </LibraryListContainer>    
   )
 }
 

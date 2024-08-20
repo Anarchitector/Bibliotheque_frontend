@@ -25,10 +25,10 @@ function BookList() {
 
   return (
     <>
-      <BooksListComponent>
+      <BooksListComponent>{/* 
           <PageTitle>
               <h3>List of books</h3>            
-          </PageTitle>
+          </PageTitle> */}
         {currentBooks.map((book) => (
           <BookItem
             key={book.id}

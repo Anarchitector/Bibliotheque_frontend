@@ -2,10 +2,7 @@ import Search from "components/Search/Search"
 import { HomePageComponent, SearchBoxComponent, SearchConteiner, Title } from "./styles"
 import { useSelector } from "react-redux"
 import { RootState } from "store/store"
-import BooksList from "components/BookItem/BooksList"
-import { StyledNavLink } from "components/Header/styles"
-import LibrariesList from "components/LibrariesList/LibrariesList"
-import Tabs from "components/Tabs/Tab"
+import HomeTabs from "components/HomeTabs/HomeTabs"
 
 function Home() {
 
@@ -31,7 +28,7 @@ function Home() {
       </div> */}
     </SearchBoxComponent>
 
-    <Tabs/>
+    <HomeTabs/>
     </HomePageComponent>
   )
 }
