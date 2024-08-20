@@ -110,7 +110,7 @@ export const RadioBatComponent = styled.div`
   }
 `
 
-export const CartSpanMessage = styled.span`
+export const CartSpanMessage1 = styled.span`
   font-size: 16px;
   color: #ff6b35;
 `
