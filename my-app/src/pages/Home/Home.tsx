@@ -4,10 +4,14 @@ import { useSelector } from "react-redux"
 import { RootState } from "store/store"
 import BooksList from "components/BookItem/BooksList"
 import { StyledNavLink } from "components/Header/styles"
+import LibrariesList from "components/LibrariesList/LibrariesList"
+import Tabs from "components/Tabs/Tab"
 
 function Home() {
 
   const user = useSelector((state: RootState) => state.USER)
+
+  
 
   return (
     <HomePageComponent>
@@ -26,9 +30,8 @@ function Home() {
         <p>Role: {user.role}</p>
       </div> */}
     </SearchBoxComponent>
-    <BooksList />
-    
-    <StyledNavLink to="/api/libraries/all">Go to list of all libs!!!</StyledNavLink>
+
+    <Tabs/>
     </HomePageComponent>
   )
 }

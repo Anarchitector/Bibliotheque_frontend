@@ -24,23 +24,26 @@ function BookList() {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <BooksListComponent>
-        <PageTitle>
-            <h3>List of books</h3>            
-        </PageTitle>
-      {currentBooks.map((book) => (
-        <BookItem
-          key={book.id}
-          book={book} // Передаем книгу в компонент BookItem
+    <>
+      <BooksListComponent>
+          <PageTitle>
+              <h3>List of books</h3>            
+          </PageTitle>
+        {currentBooks.map((book) => (
+          <BookItem
+            key={book.id}
+            book={book} // Передаем книгу в компонент BookItem
+          />
+        ))}
+        <Pagination
+          usersPerPage={booksPerPage}
+          totalUsers={defaultBooks.length}
+          paginate={paginate}
+          currentPage={currentPage}
         />
-      ))}
-      <Pagination
-        usersPerPage={booksPerPage}
-        totalUsers={defaultBooks.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
-    </BooksListComponent>
+      </BooksListComponent>
+    </>
+    
   );
 }
 
