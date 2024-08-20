@@ -11,7 +11,7 @@ import {
   MainColumn,
   LabelComponent,
   InputContainer,
-  CartSpanMessage,
+  CartSpanMessage1,
   CheckboxContainer,
   CheckboxLabel,
   ErrorText, // Новый стиль для чекбокса
@@ -74,7 +74,10 @@ function CartUserInfo() {
       [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: Yup.string()
         .required("The field must not be empty")
         .matches(/^\d+$/, "House number must contain only digits"),
-      [USER_REGISTR_FORM_NAMES.TERMS]: Yup.bool().oneOf([true], "You must accept the terms"), // Валидатор для чекбокса
+      [USER_REGISTR_FORM_NAMES.TERMS]: Yup.bool().oneOf(
+        [true],
+        "You must accept the terms",
+      ), // Валидатор для чекбокса
     }),
     onSubmit: async values => {
       try {
@@ -129,10 +132,10 @@ function CartUserInfo() {
         // await axios.post("http://localhost:8080/api/orders/create", orderData);
 
         // Очистка корзины
-        dispatch(cartSliceActions.clearCart()); // Очистка корзины
+        dispatch(cartSliceActions.clearCart()) // Очистка корзины
 
         // Перенаправление на главную страницу
-        navigate("/"); // Перенаправление на главную страницу
+        navigate("/") // Перенаправление на главную страницу
 
         toast.success("Order confirmed with data:")
         console.log("Order confirmed with data:", orderData)
@@ -149,10 +152,10 @@ function CartUserInfo() {
 
   return (
     <FormRegistContainer onSubmit={formik.handleSubmit}>
-      <CartSpanMessage>
+      <CartSpanMessage1>
         To reserve books in the library, you must fill in all the necessary
         information.
-      </CartSpanMessage>
+      </CartSpanMessage1>
       <MainColumn>
         <InputForm>
           <Input
@@ -270,16 +273,21 @@ function CartUserInfo() {
             checked={formik.values[USER_REGISTR_FORM_NAMES.TERMS]}
             onChange={formik.handleChange}
           />
-          By submitting an application, you confirm that the information you have filled in is up-to-date and agree to the processing of your data.
+          By submitting an application, you confirm that the information you
+          have filled in is up-to-date and agree to the processing of your data.
         </CheckboxLabel>
         {formik.errors[USER_REGISTR_FORM_NAMES.TERMS] && (
-          <ErrorText>
-            {formik.errors[USER_REGISTR_FORM_NAMES.TERMS]}
-          </ErrorText>
+          <ErrorText>{formik.errors[USER_REGISTR_FORM_NAMES.TERMS]}</ErrorText>
         )}
       </CheckboxContainer>
       <div>
-        <Button name="Confirm order" type="submit" disabled={!isFormValid || !formik.values[USER_REGISTR_FORM_NAMES.TERMS]} />
+        <Button
+          name="Confirm order"
+          type="submit"
+          disabled={
+            !isFormValid || !formik.values[USER_REGISTR_FORM_NAMES.TERMS]
+          }
+        />
       </div>
     </FormRegistContainer>
   )
