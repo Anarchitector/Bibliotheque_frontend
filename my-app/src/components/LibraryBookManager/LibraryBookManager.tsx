@@ -6,10 +6,10 @@ import {
   TwoButtons
 } from "./styles"
 import Button from "components/Button/Button";
-import BookRegistration from "components/BookRegistration/BookRegistration";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 import BookListOld from "components/BookListOld/BookListOld";
+import BookAddAndEdit from "components/BookAddAndEdit/BookAddAndEdit";
 
 
 function LibraryBookManager() {
@@ -47,7 +47,7 @@ function LibraryBookManager() {
             />
           </TwoButtons>
       <div>
-        {isAddBook ? (<BookRegistration/>) : (<BookListOld/>) }
+        {isAddBook ? (<BookAddAndEdit editSwitch={false}/>) : (<BookListOld/>) }
       </div>
       <div>
         <p>Your current library number is ${chosenLibrary}</p>
