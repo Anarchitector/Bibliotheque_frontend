@@ -1,16 +1,16 @@
 export interface IBook {
-  id?: string;
-  book_name: string;
-  author_name: string;
-  author_surname: string;
-  year: string;
-  ISBN: string;
-  publisher: string;
-  library_id: string;
-  Quantity: string;
-  Available: boolean;
+  
 }
 
 export interface BookSliceState {
-  selectedBook: IBook | null
+  id?: string | null
+  book_name: string | null
+  author_name: string | null
+  author_surname: string | null
+  year: string | null
+  ISBN: string | null
+  publisher: string | null
+  library_id: string | null
+  Quantity: string | null
+  Available: string | null
 }

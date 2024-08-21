@@ -19,6 +19,7 @@ import { bookSlice, bookSliceActions } from "store/redux/bookSlice/bookSlice";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { RootState } from "store/store";
+import { SITE_MESSAGES } from "assets/messages";
 
 function BookAddAndEdit({ editSwitch }: BookAEProps) {
 
@@ -39,28 +40,31 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
     setHasUnsavedChanges(true)
   }
 
-  const currentUserID = useSelector((state: RootState) => state.LIBRARY.id); //to be used as librarian_id if needed
-
+  const currentLibraryID = useSelector(
+    (state: RootState) => state.LIBRARIES_LIST.selectedLibrary,
+  )  ; //to be used as libraryId if needed
   
 
   // Preparation for the version which ADDS the book  
 
   const schemaAdd = Yup.object().shape({    
     [BOOK_FORM_NAMES.TITLE]: Yup.string()
-      .required("Title required."),
+      .min(3, SITE_MESSAGES.TITLE_SHORT)
+      .required(SITE_MESSAGES.TITLE_REQUIRED),
     [BOOK_FORM_NAMES.AUTHOR_NAME]: Yup.string()
-      .required("Author's name required."),
+      .required(SITE_MESSAGES.AUTHOR_NAME_REQUIRED),
     [BOOK_FORM_NAMES.AUTHOR_SURNAME]: Yup.string()
-      .required("Author's surname required."),
+      .required(SITE_MESSAGES.AUTHOR_SURNAME_REQUIRED),
     [BOOK_FORM_NAMES.YEAR]: Yup.string()
-      .required("Year of publication required."),
+      .matches(/^\d{4}$/, SITE_MESSAGES.YEAR_WRONG)
+      .required(SITE_MESSAGES.YEAR_WRONG),
     [BOOK_FORM_NAMES.ISBN]: Yup.string()
-      .required("ISBN required.")
-      .matches(/^\d{13}$/, "ISBN must consist of 13 numerals."),
+      .required(SITE_MESSAGES.ISBN_REQUIRED)
+      .matches(/^\d{13}$/, SITE_MESSAGES.ISBN_WRONG),
     [BOOK_FORM_NAMES.PUBLISHER]: Yup.string()
-      .required("Publisher required."),
+      .required(SITE_MESSAGES.PUBLISHER_REQUIRED),
     [BOOK_FORM_NAMES.QUANTITY]: Yup.string()
-      .required("Number of books required.")
+      .required(SITE_MESSAGES.QUANTITY_REQUIRED)
   })
 
   const formikAdd = useFormik({
@@ -72,7 +76,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
       [BOOK_FORM_NAMES.YEAR]: "",
       [BOOK_FORM_NAMES.ISBN]: "",
       [BOOK_FORM_NAMES.PUBLISHER]: "",
-      [BOOK_FORM_NAMES.LIBRARY_ID]: currentUserID,
+      [BOOK_FORM_NAMES.LIBRARY_ID]: currentLibraryID,
       [BOOK_FORM_NAMES.QUANTITY]: "0",
       [BOOK_FORM_NAMES.AVAILABLE]: "0",
     } as BookFormValues,
@@ -86,7 +90,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
         year: values[BOOK_FORM_NAMES.YEAR],
         isbn: values[BOOK_FORM_NAMES.ISBN],
         publisher: values[BOOK_FORM_NAMES.PUBLISHER],
-        libraryId: currentUserID,
+        libraryId: currentLibraryID,
         quantity: values[BOOK_FORM_NAMES.QUANTITY],
         available: values[BOOK_FORM_NAMES.QUANTITY]  
       }
@@ -120,7 +124,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
       } catch (error: any) {
 
         console.error("Error during book addition:", error)
-        toast.error("Book addition failed...")
+        toast.error("Book addition failed...", error)
 
       }
     },
@@ -197,7 +201,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
                 name={BOOK_FORM_NAMES.PUBLISHER}
                 type="text"
                 label="Publisher"
-                placeholder="Enter book's publsher"
+                placeholder="Enter book's publisher"
                 value={formikAdd.values[BOOK_FORM_NAMES.PUBLISHER]}
                 onChange={handleChangeAdd}
                 error={formikAdd.errors[BOOK_FORM_NAMES.PUBLISHER]}
@@ -222,6 +226,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
               color="#45A42D"
               /* onClick={() => {
                 formikAdd.handleSubmit()
+                //mixed poorly with input form, producing double book addition request
               }} */
             />
             <Button name="Cancel" type="button" onClick={handleCancel} />
