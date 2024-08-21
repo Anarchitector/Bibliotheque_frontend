@@ -35,7 +35,7 @@ function PagePersonalCabinet() {
       {userRole === "ROLE_LIBRARY" && (
         // Добавляем кнопку на странице, только если соответствует роли пользователя
         <Button 
-          name="Go to Library" 
+          name="Go to Library Manager" 
           onClick={handleLibraryButtonClick}  // Обработка клика
         />
       )}

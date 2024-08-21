@@ -35,5 +35,15 @@ export const SITE_MESSAGES = {
     ZIP_TOO_SHORT: "ZIP code can't be shorter than 5 symbols",
     PHONE_REQUIRED_LIBRARY: "Library's phone required",
     PHONE_REQUIRED: "Phone required",
-    EMPTY_START: "This field can't begin with empty space"
+    EMPTY_START: "This field can't begin with empty space",
+    TITLE_REQUIRED: "Title required",
+    TITLE_SHORT: "Book title must have at least 3 characters",
+    AUTHOR_NAME_REQUIRED: "Author's name required",
+    AUTHOR_SURNAME_REQUIRED: "Author's surname required",
+    YEAR_WRONG: "Year must consist of four numerals",
+    YEAR_REQUIRED: "Year of publication required",
+    ISBN_REQUIRED: "ISBN required",
+    ISBN_WRONG: "ISBN must consist of 13 numerals",
+    PUBLISHER_REQUIRED: "Publisher required",
+    QUANTITY_REQUIRED: "Number of books required"
 }

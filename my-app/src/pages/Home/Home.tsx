@@ -2,11 +2,13 @@ import Search from "components/Search/Search"
 import { HomePageComponent, SearchBoxComponent, SearchConteiner, Title } from "./styles"
 import { useSelector } from "react-redux"
 import { RootState } from "store/store"
-import BooksList from "components/BookItem/BooksList"
+import HomeTabs from "components/HomeTabs/HomeTabs"
 
 function Home() {
 
   const user = useSelector((state: RootState) => state.USER)
+
+  
 
   return (
     <HomePageComponent>
@@ -25,7 +27,8 @@ function Home() {
         <p>Role: {user.role}</p>
       </div> */}
     </SearchBoxComponent>
-    <BooksList />
+
+    <HomeTabs/>
     </HomePageComponent>
   )
 }

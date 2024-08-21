@@ -5,11 +5,12 @@ import {
   BookManagerContainer,
   TwoButtons,
 } from "./styles"
-import Button from "components/Button/Button"
-import BookRegistration from "components/BookRegistration/BookRegistration"
-import BookList from "components/BookList/BookList"
-import { useSelector } from "react-redux"
-import { RootState } from "store/store"
+import Button from "components/Button/Button";
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
+import BookListOld from "components/BookListOld/BookListOld";
+import BookAddAndEdit from "components/BookAddAndEdit/BookAddAndEdit";
+
 
 function LibraryBookManager() {
   const chosenLibrary = useSelector(
@@ -35,23 +36,24 @@ function LibraryBookManager() {
         <br />
       </LibraryListIntro>
       <TwoButtons>
-        <Button
-          name="Add new book(s)"
-          type="submit"
-          color="#4A90E2"
-          onClick={() => {
-            setAddBook(true)
-          }}
-        />
-        <Button
-          name="Show a book list"
-          type="submit"
-          onClick={() => {
-            setAddBook(false)
-          }}
-        />
-      </TwoButtons>
-      <div>{isAddBook ? <BookRegistration /> : <BookList />}</div>
+            <Button
+              name="Add new book(s)"
+              type="submit"
+              color="#4A90E2"
+              onClick={() => {setAddBook(true)              
+              }}
+            />
+            <Button
+              name="Show a book list"
+              type="submit"
+              onClick={() => {
+                setAddBook(false)
+              }}
+            />
+          </TwoButtons>
+      <div>
+        {isAddBook ? (<BookAddAndEdit editSwitch={false}/>) : (<BookListOld/>) }
+      </div>
       <div>
         <p>Your current library number is ${chosenLibrary}</p>
       </div>

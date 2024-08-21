@@ -10,6 +10,7 @@ function PageLibraryManager() {
 
   // Используем роль пользователя из глобального состоянии
   const userRole = useSelector((state: RootState) => state.USER.role);
+  const userId = useSelector((state: RootState) => state.USER.id);
 
   // Проверяем роль пользователя
   if (userRole !== "ROLE_LIBRARY" && userRole !== "ROLE_ADMIN") {
@@ -18,21 +19,21 @@ function PageLibraryManager() {
   }
    
   // Функция для обработки клика по кнопке
-  const handleBooksButtonClick = () => {
-    navigate("/api/books"); // Перенаправляем пользователя на страницу c книгами
+  const handlePersonalButtonClick = () => {
+    navigate(`/api/users/${userId}`); // Перенаправляем пользователя на страницу c книгами
   }  
 
   return (
     <PageComponent>
       <LibraryManager/>
 
-      {/* {userRole === "ROLE_LIBRARY" && (
+      {userRole === "ROLE_LIBRARY" && (
         // Добавляем кнопку на странице, только если соответствует роли пользователя
         <Button 
-          name="Go to Books List" 
-          onClick={handleBooksButtonClick}  // Обработка клика
+          name="Go to Profile Manager" 
+          onClick={handlePersonalButtonClick}  // Обработка клика
         />
-      )} */}
+      )}
     </PageComponent>
   );
 }

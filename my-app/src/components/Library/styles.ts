@@ -18,8 +18,7 @@ export const LibraryComponent = styled.div<StyledLibraryProps>`
     background-color: darkgrey; /* Change to a darker grey when hovered */  
     transform: translateY(-2px); /* Slight lift effect */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-  }
- 
+  } 
 `
 
 export const LibraryContainer = styled.form`
@@ -30,6 +29,7 @@ export const LibraryContainer = styled.form`
   border: 1px solid black;
   padding: 15px;
   background-color: #f4f4f4;
+  margin-bottom: 15px;
 
   @media (max-width: 600px) {
     display: flex;
@@ -38,6 +38,7 @@ export const LibraryContainer = styled.form`
     padding: 0 15px;
     gap: 20px;
     padding: 5px;
+    margin-bottom: 5px;
   }
 `
 
