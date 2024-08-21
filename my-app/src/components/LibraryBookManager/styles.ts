@@ -4,9 +4,11 @@ import { Link } from "react-router-dom"
 export const BookManagerContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 800px;
   gap: 30px;
   align-items: left;
+  
   @media (max-width: 799px) {
     width: 100%;
     padding: 0 15px;

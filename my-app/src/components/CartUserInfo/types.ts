@@ -1,5 +1,3 @@
-import { boolean } from "yup"
-
 export interface UserRegistrationFormValues {
     firstName: string
     lastName: string

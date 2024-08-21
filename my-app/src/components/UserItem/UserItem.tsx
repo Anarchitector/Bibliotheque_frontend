@@ -33,7 +33,7 @@ function UserItem({ user, onUserUpdate, onUserDelete }: UserItemProps) {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/api/users/delete`, {
+      await axios.delete(`http://localhost:8080/api/users`, {
         data: { email: user.email }
       });
 

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from "react"
 import {
   LinkComponent,
   LibraryListIntro,
   BookManagerContainer,
-  TwoButtons
+  TwoButtons,
 } from "./styles"
 import Button from "components/Button/Button";
 import { useSelector } from "react-redux";
@@ -13,22 +13,27 @@ import BookAddAndEdit from "components/BookAddAndEdit/BookAddAndEdit";
 
 
 function LibraryBookManager() {
-
   const chosenLibrary = useSelector(
     (state: RootState) => state.LIBRARIES_LIST.selectedLibrary,
-  )  
+  )
 
-  const [isAddBook, setAddBook] = useState(false);
+  const [isAddBook, setAddBook] = useState(false)
   return (
     <BookManagerContainer>
       <LibraryListIntro>
-        Welcome to your book management page!<br />
+        Welcome to your book management page!
         <br />
-        Here you can:<br />
-        - add new books<br />
-        - show your book list<br />
-        - modify existing books<br />
-        - delete books<br />
+        <br />
+        Here you can:
+        <br />
+        - add new books
+        <br />
+        - show your book list
+        <br />
+        - modify existing books
+        <br />
+        - delete books
+        <br />
       </LibraryListIntro>
       <TwoButtons>
             <Button
@@ -53,8 +58,7 @@ function LibraryBookManager() {
         <p>Your current library number is ${chosenLibrary}</p>
       </div>
 
-     
-      <LinkComponent to="/">Return to the main page</LinkComponent>     
+      <LinkComponent to="/">Return to the main page</LinkComponent>
     </BookManagerContainer>
   )
 }
