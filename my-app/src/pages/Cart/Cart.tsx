@@ -3,7 +3,7 @@ import { RootState } from "store/store"
 import { Navigate, useNavigate } from "react-router-dom"
 import CartComponent from "components/CartComponent/CartComponent"
 import {
-  BoxAuthorization1,
+  AuthorizComponent,
   BtnBoxAuthorization,
   LinkComponent,
   PageComponent,
@@ -34,7 +34,7 @@ function Cart() {
     <PageComponent>
       <CartComponent />
       {!user.id && ( // Показываем блок авторизации только если пользователь не авторизован
-        <BoxAuthorization1>
+        <AuthorizComponent>
           <span>
             To proceed with your order, you need to register or log in.
           </span>
@@ -42,7 +42,7 @@ function Cart() {
             <Button name="Register" onClick={handleRegisterClick} />
             <Button name="Log in" onClick={handleLoginClick} />
           </BtnBoxAuthorization>
-        </BoxAuthorization1>
+        </AuthorizComponent>
       )}
       {user.id && <CartUserInfo />}
       <LinkComponent to="/">Return to book search</LinkComponent>

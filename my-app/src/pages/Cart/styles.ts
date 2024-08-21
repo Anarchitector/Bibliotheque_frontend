@@ -21,7 +21,7 @@ export const LinkComponent = styled(Link)`
     color: #2275d3;
   }
 `
-export const BoxAuthorization1 = styled.div`
+export const AuthorizComponent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

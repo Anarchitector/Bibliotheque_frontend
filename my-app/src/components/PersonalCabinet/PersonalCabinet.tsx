@@ -124,7 +124,7 @@ function PersonalCabinet() {
     onSubmit: async values => {
       try {
         const response = await axios.put(
-          "http://localhost:8080/api/users/update",
+          "http://localhost:8080/api/users",
           {
             email: userEmail,
             name: values[USER_REGISTR_FORM_NAMES.FIRST_NAME],

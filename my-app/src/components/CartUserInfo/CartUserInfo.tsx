@@ -11,10 +11,10 @@ import {
   MainColumn,
   LabelComponent,
   InputContainer,
-  CartSpanMessage1,
+  CartSpanMess,
   CheckboxContainer,
   CheckboxLabel,
-  ErrorText, // Новый стиль для чекбокса
+  ErrorText,
 } from "./styles"
 import { RootState } from "../../store/store"
 import { userSliceActions } from "../../store/redux/userSlice/userSlice"
@@ -73,7 +73,9 @@ function CartUserInfo() {
         .matches(/^[^\s].*$/, "A street name can't start with an empty space"),
       [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: Yup.string()
         .required("The field must not be empty")
-        .matches(/^\d+$/, "House number must contain only digits"),
+        .max(7, "That's a bit too long for a house number, isn't it?")
+      .matches(/^[^\s].*$/, "A house number can't start with an empty space")
+      .matches(/\d/, "House number must contain at least one numerical digit"),
       [USER_REGISTR_FORM_NAMES.TERMS]: Yup.bool().oneOf(
         [true],
         "You must accept the terms",
@@ -82,7 +84,7 @@ function CartUserInfo() {
     onSubmit: async values => {
       try {
         const response = await axios.put(
-          "http://localhost:8080/api/users/update",
+          "http://localhost:8080/api/users",
           {
             email: user.email,
             name: values[USER_REGISTR_FORM_NAMES.FIRST_NAME],
@@ -150,12 +152,17 @@ function CartUserInfo() {
   const isFormValid =
     formik.isValid && Object.values(formik.values).every(value => value !== "")
 
+    console.log(formik.errors);
+console.log(formik.isValid);
+console.log(formik.values);
+
+
   return (
     <FormRegistContainer onSubmit={formik.handleSubmit}>
-      <CartSpanMessage1>
+      <CartSpanMess>
         To reserve books in the library, you must fill in all the necessary
         information.
-      </CartSpanMessage1>
+      </CartSpanMess>
       <MainColumn>
         <InputForm>
           <Input
@@ -266,9 +273,10 @@ function CartUserInfo() {
         </InputForm2>
       </MainColumn>
       <CheckboxContainer>
-        <CheckboxLabel>
+        <CheckboxLabel htmlFor={USER_REGISTR_FORM_NAMES.TERMS}>
           <input
             type="checkbox"
+            id={USER_REGISTR_FORM_NAMES.TERMS}
             name={USER_REGISTR_FORM_NAMES.TERMS}
             checked={formik.values[USER_REGISTR_FORM_NAMES.TERMS]}
             onChange={formik.handleChange}
@@ -280,6 +288,7 @@ function CartUserInfo() {
           <ErrorText>{formik.errors[USER_REGISTR_FORM_NAMES.TERMS]}</ErrorText>
         )}
       </CheckboxContainer>
+
       <div>
         <Button
           name="Confirm order"
