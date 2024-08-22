@@ -21,14 +21,15 @@ function UserLogin() {
   const [error, setError] = useState<string | null>(null)
   const dispatch = useDispatch()
 
+  // Inside your UserLogin component after a successful login:
+  const params = new URLSearchParams(window.location.search);
+  const redirectPath = params.get('redirect');
+
   const schema = Yup.object().shape({
     [LOGIN_FORM_NAMES.EMAIL]: Yup.string()
       .required("Email required to login")
       .email("This is not an acceptable email")
-      .matches(
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        "This is not an acceptable email",
-      ),
+      .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "This is not an acceptable email"),
     [LOGIN_FORM_NAMES.PASSWORD]: Yup.string()
       .required("Password required for login")
       .min(8, "Password must contain at least 8 symbols")
@@ -91,8 +92,38 @@ function UserLogin() {
           }),
         )
 
-        // Navigate to the personal cabinet page
-        navigate(`/api/users/${data.id}`)
+        // Тут происходит запись данных о пользователе. Сохранение состояния пользователя в localStorage или sessionStorage
+        // Создаем объект с данными пользователя для сохранения в localStorage
+        const userData = {
+          id: data.id,
+          email: data.email,
+          name: data.name,
+          surname: data.surname,
+          country: data.country,
+          city: data.city,
+          street: data.street,
+          number: data.number,
+          zip: data.zip,
+          phone: data.phone,
+          role: data.role[0].title,
+        };
+
+        // Save user data in localStorage or sessionStorage
+        // localStorage.setItem('user', JSON.stringify(userData));
+        sessionStorage.setItem('user', JSON.stringify(userData));
+        // ------------------------- //
+
+        if (redirectPath) {
+          navigate(redirectPath) // Redirect back to the cart page
+        } else {
+          // Navigate to the personal cabinet page
+          // navigate(`/api/users/${data.id}`)
+
+          // Navigate to Home page
+          navigate(`/`)
+          toast.success("You have successfully logged in!")
+        }
+
       } catch (error: any) {
         console.error("Error during login:", error)
         // setError(error.message || error.toString());

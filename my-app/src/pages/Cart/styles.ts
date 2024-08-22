@@ -21,7 +21,7 @@ export const LinkComponent = styled(Link)`
     color: #2275d3;
   }
 `
-export const AuthorizComponent = styled.div`
+export const BoxLogReg = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

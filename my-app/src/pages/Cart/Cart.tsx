@@ -3,7 +3,7 @@ import { RootState } from "store/store"
 import { Navigate, useNavigate } from "react-router-dom"
 import CartComponent from "components/CartComponent/CartComponent"
 import {
-  AuthorizComponent,
+  BoxLogReg,
   BtnBoxAuthorization,
   LinkComponent,
   PageComponent,
@@ -13,28 +13,26 @@ import CartUserInfo from "components/CartUserInfo/CartUserInfo"
 
 function Cart() {
   const items = useSelector((state: RootState) => state.cart.items)
-  const user = useSelector((state: RootState) => state.USER) // Получаем состояние пользователя
-  const navigate = useNavigate() // Инициализируем navigate
+  const user = useSelector((state: RootState) => state.USER)
+  const navigate = useNavigate()
 
   if (items.length === 0) {
     return <Navigate to="/" />
   }
 
-  // Обработчик перехода на страницу регистрации
   const handleRegisterClick = () => {
-    navigate("/api/auth/register")
+    navigate("/api/auth/register?redirect=/cart")
   }
 
-  // Обработчик перехода на страницу входа
   const handleLoginClick = () => {
-    navigate("/api/auth/login")
+    navigate("/api/auth/login?redirect=/cart")
   }
 
   return (
     <PageComponent>
       <CartComponent />
-      {!user.id && ( // Показываем блок авторизации только если пользователь не авторизован
-        <AuthorizComponent>
+      {!user.id && (
+        <BoxLogReg>
           <span>
             To proceed with your order, you need to register or log in.
           </span>
@@ -42,7 +40,7 @@ function Cart() {
             <Button name="Register" onClick={handleRegisterClick} />
             <Button name="Log in" onClick={handleLoginClick} />
           </BtnBoxAuthorization>
-        </AuthorizComponent>
+        </BoxLogReg>
       )}
       {user.id && <CartUserInfo />}
       <LinkComponent to="/">Return to book search</LinkComponent>
