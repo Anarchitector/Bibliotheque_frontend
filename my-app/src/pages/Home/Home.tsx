@@ -21,11 +21,6 @@ function Home() {
           }}
         />
       </SearchConteiner>
-      {/* <div>
-        <p>ID: {user.id}</p>
-        <p>Email: {user.email}</p>
-        <p>Role: {user.role}</p>
-      </div> */}
     </SearchBoxComponent>
 
     <HomeTabs/>

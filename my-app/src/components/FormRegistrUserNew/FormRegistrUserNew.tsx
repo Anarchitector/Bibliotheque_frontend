@@ -15,11 +15,16 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { userSliceActions } from "../../store/redux/userSlice/userSlice"
+import { toast } from "react-toastify"
 
 function FormRegistrUserNew() {
   const [selectedOption, setSelectedOption] = useState("user")
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+    // Inside your UserLogin component after a successful login:
+    const params = new URLSearchParams(window.location.search);
+    const redirectPath = params.get('redirect');
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
@@ -116,8 +121,17 @@ function FormRegistrUserNew() {
           }),
         )
 
-        // Навигация на страницу личного кабинета
-        navigate(`/api/users/${data.id}`)
+        if (redirectPath) {
+          navigate(redirectPath) // Redirect back to the cart page
+        } else {
+          // Navigate to the personal cabinet page
+          // navigate(`/api/users/${data.id}`)
+
+          // Navigate to Home page
+          navigate(`/`)
+          toast.success("You have registered successfully!")
+        }
+        
       } catch (error: any) {
         console.error("Error during registration:", error)
 

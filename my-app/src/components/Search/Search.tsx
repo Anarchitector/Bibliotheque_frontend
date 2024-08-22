@@ -1,39 +1,41 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Импортируем hook для навигации
+import { useState } from "react"
+import { useNavigate } from "react-router-dom" // Импортируем hook для навигации
 import {
   InputField,
   SearchButton,
   SearchContainer,
   SelectField,
-} from "./styles";
-import type { SearchProps, SearchType } from "./types";
+} from "./styles"
+import type { SearchProps, SearchType } from "./types"
 
 function Search({ onSearch }: SearchProps) {
   const placeholderTexts: Record<SearchType, string> = {
     book: "Enter book's title",
     author: "Enter author's name",
     isbn: "Enter ISBN number",
-  };
+  }
 
-  const [query, setQuery] = useState("");
-  const [searchType, setSearchType] = useState<SearchType>("book");
-  const navigate = useNavigate(); // Используем хук для навигации
+  const [query, setQuery] = useState("")
+  const [searchType, setSearchType] = useState<SearchType>("book")
+  const navigate = useNavigate() // Используем хук для навигации
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
+    setQuery(event.target.value)
+  }
 
-  const handleSearchTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearchType(event.target.value as SearchType);
-  };
+  const handleSearchTypeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    setSearchType(event.target.value as SearchType)
+  }
 
   const handleSearch = () => {
     if (query.trim() !== "") {
       // Формируем путь и параметры запроса
-      const path = `/search?${searchType}=${encodeURIComponent(query.trim())}`;
-      navigate(path); // Перенаправляем пользователя на страницу поиска
+      const path = `/search?${searchType}=${encodeURIComponent(query.trim())}`
+      navigate(path) // Перенаправляем пользователя на страницу поиска
     }
-  };
+  }
 
   return (
     <SearchContainer>
@@ -57,7 +59,7 @@ function Search({ onSearch }: SearchProps) {
         Search
       </SearchButton>
     </SearchContainer>
-  );
+  )
 }
 
-export default Search;
+export default Search

@@ -6,7 +6,7 @@ import PageNotFound from "pages/PageNotFound/PageNotFound";
 import PagePersonalCabinet from "pages/PagePersonalCabinet/PagePersonalCabinet";
 import RegistLoginError from "pages/RegistrLoginError/RegistrLoginError";
 import UserRegistr from "pages/UserRegistr/UserRegistr";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { store } from "store/store";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute"; // Импортируем ProtectedRoute
@@ -19,9 +19,28 @@ import Cart from "pages/Cart/Cart";
 import PageLibraryEdit from "pages/PageLibraryEdit/PageLibraryEdit";
 import PageLibrariesList from "pages/PageLibrariesList/PageLibrariesList";
 import SearchPage from "pages/SearchPage/SearchPage";
+import { useEffect } from "react";
+import { userSliceActions } from "store/redux/userSlice/userSlice";
 
 
 const App = () => {
+
+  // Эта часть кода отвечает за проверку данных о пользователе
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Проверяем наличие данных о пользователе в localStorage или sessionStorage 
+    // const storedUser = localStorage.getItem('user');
+    const storedUser = sessionStorage.getItem('user');
+    
+    if (storedUser) {
+      // Если данные найдены, восстанавливаем состояние пользователя
+      const user = JSON.parse(storedUser);
+      dispatch(userSliceActions.setUser(user));
+    }
+  }, [dispatch]);
+  // -------------------- //
+
   return (
     <Provider store={store}>
       <BrowserRouter>
