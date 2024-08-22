@@ -1,35 +1,39 @@
-import type { ChangeEvent } from "react"
-import { useState } from "react"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Импортируем hook для навигации
 import {
   InputField,
   SearchButton,
   SearchContainer,
   SelectField,
-} from "./styles"
-import type { SearchProps, SearchType } from "./types"
+} from "./styles";
+import type { SearchProps, SearchType } from "./types";
 
 function Search({ onSearch }: SearchProps) {
   const placeholderTexts: Record<SearchType, string> = {
     book: "Enter book's title",
     author: "Enter author's name",
-  }
+    isbn: "Enter ISBN number",
+  };
 
-  const [query, setQuery] = useState("")
-  const [searchType, setSearchType] = useState<SearchType>("book")
+  const [query, setQuery] = useState("");
+  const [searchType, setSearchType] = useState<SearchType>("book");
+  const navigate = useNavigate(); // Используем хук для навигации
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value)
-  }
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
-  const handleSearchTypeChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSearchType(event.target.value as SearchType) // Приведение к типу SearchType
-  }
+  const handleSearchTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchType(event.target.value as SearchType);
+  };
 
   const handleSearch = () => {
-    if (onSearch && query.trim() !== "") {
-      onSearch(query.trim())
+    if (query.trim() !== "") {
+      // Формируем путь и параметры запроса
+      const path = `/search?${searchType}=${encodeURIComponent(query.trim())}`;
+      navigate(path); // Перенаправляем пользователя на страницу поиска
     }
-  }
+  };
 
   return (
     <SearchContainer>
@@ -38,13 +42,14 @@ function Search({ onSearch }: SearchProps) {
         value={searchType}
         onChange={handleSearchTypeChange}
       >
-        <option value="book">Book</option>
+        <option value="book">Title</option>
         <option value="author">Author</option>
+        <option value="isbn">ISBN</option>
       </SelectField>
       <InputField
         type="text"
         aria-label="Book-Search"
-        placeholder={placeholderTexts[searchType]} // Типизированный доступ к объекту
+        placeholder={placeholderTexts[searchType]}
         value={query}
         onChange={handleInputChange}
       />
@@ -52,7 +57,7 @@ function Search({ onSearch }: SearchProps) {
         Search
       </SearchButton>
     </SearchContainer>
-  )
+  );
 }
 
-export default Search
+export default Search;

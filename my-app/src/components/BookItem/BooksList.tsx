@@ -53,12 +53,15 @@ function BookList() {
             book={book} // Передаем книгу в компонент BookItem
           />
         ))}
-        <Pagination
-          usersPerPage={booksPerPage}
-          totalUsers={books.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
+        {books.length > booksPerPage && (
+  <Pagination
+    usersPerPage={booksPerPage}
+    totalUsers={books.length}
+    paginate={paginate}
+    currentPage={currentPage}
+  />
+)}
+
       </BooksListComponent>
     </>
   );
