@@ -67,7 +67,7 @@ function CartComponent() {
                     </p>
                     <p>
                       <SpanInfo>Author:</SpanInfo>{" "}
-                      <BookInfoSpan>{book.author}</BookInfoSpan>
+                      <BookInfoSpan>{book.authorName} {book.authorSurname}</BookInfoSpan>
                     </p>
                     <p>
                       <SpanInfo>ISBN:</SpanInfo>{" "}

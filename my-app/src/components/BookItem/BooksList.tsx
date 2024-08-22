@@ -1,34 +1,52 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import BookItem from './BookItem'; // Импортируем компонент для отображения книги
 import Pagination from 'components/Pagination/Pagination';
-import { BooksListComponent, PageTitle } from './stylesList';
-
-const defaultBooks = [
-  { id: 1, title: 'Book One', author: 'Author One', isbn: '123456', publisher: 'Publisher One', year: '2021' },
-  { id: 2, title: 'Book Two', author: 'Author Two', isbn: '789012', publisher: 'Publisher Two', year: '2020' },
-  { id: 3, title: 'Book Three', author: 'Author Three', isbn: '345678', publisher: 'Publisher Three', year: '2019' },
-  { id: 4, title: 'Book Four', author: 'Author Four', isbn: '901234', publisher: 'Publisher Four', year: '2018' },
-  // Добавьте больше книг, если нужно
-];
+import { BooksListComponent } from './stylesList';
+import { BookProps } from './types';
+import Loader from 'components/Loader/Loader';
 
 function BookList() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 2; // Количество книг на одной странице
+  const [books, setBooks] = useState<BookProps['book'][]>([]); // Состояние для списка книг
+  const [currentPage, setCurrentPage] = useState(1); // Состояние для текущей страницы
+  const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
+  const [error, setError] = useState<string | null>(null); // Состояние для отслеживания ошибок
+  const booksPerPage = 10; // Количество книг на одной странице
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/books/all');
+        setBooks(response.data);
+        setLoading(false); // Устанавливаем, что загрузка завершена
+      } catch (err) {
+        setError('Failed to fetch books'); // Устанавливаем сообщение об ошибке
+        setLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, []); // Пустой массив зависимостей, чтобы запрос выполнялся один раз при монтировании
 
   // Расчет индексов текущих книг
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = defaultBooks.slice(indexOfFirstBook, indexOfLastBook);
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
   // Функция для изменения текущей страницы
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  if (loading) {
+    return <div><Loader /></div>; // Пока идет загрузка, показываем индикатор загрузки
+  }
+
+  if (error) {
+    return <div>{error}</div>; // В случае ошибки отображаем сообщение
+  }
+
   return (
     <>
-      <BooksListComponent>{/* 
-          <PageTitle>
-              <h3>List of books</h3>            
-          </PageTitle> */}
+      <BooksListComponent>
         {currentBooks.map((book) => (
           <BookItem
             key={book.id}
@@ -37,13 +55,12 @@ function BookList() {
         ))}
         <Pagination
           usersPerPage={booksPerPage}
-          totalUsers={defaultBooks.length}
+          totalUsers={books.length}
           paginate={paginate}
           currentPage={currentPage}
         />
       </BooksListComponent>
     </>
-    
   );
 }
 
