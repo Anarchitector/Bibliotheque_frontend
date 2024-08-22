@@ -6,15 +6,15 @@ import type { RootState } from "store/store"
 
 const bookInitialState: BookSliceState = {  
   id: "",
-  book_name: "",
-  author_name: "",
-  author_surname: "",
+  title: "",
+  authorName: "",
+  authorSurname: "",
   year: "",
   ISBN: "",
   publisher: "",
-  library_id: "",
-  Quantity: "",
-  Available: ""
+  libraryId: "",
+  quantity: "",
+  available: ""
 }
 
 //async not required due to using of axios
@@ -56,15 +56,15 @@ export const bookSlice = createSlice({
         action: PayloadAction<BookSliceState>,
       ) => {
         state.id = action.payload.id    
-        state.book_name = action.payload.book_name 
-        state.author_name = action.payload.author_name 
-        state.author_surname = action.payload.author_surname 
+        state.title = action.payload.title 
+        state.authorName = action.payload.authorName 
+        state.authorSurname = action.payload.authorSurname 
         state.year = action.payload.year 
         state.ISBN = action.payload.ISBN 
         state.publisher = action.payload.publisher 
-        state.library_id = action.payload.library_id 
-        state.Quantity = action.payload.Quantity 
-        state.Available = action.payload.Available 
+        state.libraryId = action.payload.libraryId 
+        state.quantity = action.payload.quantity 
+        state.available = action.payload.available 
       },
     ),    
     clearBook: create.reducer(
@@ -72,15 +72,15 @@ export const bookSlice = createSlice({
         state: BookSliceState
       ) => {
         state.id = null
-        state.book_name = null 
-        state.author_name = null 
-        state.author_surname = null 
+        state.title = null 
+        state.authorName = null 
+        state.authorName = null 
         state.year = null 
         state.ISBN = null 
         state.publisher = null 
-        state.library_id = null 
-        state.Quantity = null 
-        state.Available = null
+        state.libraryId = null 
+        state.quantity = null 
+        state.available = null
       }
     ),
   }),

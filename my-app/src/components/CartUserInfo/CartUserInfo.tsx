@@ -152,11 +152,6 @@ function CartUserInfo() {
   const isFormValid =
     formik.isValid && Object.values(formik.values).every(value => value !== "")
 
-    console.log(formik.errors);
-console.log(formik.isValid);
-console.log(formik.values);
-
-
   return (
     <FormRegistContainer onSubmit={formik.handleSubmit}>
       <CartSpanMess>

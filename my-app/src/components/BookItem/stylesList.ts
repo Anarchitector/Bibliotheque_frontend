@@ -7,9 +7,3 @@ align-items: center;
 margin-top: 30px;
 gap: 20px;
 `
-
-export const PageTitle = styled.div`
-width: 100%;
-display: flex;
-align-items: flex-start;
-`
