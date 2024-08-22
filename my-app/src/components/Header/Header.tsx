@@ -33,6 +33,7 @@ function Header() {
   const handleLogout = () => {
     dispatch(userSliceActions.clearUser())
     dispatch(cartSliceActions.clearCart())
+    sessionStorage.clear()
   }
 
   const getUsername = () => {
