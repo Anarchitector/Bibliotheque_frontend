@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { ViewState } from './type';
+import { switchSliceActions } from 'store/redux/switchSlice/switchSlice';
 
 
 function Library({ id, name, country, city, street, number, zip, phone, librarian_id, onClick, clicksDisabled }: LibraryProps) {
@@ -26,6 +27,12 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
 
   const dispatch: AppDispatch = useDispatch()
   const navigate = useNavigate()
+
+  function handleLibraryAnon(libraryId: string) {
+    console.log(`Opening library with ID: ${libraryId}`);
+    dispatch(libraryListSliceActions.changeSelectedLibrary({ selectedLibrary: libraryId }))
+    dispatch(switchSliceActions.setFrontLLState("books"))
+  }
 
   function handleLibraryOpen(libraryId: string) {
     console.log(`Opening library with ID: ${libraryId}`);
@@ -70,7 +77,7 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
   return (   
     <div>
       {libState === ViewState.DISABLED && (<LibraryContainer>
-        <LibraryComponent >
+        <LibraryComponent onClick={() => handleLibraryAnon(id)}>
           NAME: {name}, <br />
           COUNTRY: {country}, <br />
           ZIP CODE and CITY: {zip}, {city}, <br />

@@ -5,8 +5,9 @@ import { librarySlice } from './redux/librarySlice/librarySlice';
 import { libraryListSlice } from "./redux/libraryListSlice/libraryListSlice";
 import { cartSlice } from "./redux/cartSlice/cartSlice";
 import { bookSlice } from "./redux/bookSlice/bookSlice";
+import { switchSlice } from "./redux/switchSlice/switchSlice";
 
-const rootReducer = combineSlices(userSlice, librarySlice, libraryListSlice, cartSlice, bookSlice)
+const rootReducer = combineSlices(userSlice, librarySlice, libraryListSlice, cartSlice, bookSlice, switchSlice)
 
 export type RootState = ReturnType<typeof rootReducer>
 

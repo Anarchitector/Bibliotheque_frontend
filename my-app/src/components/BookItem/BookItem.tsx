@@ -18,8 +18,8 @@ import { useNavigate } from "react-router-dom"
 import { BookItemStates } from "./types"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { LBMState } from "components/LibraryBookManager/types"
-import { bookSlice, bookSliceActions } from "store/redux/bookSlice/bookSlice"
+import { bookSliceActions } from "store/redux/bookSlice/bookSlice"
+import { switchSliceActions } from "store/redux/switchSlice/switchSlice"
 
 function BookItem({ book, librarianFunction }: BookProps) {
 
@@ -60,7 +60,7 @@ function BookItem({ book, librarianFunction }: BookProps) {
     }
     ))
     //switch the page outlook in library book manager to Edit
-    dispatch(bookSlice.actions.setLbmState("edit"))  
+    dispatch(switchSliceActions.setLbmState("edit"))  
   }
 
   async function handleDeleteClick() {

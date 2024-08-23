@@ -1,5 +1,3 @@
-import type { LBMState } from "components/LibraryBookManager/types";
-
 export interface BookProps {
   book: {
     id: string;

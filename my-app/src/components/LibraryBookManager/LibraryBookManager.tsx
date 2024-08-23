@@ -11,7 +11,7 @@ import type { RootState } from "store/store";
 import BookListOld from "components/BookListOld/BookListOld";
 import BookAddAndEdit from "components/BookAddAndEdit/BookAddAndEdit";
 import { LBMState } from "./types";
-import { bookSlice } from "store/redux/bookSlice/bookSlice";
+import { switchSliceActions } from "store/redux/switchSlice/switchSlice";
 
 
 function LibraryBookManager() {
@@ -20,7 +20,7 @@ function LibraryBookManager() {
   )
 
   const dispatch = useDispatch();
-  const lbmState = useSelector((state: RootState) => state.BOOK.lbmState);
+  const lbmState = useSelector((state: RootState) => state.SWITCH.lbmState);
 
   return (
     <BookManagerContainer>
@@ -44,12 +44,12 @@ function LibraryBookManager() {
               name="Add new book(s)"
               type="submit"
               color="#45A42D"
-              onClick={() => dispatch(bookSlice.actions.setLbmState("add"))}
+              onClick={() => dispatch(switchSliceActions.setLbmState("add"))}
             />
             <Button
               name="Show a book list"
               type="submit"
-              onClick={() => dispatch(bookSlice.actions.setLbmState("list"))}
+              onClick={() => dispatch(switchSliceActions.setLbmState("list"))}
             />
           </TwoButtons>
       <div>

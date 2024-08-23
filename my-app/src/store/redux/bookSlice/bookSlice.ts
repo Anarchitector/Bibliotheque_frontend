@@ -13,8 +13,7 @@ const bookInitialState: BookSliceState = {
   libraryId: "",
   quantity: "",
   available: "",
-  picture: "",
-  lbmState: "list"
+  picture: ""
 }
 
 export const bookSlice = createSlice({
@@ -56,14 +55,6 @@ export const bookSlice = createSlice({
         state.picture = null
       }
     ),
-    setLbmState: create.reducer(
-      (
-        state: BookSliceState,
-        action: PayloadAction<"list" | "add" | "edit">,
-      ) => {
-        state.lbmState = action.payload
-      }
-    )
   }),
 })
 
