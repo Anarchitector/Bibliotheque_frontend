@@ -1,7 +1,3 @@
-export interface IBook {
-  
-}
-
 export interface BookSliceState {
   id?: string | null
   title: string | null
@@ -13,4 +9,9 @@ export interface BookSliceState {
   libraryId: string | null
   quantity: string | null
   available: string | null
+  picture?: string | null
+  //and a separate switch just for LibraryBookManager, the shame!
+  lbmState?: "list" | "add" | "edit"
+
+  
 }

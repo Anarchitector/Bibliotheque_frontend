@@ -36,14 +36,23 @@ export const BookPhoto = styled.img`
   border-radius: 5px;
 `
 
-export const BtnComponent = styled.div`
+export const BtnComponent = styled.div<{ librarianFunction?: boolean }>`
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: ${({ librarianFunction }) => (librarianFunction ? 'column' : 'column-reverse')};
+  justify-content: ${({ librarianFunction }) => (librarianFunction ? 'space-between' : 'flex-start')};
+  height: ${({ librarianFunction }) => (librarianFunction ? '100%' : 'auto')}; /* Optional: Stretch to fill the container if needed */
 
   @media (max-width: 768px) {
     margin-top: 10px;
+    ${({ librarianFunction }) =>
+      librarianFunction &&
+      `
+      flex-direction: row; /* Assemble into a row */
+      justify-content: space-evenly; /* Evenly distribute elements in the row */
+      align-items: center; /* Center the items vertically */
+    `}
   }
-`
+`;
 
 export const BookInfoComponent = styled.div`
   width: 100%; /* Добавляем процентную ширину для уменьшения */

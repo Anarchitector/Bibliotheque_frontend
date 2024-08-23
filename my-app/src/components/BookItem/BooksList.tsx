@@ -3,7 +3,7 @@ import axios from 'axios';
 import BookItem from './BookItem'; // Импортируем компонент для отображения книги
 import Pagination from 'components/Pagination/Pagination';
 import { BooksListComponent } from './stylesList';
-import { BookProps } from './types';
+import type { BookProps } from './types';
 import Loader from 'components/Loader/Loader';
 
 function BookList() {
