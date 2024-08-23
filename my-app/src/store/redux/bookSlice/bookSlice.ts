@@ -1,8 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import type { BookSliceState } from "./types"
-import type { IBook } from "./types"
-import type { RootState } from "store/store"
 
 const bookInitialState: BookSliceState = {  
   id: "",
@@ -14,37 +12,10 @@ const bookInitialState: BookSliceState = {
   publisher: "",
   libraryId: "",
   quantity: "",
-  available: ""
+  available: "",
+  picture: "",
+  lbmState: "list"
 }
-
-//async not required due to using of axios
-export const fetchBookByISBN = createAsyncThunk<IBook, void, { state: RootState }>("BOOK/fetchBookByISBN", async (_, thunkAPI) => {
-  //procure the state of 
-  const state = thunkAPI.getState();
-  const currentISBN = state.BOOK.ISBN;
-
-  /// CREATE A REQUEST FOR GETTING A BOOK BY ISBN
-  const response = await fetch(
-    // eslint-disable-next-line no-template-curly-in-string
-    `http://localhost:8080/api/books/isbn=${currentISBN}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-  )
-
-  if (!response.ok) {
-    const errorData = await response.json()
-    throw new Error(
-      errorData.message || `HTTP error! Status: ${response.status}`,
-    )
-  }
-
-  const data = await response.json()
-  return data
-})
 
 export const bookSlice = createSlice({
   name: "BOOK",
@@ -65,6 +36,7 @@ export const bookSlice = createSlice({
         state.libraryId = action.payload.libraryId 
         state.quantity = action.payload.quantity 
         state.available = action.payload.available 
+        state.picture = action.payload.picture
       },
     ),    
     clearBook: create.reducer(
@@ -81,22 +53,18 @@ export const bookSlice = createSlice({
         state.libraryId = null 
         state.quantity = null 
         state.available = null
+        state.picture = null
       }
     ),
+    setLbmState: create.reducer(
+      (
+        state: BookSliceState,
+        action: PayloadAction<"list" | "add" | "edit">,
+      ) => {
+        state.lbmState = action.payload
+      }
+    )
   }),
-  extraReducers(builder) {
-    builder
-      .addCase(fetchBookByISBN.pending, () => {
-        console.log("Fetching this book...")
-      })
-      .addCase(fetchBookByISBN.fulfilled, (state, action) => {
-        Object.assign(state, action.payload); 
-        console.log("Book fetched!")
-      })
-      .addCase(fetchBookByISBN.rejected, () => {
-        console.log("Book fetch FAIL!")
-      })        
-  },
 })
 
 export const bookSliceActions = bookSlice.actions

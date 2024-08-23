@@ -1,5 +1,5 @@
 export interface BookAEProps {
-  editSwitch: boolean
+  editSwitch: boolean  
 }
 
 export interface BookFormValues {

@@ -11,3 +11,9 @@ export interface LibraryProps {
   clicksDisabled?: boolean //to disable buttons if it's used without authorization 
   onClick?: () => void 
 }
+
+export enum ViewState {
+  DISABLED = "disabled",
+  DELETED = "deleted",
+  ENABLED = "enabled"  
+}

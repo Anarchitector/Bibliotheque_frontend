@@ -6,10 +6,12 @@ import {
   TwoButtons,
 } from "./styles"
 import Button from "components/Button/Button";
-import { useSelector } from "react-redux";
-import { RootState } from "store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "store/store";
 import BookListOld from "components/BookListOld/BookListOld";
 import BookAddAndEdit from "components/BookAddAndEdit/BookAddAndEdit";
+import { LBMState } from "./types";
+import { bookSlice } from "store/redux/bookSlice/bookSlice";
 
 
 function LibraryBookManager() {
@@ -17,7 +19,9 @@ function LibraryBookManager() {
     (state: RootState) => state.LIBRARIES_LIST.selectedLibrary,
   )
 
-  const [isAddBook, setAddBook] = useState(false)
+  const dispatch = useDispatch();
+  const lbmState = useSelector((state: RootState) => state.BOOK.lbmState);
+
   return (
     <BookManagerContainer>
       <LibraryListIntro>
@@ -39,24 +43,23 @@ function LibraryBookManager() {
             <Button
               name="Add new book(s)"
               type="submit"
-              color="#4A90E2"
-              onClick={() => {setAddBook(true)              
-              }}
+              color="#45A42D"
+              onClick={() => dispatch(bookSlice.actions.setLbmState("add"))}
             />
             <Button
               name="Show a book list"
               type="submit"
-              onClick={() => {
-                setAddBook(false)
-              }}
+              onClick={() => dispatch(bookSlice.actions.setLbmState("list"))}
             />
           </TwoButtons>
       <div>
-        {isAddBook ? (<BookAddAndEdit editSwitch={false}/>) : (<BookListOld/>) }
+        { lbmState === LBMState.LIST && (<BookListOld/>)}
+        { lbmState === LBMState.ADD && (<BookAddAndEdit editSwitch={false}/>)}
+        { lbmState === LBMState.EDIT && (<BookAddAndEdit editSwitch={true}/>)}
       </div>
-      <div>
+      {/* <div>
         <p>Your current library number is ${chosenLibrary}</p>
-      </div>
+      </div> */}
 
       <LinkComponent to="/">Return to the main page</LinkComponent>
     </BookManagerContainer>

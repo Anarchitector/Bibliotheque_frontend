@@ -17,3 +17,16 @@ export enum LIB_REGISTR_FORM_NAMES {
   ZIP = "zip",
   PHONE = "phone",
 }
+
+export interface IBook {
+  id: string;
+  book_name: string;
+  author_name: string;
+  author_surname: string;
+  year: string;
+  ISBN: string;
+  publisher: string;
+  library_id: string;
+  Quantity: string;
+  Available: string;
+}

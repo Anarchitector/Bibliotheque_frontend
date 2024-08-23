@@ -7,13 +7,23 @@ import { useDispatch } from 'react-redux';
 import type { AppDispatch } from 'store/store';
 import { libraryListSliceActions } from 'store/redux/libraryListSlice/libraryListSlice';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { ViewState } from './type';
 
 
 function Library({ id, name, country, city, street, number, zip, phone, librarian_id, onClick, clicksDisabled }: LibraryProps) {
 
-  const [isDeleted, setIsDeleted] = useState(false);
+  const [libState, setLibState] = useState<ViewState>(ViewState.ENABLED);
+  
+  useEffect(() => {
+    if (clicksDisabled) {
+      setLibState(ViewState.DISABLED);
+    } else {
+      setLibState(ViewState.ENABLED);
+    }
+  }, [clicksDisabled]);
+
   const dispatch: AppDispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -46,7 +56,7 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
 
       if (response.ok) {
         console.log(`Library with ID: ${libraryId} successfully deleted`);
-        setIsDeleted(true);
+        setLibState(ViewState.DELETED);
         toast.success("Library successfully deleted!");
       }
 
@@ -57,48 +67,36 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
 
   }
 
-  return (
-    <>
-    { clicksDisabled? (
-      <LibraryContainer>
-      <LibraryComponent >        
-        NAME: {name}, <br />
-        COUNTRY: {country}, <br />
-        ZIP CODE and CITY: {zip}, {city}, <br />
-        ADDRESS: {street}, {number} <br />
-        PHONE: {phone}
-      </LibraryComponent>     
-    </LibraryContainer>
-    ) : (
-      <>
-      {isDeleted ? (
-        <></>
-      ) : (
-        <LibraryContainer>
-          <LibraryComponent onClick={() => handleLibraryOpen(id)}>
-            ID: {id}, <br />
-            NAME: {name}, <br />
-            COUNTRY: {country}, <br />
-            ZIP CODE and CITY: {zip}, {city}, <br />
-            ADDRESS: {street}, {number} <br />
-            PHONE: {phone}
-          </LibraryComponent>
-          <TwoButtons>
-            <Button name='Edit Library Profile' color="#4A90E2" onClick={() => handleLibraryEdit(id)}></Button>
-            <Button name='Delete Library Profile' color="#D91F13" onClick={() => handleLibraryDelete(id)}></Button>
-          </TwoButtons>
-        </LibraryContainer>
-      )}
-    </>
-      
-    )
+  return (   
+    <div>
+      {libState === ViewState.DISABLED && (<LibraryContainer>
+        <LibraryComponent >
+          NAME: {name}, <br />
+          COUNTRY: {country}, <br />
+          ZIP CODE and CITY: {zip}, {city}, <br />
+          ADDRESS: {street}, {number} <br />
+          PHONE: {phone}
+        </LibraryComponent>
+      </LibraryContainer>)}
 
-    }
+      {libState === ViewState.ENABLED && (<LibraryContainer>
+        <LibraryComponent onClick={() => handleLibraryOpen(id)}>
+          ID: {id}, <br />
+          NAME: {name}, <br />
+          COUNTRY: {country}, <br />
+          ZIP CODE and CITY: {zip}, {city}, <br />
+          ADDRESS: {street}, {number} <br />
+          PHONE: {phone}
+        </LibraryComponent>
+        <TwoButtons>
+          <Button name='Edit Library Profile' color="#4A90E2" onClick={() => handleLibraryEdit(id)}></Button>
+          <Button name='Delete Library Profile' color="#D91F13" onClick={() => handleLibraryDelete(id)}></Button>
+        </TwoButtons>
+      </LibraryContainer>)}
 
-    
+      {libState === ViewState.DELETED && (<></>)}
 
-
-</>
+    </div>
   )
 }
 
