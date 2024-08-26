@@ -4,6 +4,7 @@ import {
   LibraryListContainer,
   ListTitle,
   LibraryListMain,
+  EmptyNotice,
 } from "./styles"
 import Button from "components/Button/Button"
 import { useNavigate } from "react-router-dom"
@@ -83,7 +84,7 @@ function LibraryManager() {
       <div> { showContent ? (
         <div>
         {libraryList.length === 0 ? (
-          <p>No libraries so far...</p>
+          <EmptyNotice>No libraries so far...</EmptyNotice>
         ) : (
           <LibraryListMain>
             <ListTitle>Your Libraries</ListTitle>
