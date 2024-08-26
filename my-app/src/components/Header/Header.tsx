@@ -19,6 +19,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { userSliceActions } from "../../store/redux/userSlice/userSlice"
 import { RootState } from "../../store/store" // Корневое состояния
 import { cartSliceActions } from "store/redux/cartSlice/cartSlice"
+import { libraryListSliceActions } from "store/redux/libraryListSlice/libraryListSlice"
+import { switchSliceActions } from "store/redux/switchSlice/switchSlice"
+import { librarySliceActions } from "store/redux/librarySlice/librarySlice"
+import { bookSliceActions } from "store/redux/bookSlice/bookSlice"
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -33,6 +37,10 @@ function Header() {
   const handleLogout = () => {
     dispatch(userSliceActions.clearUser())
     dispatch(cartSliceActions.clearCart())
+    dispatch(libraryListSliceActions.clearLibrariesList())
+    dispatch(switchSliceActions.resetSwitcher())
+    dispatch(librarySliceActions.clearLibrary())
+    dispatch(bookSliceActions.clearBook())
     sessionStorage.clear()
   }
 

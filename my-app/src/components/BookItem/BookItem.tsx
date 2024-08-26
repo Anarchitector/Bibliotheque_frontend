@@ -206,7 +206,6 @@ function BookItem({ book, librarianFunction }: BookProps) {
             <BtnComponent librarianFunction={true}>
               <Button name="Edit" onClick={handleEditClick} color="#4A90E2"/>
               <Button name="Delete" onClick={() => handleDeleteClick()} />
-              <Button name="Order" onClick={handleOrderClick} />
             </BtnComponent>
       
       </BookInfoComponent>

@@ -39,23 +39,28 @@ function LibraryBookManager() {
         - delete books
         <br />
       </LibraryListIntro>
-      <TwoButtons>
-            <Button
-              name="Add new book(s)"
-              type="submit"
-              color="#45A42D"
-              onClick={() => dispatch(switchSliceActions.setLbmState("add"))}
-            />
-            <Button
-              name="Show a book list"
-              type="submit"
-              onClick={() => dispatch(switchSliceActions.setLbmState("list"))}
-            />
-          </TwoButtons>
+      
       <div>
-        { lbmState === LBMState.LIST && (<BookListOld/>)}
-        { lbmState === LBMState.ADD && (<BookAddAndEdit editSwitch={false}/>)}
-        { lbmState === LBMState.EDIT && (<BookAddAndEdit editSwitch={true}/>)}
+        { lbmState === LBMState.LIST && (
+          <>
+          <BookListOld/></>
+          
+          )}
+        { lbmState === LBMState.ADD && (
+          <>
+          
+          <BookAddAndEdit editSwitch={false}/>
+          </>
+          
+          
+          )}
+        { lbmState === LBMState.EDIT && (
+          <>
+          
+           <BookAddAndEdit editSwitch={true}/>
+          </>
+          
+         )}
       </div>
       {/* <div>
         <p>Your current library number is ${chosenLibrary}</p>

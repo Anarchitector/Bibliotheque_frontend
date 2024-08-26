@@ -26,6 +26,14 @@ export const switchSlice = createSlice({
       ) => {
         state.frontLL = action.payload
       }
+    ),
+    resetSwitcher: create.reducer(
+      (
+        state: SwitchSliceState
+      ) => {
+        state.lbmState = "list"
+        state.frontLL = "libs"
+      }
     )
   }),
 })
