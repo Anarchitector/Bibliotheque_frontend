@@ -12,15 +12,13 @@ import {
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import { useDispatch, useSelector } from "react-redux";
-import { bookSlice, bookSliceActions } from "store/redux/bookSlice/bookSlice";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { RootState } from "store/store";
 import { SITE_MESSAGES } from "assets/messages";
-import { error } from "console";
+import { switchSliceActions } from "store/redux/switchSlice/switchSlice";
 
 function BookAddAndEdit({ editSwitch }: BookAEProps) {
 
@@ -36,16 +34,15 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
   }, [editSwitch]);
 
   // Shared preparations
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false) // Флаг для отслеживания несохраненных изменений
 
   const handleCancel = () => {
     if (hasUnsavedChanges) {
       formikAdd.resetForm() // Сбрасываем форму и очищаем ошибки
-      setHasUnsavedChanges(false)
-      dispatch(bookSlice.actions.setLbmState("list"))
+      setHasUnsavedChanges(false)      
     }
+    dispatch(switchSliceActions.setLbmState("list"))
   }
 
   const handleChangeAdd = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,9 +55,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
   )  ; //to be used as libraryId if needed
   
 
-  // Preparation for the version which ADDS the book  
-
-  
+  // Preparation for the version which ADDS the book   
 
   const schemaAdd = Yup.object().shape({    
     [BOOK_FORM_NAMES.TITLE]: Yup.string()
@@ -78,7 +73,8 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
       .matches(/^\d{13}$/, SITE_MESSAGES.ISBN_WRONG),
     [BOOK_FORM_NAMES.PUBLISHER]: Yup.string()
       .required(SITE_MESSAGES.PUBLISHER_REQUIRED),
-    [BOOK_FORM_NAMES.QUANTITY]: Yup.string()
+    [BOOK_FORM_NAMES.QUANTITY]: Yup.number()
+      .min(1, "No fewer than 1 book") 
       .required(SITE_MESSAGES.QUANTITY_REQUIRED)
   })
 
@@ -92,8 +88,9 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
       [BOOK_FORM_NAMES.ISBN]: "",
       [BOOK_FORM_NAMES.PUBLISHER]: "",
       [BOOK_FORM_NAMES.LIBRARY_ID]: currentLibraryID,
-      [BOOK_FORM_NAMES.QUANTITY]: "0",
-      [BOOK_FORM_NAMES.AVAILABLE]: "0",
+      [BOOK_FORM_NAMES.QUANTITY]: 1,
+      [BOOK_FORM_NAMES.AVAILABLE]: 1,
+      [BOOK_FORM_NAMES.PICTURE]: "",
     } as BookFormValues,
     validationSchema: schemaAdd,
     onSubmit: async values => {
@@ -107,7 +104,8 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
         publisher: values[BOOK_FORM_NAMES.PUBLISHER],
         libraryId: currentLibraryID,
         quantity: values[BOOK_FORM_NAMES.QUANTITY],
-        available: values[BOOK_FORM_NAMES.QUANTITY]  
+        available: values[BOOK_FORM_NAMES.QUANTITY],  
+        picture: ""
       }
 
       console.log("Adding following book: ")
@@ -168,10 +166,12 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
       .matches(/^\d{13}$/, SITE_MESSAGES.ISBN_WRONG),
     [BOOK_FORM_NAMES.PUBLISHER]: Yup.string()
       .required(SITE_MESSAGES.PUBLISHER_REQUIRED),
-    [BOOK_FORM_NAMES.QUANTITY]: Yup.string()
+    [BOOK_FORM_NAMES.QUANTITY]: Yup.number()
+      .min(1, "No fewer than 1 book") 
       .required(SITE_MESSAGES.QUANTITY_REQUIRED),
-    [BOOK_FORM_NAMES.AVAILABLE]: Yup.string()
-      .required(SITE_MESSAGES.QUANTITY_REQUIRED)
+    [BOOK_FORM_NAMES.AVAILABLE]: Yup.number()
+      .min(0, "No fewer than 0 books") 
+      .required(SITE_MESSAGES.QUANTITY_REQUIRED)     
   })
 
   const updatedBook = useSelector((state: RootState)=>(state.BOOK));
@@ -186,8 +186,9 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
       [BOOK_FORM_NAMES.ISBN]: updatedBook.ISBN || "",
       [BOOK_FORM_NAMES.PUBLISHER]: updatedBook.publisher || "",
       [BOOK_FORM_NAMES.LIBRARY_ID]: updatedBook.libraryId || "",
-      [BOOK_FORM_NAMES.QUANTITY]: updatedBook.quantity || "",
-      [BOOK_FORM_NAMES.AVAILABLE]: updatedBook.available || "",
+      [BOOK_FORM_NAMES.QUANTITY]: updatedBook.quantity || 1,
+      [BOOK_FORM_NAMES.AVAILABLE]: updatedBook.available || 0,
+      [BOOK_FORM_NAMES.PICTURE]: updatedBook.picture || "",
     } as BookFormValues,
     validationSchema: schemaEdit,
     onSubmit: async values => {
@@ -202,7 +203,8 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
         publisher: values[BOOK_FORM_NAMES.PUBLISHER],
         libraryId: currentLibraryID,
         quantity: values[BOOK_FORM_NAMES.QUANTITY],
-        available: values[BOOK_FORM_NAMES.QUANTITY]  
+        available: values[BOOK_FORM_NAMES.AVAILABLE],
+        picture: ""
       }
 
       console.log("Editing following book: ")
@@ -230,7 +232,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
         const data = await response.json()
         console.log("Book edit successful:", data)
         toast.success("Book successfully edited!") 
-        dispatch(bookSliceActions.setLbmState("list"))
+        dispatch(switchSliceActions.setLbmState("list"))
         
         console.log("Form values after reset:", formikEdit.values);
       } catch (error: any) {
@@ -290,6 +292,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
               value={formikEdit.values[BOOK_FORM_NAMES.YEAR]}
               onChange={handleChangeEdit}
               error={formikEdit.errors[BOOK_FORM_NAMES.YEAR]}
+              maxLength={4}
             />
             
             
@@ -303,6 +306,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
               value={formikEdit.values[BOOK_FORM_NAMES.ISBN]}
               onChange={handleChangeEdit}
               error={formikEdit.errors[BOOK_FORM_NAMES.ISBN]}
+              maxLength={13}
             />
             <Input
               name={BOOK_FORM_NAMES.PUBLISHER}
@@ -321,6 +325,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
               value={formikEdit.values[BOOK_FORM_NAMES.QUANTITY]}
               onChange={handleChangeEdit}
               error={formikEdit.errors[BOOK_FORM_NAMES.QUANTITY]}
+              min={1}
             />       
             <Input
               name={BOOK_FORM_NAMES.AVAILABLE}
@@ -330,6 +335,8 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
               value={formikEdit.values[BOOK_FORM_NAMES.AVAILABLE]}
               onChange={handleChangeEdit}
               error={formikEdit.errors[BOOK_FORM_NAMES.AVAILABLE]}
+              min={0}
+              max={formikEdit.values[BOOK_FORM_NAMES.QUANTITY]}
             />     
 
           </InputForm2>
@@ -395,6 +402,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
                value={formikAdd.values[BOOK_FORM_NAMES.YEAR]}
                onChange={handleChangeAdd}
                error={formikAdd.errors[BOOK_FORM_NAMES.YEAR]}
+               maxLength={4}
              />
              
              
@@ -408,6 +416,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
                value={formikAdd.values[BOOK_FORM_NAMES.ISBN]}
                onChange={handleChangeAdd}
                error={formikAdd.errors[BOOK_FORM_NAMES.ISBN]}
+               maxLength={13}
              />
              <Input
                name={BOOK_FORM_NAMES.PUBLISHER}
@@ -426,6 +435,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
                value={formikAdd.values[BOOK_FORM_NAMES.QUANTITY]}
                onChange={handleChangeAdd}
                error={formikAdd.errors[BOOK_FORM_NAMES.QUANTITY]}
+               min={1}
              />          
 
            </InputForm2>

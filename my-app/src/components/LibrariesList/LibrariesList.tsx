@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import {
   LibraryListContainer,
-  ListTitle,
   LibraryListMain,
 } from "./styles"
 import Library from "components/Library/Library"
 import type { ILibrary } from "./types";
+import { useDispatch } from "react-redux";
+import { fetchList, libraryListSliceActions } from "store/redux/libraryListSlice/libraryListSlice";
 
 
 function LibrariesList() {
   // State to hold the list of libraries
   const [allLibraries, setAllLibraries] = useState<ILibrary[]>([]);
+  const dispatch = useDispatch();
 
   // Function to fetch libraries from the server
   const fetchLibraries = async () => {
@@ -28,6 +30,8 @@ function LibrariesList() {
 
       const data = await response.json();
       setAllLibraries(data); // Set the fetched libraries to the state
+      /* console.log("got libraries"+data)
+      dispatch(libraryListSliceActions.setLibrariesList(data)) */
     } catch (error) {
       console.error("Error fetching libraries:", error);
     }
@@ -37,6 +41,8 @@ function LibrariesList() {
   useEffect(() => {
     fetchLibraries();
   }, []);
+
+
 
   return (     
     <LibraryListContainer>

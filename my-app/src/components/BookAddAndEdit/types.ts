@@ -11,8 +11,9 @@ export interface BookFormValues {
   isbn: string
   publisher: string
   library_id: string
-  quantity : string
-  available: string
+  quantity : number
+  available: number
+  picture: string
 }
 
 export enum BOOK_FORM_NAMES {
@@ -25,5 +26,6 @@ export enum BOOK_FORM_NAMES {
   PUBLISHER = "publisher",
   LIBRARY_ID = "library_id",
   QUANTITY = "quantity",
-  AVAILABLE = "available"
+  AVAILABLE = "available",
+  PICTURE = "picture"
 }

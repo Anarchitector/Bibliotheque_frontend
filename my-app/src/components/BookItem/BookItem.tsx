@@ -18,23 +18,62 @@ import { useNavigate } from "react-router-dom"
 import { BookItemStates } from "./types"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { LBMState } from "components/LibraryBookManager/types"
-import { bookSlice, bookSliceActions } from "store/redux/bookSlice/bookSlice"
+import { bookSliceActions } from "store/redux/bookSlice/bookSlice"
+import { switchSliceActions } from "store/redux/switchSlice/switchSlice"
+
+
 
 function BookItem({ book, librarianFunction }: BookProps) {
 
   const [bookState, setBookState] = useState<BookItemStates>(BookItemStates.NORMAL)
+  const [libName, setLibName] = useState<string>("");
+  const [libLoc, setLibLoc] = useState<string>("");
+  const libId = book.libraryId
+
+  ////// Handle the view of the book
 
   useEffect(() => {
     if (librarianFunction) {
       setBookState(BookItemStates.LIBRARIAN);
     } else {
       setBookState(BookItemStates.NORMAL);
-    }
+    }    
   }, [librarianFunction]);
+
+  useEffect(()=> {
+
+    fetchLibrary();
+  })
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const fetchLibrary = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/libraries/${libId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    )
+
+    if (response.ok) {
+      const data = await response.json()
+      console.log(`Library data procured`);  
+      console.log(data)  
+      setLibName(data.name)
+      setLibLoc(data.country+", "+data.city+", "+data.street+" "+data.number)
+      //libraryLocation = data.country+", "+data.city+", "+data.street+" "+data.number 
+    }
+
+      
+
+  } catch (error: any) {
+    console.error("Library data NOT procured:", error)
+  }
+}
 
   //Buttons: Edit, Delete, Order
 
@@ -60,7 +99,7 @@ function BookItem({ book, librarianFunction }: BookProps) {
     }
     ))
     //switch the page outlook in library book manager to Edit
-    dispatch(bookSlice.actions.setLbmState("edit"))  
+    dispatch(switchSliceActions.setLbmState("edit"))  
   }
 
   async function handleDeleteClick() {
@@ -115,6 +154,14 @@ function BookItem({ book, librarianFunction }: BookProps) {
           <p>
             <SpanInfo>Year:</SpanInfo> <BookInfoSpan>{book.year}</BookInfoSpan>
           </p>
+          <p>
+            <SpanInfo>Library:</SpanInfo>{" "}
+            <BookInfoSpan>{libName}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Location:</SpanInfo>{" "}
+            <BookInfoSpan>{libLoc}</BookInfoSpan>
+          </p>
         </BookInfo>
             <BtnComponent>  
             <Button name="Order" onClick={handleOrderClick} />
@@ -146,6 +193,14 @@ function BookItem({ book, librarianFunction }: BookProps) {
           </p>
           <p>
             <SpanInfo>Year:</SpanInfo> <BookInfoSpan>{book.year}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Library:</SpanInfo>{" "}
+            <BookInfoSpan>{libName}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Location:</SpanInfo>{" "}
+            <BookInfoSpan>{libLoc}</BookInfoSpan>
           </p>
         </BookInfo>
             <BtnComponent librarianFunction={true}>

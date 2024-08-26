@@ -1,5 +1,3 @@
-import type { LBMState } from "components/LibraryBookManager/types";
-
 export interface BookProps {
   book: {
     id: string;
@@ -22,4 +20,3 @@ export enum BookItemStates {
   LIBRARIAN = "librarian",
   DELETED = "deleted"
 }
-
