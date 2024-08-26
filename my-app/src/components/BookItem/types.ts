@@ -20,4 +20,3 @@ export enum BookItemStates {
   LIBRARIAN = "librarian",
   DELETED = "deleted"
 }
-

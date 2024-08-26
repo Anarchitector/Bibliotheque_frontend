@@ -29,7 +29,6 @@ function BookListOld({ front }: BookListOldProps) {
   const fetchLibrary = async () => {
     try {
       const response = await fetch(
-        // eslint-disable-next-line no-template-curly-in-string
         `http://localhost:8080/api/libraries/${currentLibId}`,
         {
           method: "GET",

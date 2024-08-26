@@ -34,7 +34,7 @@ function LibraryManager() {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(fetchList());
-    }, 500); // 1000 milliseconds = 1 second
+    }, 125); // 1000 milliseconds = 1 second
     // Cleanup the timer if the component is unmounted before the timeout
     return () => clearTimeout(timer);
   }, [dispatch]);
@@ -49,7 +49,7 @@ function LibraryManager() {
     // Set a delay of 2 seconds (2000 milliseconds)
     const timer = setTimeout(() => {
       setShowContent(true); // Update the state to show the content
-    }, 1000);
+    }, 250);
 
     // Cleanup the timer if the component is unmounted before the delay
     return () => clearTimeout(timer);

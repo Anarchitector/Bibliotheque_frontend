@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { RootState } from "store/store"
 import { PageComponent } from "./styles"
 import LibraryBookManager from "components/LibraryBookManager/LibraryBookManager"
+import Button from "components/Button/Button"
 
 function PageBooks() {
   const navigate = useNavigate()
@@ -16,10 +17,21 @@ function PageBooks() {
     return null // Не рендерим компонент, если роль не соответствует
   }
 
+  const handleLibraryButtonClick = () => {
+    navigate("/api/bibliotek"); // Перенаправляем пользователя на страницу библиотеки
+  };
+
   return (
     <PageComponent>
       {/* Страница управления книгами */}
       <LibraryBookManager />
+      {userRole === "ROLE_LIBRARY" && (
+        // Добавляем кнопку на странице, только если соответствует роли пользователя
+        <Button 
+          name="Go to Library Manager" 
+          onClick={handleLibraryButtonClick}  // Обработка клика
+        />
+      )}
     </PageComponent>
   )
 }
