@@ -74,6 +74,16 @@ export const ButtonComponent = styled.button<StyledButtonProps>`
             border: 1px solid darkorange;
           }
         `
+      case "Update Your Profile":
+        return css`
+          border: 1px solid darkorange;
+          color: darkorange;
+          &:hover {
+            background: darkorange;
+            color: white;
+            border: 1px solid darkorange;
+          }
+        `
       case "Activate":
         return css`
           /* background: green; */

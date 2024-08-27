@@ -7,7 +7,8 @@ import {
   InputForm,
   MainColumn,
   InputForm2,
-  TwoButtons
+  TwoButtons,
+  TwoTopButtons
 } from "./styles"
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
@@ -167,10 +168,10 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
     [BOOK_FORM_NAMES.PUBLISHER]: Yup.string()
       .required(SITE_MESSAGES.PUBLISHER_REQUIRED),
     [BOOK_FORM_NAMES.QUANTITY]: Yup.number()
-      .min(1, "No fewer than 1 book") 
+      .min(1, SITE_MESSAGES.QUANTITY_LOW_1 ) 
       .required(SITE_MESSAGES.QUANTITY_REQUIRED),
     [BOOK_FORM_NAMES.AVAILABLE]: Yup.number()
-      .min(0, "No fewer than 0 books") 
+      .min(0, SITE_MESSAGES.QUANTITY_LOW_0) 
       .required(SITE_MESSAGES.QUANTITY_REQUIRED)     
   })
 
@@ -249,11 +250,29 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
       {/* // ----- EDITING BOOK PROFILE ------ // */}
 
       { bookEdit && (
+
+        <>
+        <TwoTopButtons>
+            <Button
+              name="Add new book(s)"
+              type="submit"
+              color="#45A42D"
+              onClick={() => dispatch(switchSliceActions.setLbmState("add"))}
+            />
+            <Button
+              name="Show a book list"
+              type="submit"
+              onClick={() => dispatch(switchSliceActions.setLbmState("list"))}
+            />
+          </TwoTopButtons>
+        
+        
         <FormRegistContainer
         action="/submit-form"
         method="PUT"
         onSubmit={formikEdit.handleSubmit}
       >
+        
         <FormTitle>Update book data</FormTitle>
         <MainColumn>
           <InputForm>
@@ -352,6 +371,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
         </TwoButtons>
 
       </FormRegistContainer>
+      </>
       ) }
 
      
@@ -364,6 +384,13 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
          method="POST"
           onSubmit={formikAdd.handleSubmit}
        >
+        <TwoButtons>
+            <Button
+              name="Show a book list"
+              type="submit"
+              onClick={() => dispatch(switchSliceActions.setLbmState("list"))}
+            />
+          </TwoButtons>
          <FormTitle>Please fill in book data</FormTitle>
          <MainColumn>
            <InputForm>

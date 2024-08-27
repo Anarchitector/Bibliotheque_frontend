@@ -24,6 +24,7 @@ import type { UserRegistrationFormValues } from "./types"
 import { toast } from "react-toastify"
 import { cartSliceActions } from "store/redux/cartSlice/cartSlice"
 import { useNavigate } from "react-router-dom"
+import { SITE_MESSAGES } from "assets/messages"
 
 function CartUserInfo() {
   const dispatch = useDispatch()
@@ -50,40 +51,37 @@ function CartUserInfo() {
     },
     validationSchema: Yup.object().shape({
       [USER_REGISTR_FORM_NAMES.FIRST_NAME]: Yup.string()
-        .required("The field must not be empty")
+        .required(SITE_MESSAGES.FIRST_NAME_REQUIRED)
         .matches(
           /^[^\s].*$/,
-          "A first name must not start with an empty space",
+          SITE_MESSAGES.EMPTY_START,
         ),
       [USER_REGISTR_FORM_NAMES.LAST_NAME]: Yup.string()
-        .required("The field must not be empty")
-        .matches(/^[^\s].*$/, "A last name must not start with an empty space"),
+        .required(SITE_MESSAGES.LAST_NAME_REQUIRED)
+        .matches(/^[^\s].*$/, SITE_MESSAGES.EMPTY_START),
       [USER_REGISTR_FORM_NAMES.PHONE]: Yup.string().required(
-        "The field must not be empty",
+        SITE_MESSAGES.PHONE_REQUIRED,
       ),
       [USER_REGISTR_FORM_NAMES.COUNTRY]: Yup.string()
-        .required("The field must not be empty")
-        .matches(/^[^\s].*$/, "A country name can't start with an empty space"),
+        .required(SITE_MESSAGES.COUNTRY_REQUIRED)
+        .matches(/^[^\s].*$/, SITE_MESSAGES.EMPTY_START),
       [USER_REGISTR_FORM_NAMES.ZIP]: Yup.string().required(
-        "The field must not be empty",
+        SITE_MESSAGES.ZIP_REQUIRED,
       ),
       [USER_REGISTR_FORM_NAMES.CITY]: Yup.string()
-        .required("The field must not be empty")
-        .matches(/^[^\s].*$/, "A city name can't start with an empty space"),
+        .required(SITE_MESSAGES.CITY_REQUIRED)
+        .matches(/^[^\s].*$/, SITE_MESSAGES.EMPTY_START),
       [USER_REGISTR_FORM_NAMES.STREET]: Yup.string()
-        .required("The field must not be empty")
-        .matches(/^[^\s].*$/, "A street name can't start with an empty space"),
+        .required(SITE_MESSAGES.STREET_REQUIRED)
+        .matches(/^[^\s].*$/, SITE_MESSAGES.EMPTY_START),
       [USER_REGISTR_FORM_NAMES.HOUSE_NUMBER]: Yup.string()
-        .required("The field must not be empty")
-        .max(7, "That's a bit too long for a house number, isn't it?")
-        .matches(/^[^\s].*$/, "A house number can't start with an empty space")
-        .matches(
-          /\d/,
-          "House number must contain at least one numerical digit",
-        ),
+        .required(SITE_MESSAGES.NUMBER_REQUIRED)
+        .max(7, SITE_MESSAGES.NUMBER_TOO_LONG)
+      .matches(/^[^\s].*$/, SITE_MESSAGES.EMPTY_START)
+      .matches(/\d/, SITE_MESSAGES.NUMBER_WRONG),
       [USER_REGISTR_FORM_NAMES.TERMS]: Yup.bool().oneOf(
         [true],
-        "You must accept the terms",
+        SITE_MESSAGES.TERMS_REQUIRED,
       ), // Валидатор для чекбокса
     }),
     onSubmit: async values => {

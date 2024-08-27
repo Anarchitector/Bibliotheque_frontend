@@ -78,9 +78,9 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
     <div>
       {libState === ViewState.DISABLED && (<LibraryContainer>
         <LibraryComponent onClick={() => handleLibraryAnon(id)}>
-          NAME: {name}, <br />
-          COUNTRY: {country}, <br />
-          ZIP CODE and CITY: {zip}, {city}, <br />
+          NAME: {name} <br />
+          COUNTRY: {country} <br />
+          ZIP CODE and CITY: {zip}, {city} <br />
           ADDRESS: {street}, {number} <br />
           PHONE: {phone}
         </LibraryComponent>

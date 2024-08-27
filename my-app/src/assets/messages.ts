@@ -45,5 +45,8 @@ export const SITE_MESSAGES = {
     ISBN_REQUIRED: "ISBN required",
     ISBN_WRONG: "ISBN must consist of 13 numerals",
     PUBLISHER_REQUIRED: "Publisher required",
-    QUANTITY_REQUIRED: "Number of books required"
+    QUANTITY_REQUIRED: "Number of books required",
+    QUANTITY_LOW_1: "No fewer than 1 book",
+    QUANTITY_LOW_0: "No fewer than 0 books",
+    TERMS_REQUIRED: "You must accept the terms"
 }

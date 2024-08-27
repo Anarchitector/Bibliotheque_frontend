@@ -4,7 +4,8 @@ import type { SwitchSliceState } from "./types"
 
 const switchInitialState: SwitchSliceState = {    
   lbmState: "list",
-  frontLL: "libs"
+  frontLL: "libs",
+  profileState: "profile"
 }
 
 export const switchSlice = createSlice({
@@ -25,6 +26,23 @@ export const switchSlice = createSlice({
         action: PayloadAction<"libs" | "books">,
       ) => {
         state.frontLL = action.payload
+      }
+    ),
+    setProfileState: create.reducer(
+      (
+        state: SwitchSliceState,
+        action: PayloadAction<"profile" | "edit">,
+      ) => {
+        state.profileState = action.payload
+      }
+    ),
+    resetSwitcher: create.reducer(
+      (
+        state: SwitchSliceState
+      ) => {
+        state.lbmState = "list"
+        state.frontLL = "libs"
+        state.profileState = "profile"
       }
     )
   }),

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"; 
 import PersonalCabinet from "components/PersonalCabinet/PersonalCabinet";
 import Button from "components/Button/Button";
-import { PageComponent } from "./styles";
+import { ButtonCushion, PageComponent } from "./styles";
 import { RootState } from "store/store";
 import BookReservedList from "components/BookItem/BookReservedList";
 
@@ -33,6 +33,7 @@ function PagePersonalCabinet() {
         />
       )}
       <PersonalCabinet />
+      <ButtonCushion></ButtonCushion>
       {userRole === "ROLE_LIBRARY" && (
         // Добавляем кнопку на странице, только если соответствует роли пользователя
         <Button 

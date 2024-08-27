@@ -9,6 +9,7 @@ import { PageTitle } from "./styles";
 import Button from "components/Button/Button";
 import { switchSliceActions } from "store/redux/switchSlice/switchSlice";
 import type { ILibrary } from "./types";
+import { TwoButtons } from "components/LibrariesList/styles";
 
 
 
@@ -115,7 +116,15 @@ function BookListOld({ front }: BookListOldProps) {
         </BooksListComponent>
       ) : (
         <BooksListComponent>
-
+            <TwoButtons>
+          <Button
+            name="Add new book(s)"
+            type="submit"
+            color="#45A42D"
+            onClick={() => dispatch(switchSliceActions.setLbmState("add"))}
+          />
+          
+        </TwoButtons>
           <PageTitle>
             <p>{currentLib?.name}: List of books</p>
           </PageTitle>

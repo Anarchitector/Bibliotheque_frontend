@@ -50,9 +50,16 @@ export const FormRegistContainer = styled.form`
   }
 `
 
-export const FormTitle = styled.h2`
+export const UserCardTitle = styled.h2`
+  display:flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
   @media (max-width: 600px) {
     font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 `
 
@@ -132,3 +139,56 @@ export const RadioBatComponent = styled.div`
     align-content:center;
   }
 `
+
+
+export const UserCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  align-items: flex-start; /* Align items to the start for a more natural text alignment */
+  background-color: #f0f0f0; /* Light grey background */
+  color: #000; /* Black font color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%;
+  max-width: 600px; /* Max width for better layout */
+  margin: 0 auto; /* Center the card horizontally */
+
+  @media (max-width: 600px) {
+    width: 100%;
+    padding: 15px;
+    gap: 15px;
+  }
+`;
+
+
+
+export const UserCardWarning = styled.h4`
+  display:flex;
+  justify-content: center;
+  width: 100%;
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
+`
+
+export const UserCardContainer = styled.div`
+  width: 100%;
+  display: flex; 
+  justify-content: center;
+`
+
+export const ProfileInfo = styled.div`
+  width: 100%;
+`;
+
+export const InfoItem = styled.p`
+  font-size: 16px;
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  width: 100%;
+`;

@@ -1,25 +1,16 @@
-import { useState } from "react"
 import {
   LinkComponent,
   LibraryListIntro,
   BookManagerContainer,
-  TwoButtons,
 } from "./styles"
-import Button from "components/Button/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import type { RootState } from "store/store";
 import BookListOld from "components/BookListOld/BookListOld";
 import BookAddAndEdit from "components/BookAddAndEdit/BookAddAndEdit";
 import { LBMState } from "./types";
-import { switchSliceActions } from "store/redux/switchSlice/switchSlice";
 
 
 function LibraryBookManager() {
-  const chosenLibrary = useSelector(
-    (state: RootState) => state.LIBRARIES_LIST.selectedLibrary,
-  )
-
-  const dispatch = useDispatch();
   const lbmState = useSelector((state: RootState) => state.SWITCH.lbmState);
 
   return (
@@ -39,27 +30,29 @@ function LibraryBookManager() {
         - delete books
         <br />
       </LibraryListIntro>
-      <TwoButtons>
-            <Button
-              name="Add new book(s)"
-              type="submit"
-              color="#45A42D"
-              onClick={() => dispatch(switchSliceActions.setLbmState("add"))}
-            />
-            <Button
-              name="Show a book list"
-              type="submit"
-              onClick={() => dispatch(switchSliceActions.setLbmState("list"))}
-            />
-          </TwoButtons>
+      
       <div>
-        { lbmState === LBMState.LIST && (<BookListOld/>)}
-        { lbmState === LBMState.ADD && (<BookAddAndEdit editSwitch={false}/>)}
-        { lbmState === LBMState.EDIT && (<BookAddAndEdit editSwitch={true}/>)}
+        { lbmState === LBMState.LIST && (
+          <>
+          <BookListOld/></>
+          
+          )}
+        { lbmState === LBMState.ADD && (
+          <>
+          
+          <BookAddAndEdit editSwitch={false}/>
+          </>
+          
+          
+          )}
+        { lbmState === LBMState.EDIT && (
+          <>
+          
+           <BookAddAndEdit editSwitch={true}/>
+          </>
+          
+         )}
       </div>
-      {/* <div>
-        <p>Your current library number is ${chosenLibrary}</p>
-      </div> */}
 
       <LinkComponent to="/">Return to the main page</LinkComponent>
     </BookManagerContainer>

@@ -61,8 +61,8 @@ function BookItem({ book, librarianFunction }: BookProps) {
 
     if (response.ok) {
       const data = await response.json()
-      // console.log(`Library data procured`);  
-      // console.log(data)  
+      //console.log(`Library data procured`);  
+      //console.log(data)  
       setLibName(data.name)
       setLibLoc(data.country+", "+data.city+", "+data.street+" "+data.number)
       //libraryLocation = data.country+", "+data.city+", "+data.street+" "+data.number 
@@ -206,7 +206,6 @@ function BookItem({ book, librarianFunction }: BookProps) {
             <BtnComponent librarianFunction={true}>
               <Button name="Edit" onClick={handleEditClick} color="#4A90E2"/>
               <Button name="Delete" onClick={() => handleDeleteClick()} />
-              <Button name="Order" onClick={handleOrderClick} />
             </BtnComponent>
       
       </BookInfoComponent>

@@ -53,6 +53,16 @@ export const ListTitle = styled.h2`
   }
 `
 
+export const EmptyNotice = styled.h2`
+  display: flex;
+  justify-content:center;
+  padding: 15px;
+
+  @media (max-width: 600px) {
+    padding: 10px;
+  }
+`
+
 
 
 
