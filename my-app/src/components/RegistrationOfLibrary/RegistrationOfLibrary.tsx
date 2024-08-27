@@ -87,9 +87,8 @@ function RegistrationOfLibrary() {
     [LIB_REGISTR_FORM_NAMES.ZIP]: Yup.string()
       .required(SITE_MESSAGES.ZIP_REQUIRED_LIBRARY)
       .matches(zipRegex, SITE_MESSAGES.ZIP_WRONG),
-    [LIB_REGISTR_FORM_NAMES.PHONE]: Yup.string().required(
-      SITE_MESSAGES.PHONE_REQUIRED_LIBRARY,
-    ),
+    [LIB_REGISTR_FORM_NAMES.PHONE]: Yup.string()
+      .required(SITE_MESSAGES.PHONE_REQUIRED_LIBRARY),
   })
 
   // GETTING USER's ID //

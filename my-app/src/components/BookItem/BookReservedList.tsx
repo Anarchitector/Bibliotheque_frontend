@@ -30,7 +30,7 @@ function BookReservedList() {
         return;
       }
 
-      const url = `http://localhost:8080/api/reserved/${userId}`;
+      const url = `http://localhost:8080/api/reserved/user/${userId}`;
 
       try {
         const response = await axios.get(url);
@@ -64,7 +64,7 @@ function BookReservedList() {
       <BooksListComponent>
         <h3>Your reserved books</h3>
         {currentBooks.map((book) => (
-          <BookItem key={book.id} book={book} />
+          <BookItem key={book.id} book={book} cartView={true}/>
         ))}
       </BooksListComponent>
       {books.length > booksPerPage && (

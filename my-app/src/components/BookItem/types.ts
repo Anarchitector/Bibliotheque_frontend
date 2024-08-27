@@ -13,10 +13,12 @@ export interface BookProps {
     picture: string
   };
   librarianFunction?: boolean
+  cartView?: boolean
 }
 
 export enum BookItemStates {
   NORMAL = "normal",
   LIBRARIAN = "librarian",
-  DELETED = "deleted"
+  DELETED = "deleted",
+  CART = "cart"
 }

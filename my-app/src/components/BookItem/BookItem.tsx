@@ -23,7 +23,7 @@ import { switchSliceActions } from "store/redux/switchSlice/switchSlice"
 
 
 
-function BookItem({ book, librarianFunction }: BookProps) {
+function BookItem({ book, librarianFunction, cartView }: BookProps) {
   const [bookState, setBookState] = useState<BookItemStates>(BookItemStates.NORMAL)
   const [libName, setLibName] = useState<string>("");
   const [libLoc, setLibLoc] = useState<string>("");
@@ -34,6 +34,8 @@ function BookItem({ book, librarianFunction }: BookProps) {
   useEffect(() => {
     if (librarianFunction) {
       setBookState(BookItemStates.LIBRARIAN);
+    } else if (cartView) {
+      setBookState(BookItemStates.CART);
     } else {
       setBookState(BookItemStates.NORMAL);
     }    
@@ -130,6 +132,7 @@ function BookItem({ book, librarianFunction }: BookProps) {
   return (
     <>
     {/* // ----- NORMAL REPRESENTATION ------ // */}
+
     {bookState===BookItemStates.NORMAL && (<BookItemComponent>
       <BookPhotoComponent>
         <BookPhoto src="/src/assets/Vectordefault-photo.webp" alt={book.title} />
@@ -165,6 +168,43 @@ function BookItem({ book, librarianFunction }: BookProps) {
             <BtnComponent>  
             <Button name="Order" onClick={handleOrderClick} />
             </BtnComponent>
+      </BookInfoComponent>
+    </BookItemComponent>)}
+
+    {/* // ----- CART REPRESENTATION ------ // */}
+
+    {bookState===BookItemStates.CART && (<BookItemComponent>
+      <BookPhotoComponent>
+        <BookPhoto src="/src/assets/Vectordefault-photo.webp" alt={book.title} />
+      </BookPhotoComponent>
+      <BookInfoComponent>
+        <BookInfo>
+          <p>
+            <BookTitle>{book.title}</BookTitle>
+          </p>
+          <p>
+            <SpanInfo>Author:</SpanInfo>{" "}
+            <BookInfoSpan>{book.authorName} {book.authorSurname}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>ISBN:</SpanInfo> <BookInfoSpan>{book.isbn}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Publisher:</SpanInfo>{" "}
+            <BookInfoSpan>{book.publisher}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Year:</SpanInfo> <BookInfoSpan>{book.year}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Library:</SpanInfo>{" "}
+            <BookInfoSpan>{libName}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Location:</SpanInfo>{" "}
+            <BookInfoSpan>{libLoc}</BookInfoSpan>
+          </p>
+        </BookInfo>
       </BookInfoComponent>
     </BookItemComponent>)}
 
