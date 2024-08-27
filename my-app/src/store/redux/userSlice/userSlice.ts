@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { UserSlaceState } from "./types"
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
+import type { UserSlaceState } from "./types"
 
 const userInitialState: UserSlaceState = {
   id: null,

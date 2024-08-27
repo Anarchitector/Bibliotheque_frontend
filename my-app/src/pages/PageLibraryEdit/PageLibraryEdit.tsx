@@ -16,11 +16,6 @@ function PageLibraryEdit() {
     return null; // Не рендерим компонент, если роль не соответствует
   }
    
-  // Функция для обработки клика по кнопке
-  const handleBooksButtonClick = () => {
-    navigate("/api/books"); // Перенаправляем пользователя на страницу c книгами
-  }  
-
   return (
     <PageComponent>
       <LibraryProfileEdit/>      

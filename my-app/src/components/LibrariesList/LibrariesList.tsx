@@ -5,14 +5,11 @@ import {
 } from "./styles"
 import Library from "components/Library/Library"
 import type { ILibrary } from "./types";
-import { useDispatch } from "react-redux";
-import { fetchList, libraryListSliceActions } from "store/redux/libraryListSlice/libraryListSlice";
 
 
 function LibrariesList() {
   // State to hold the list of libraries
   const [allLibraries, setAllLibraries] = useState<ILibrary[]>([]);
-  const dispatch = useDispatch();
 
   // Function to fetch libraries from the server
   const fetchLibraries = async () => {

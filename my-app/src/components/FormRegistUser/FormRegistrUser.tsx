@@ -13,6 +13,7 @@ import {
 import { REGISTR_FORM_NAMES, LoginFormValues } from "./types"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { SITE_MESSAGES } from "assets/messages"
 
 function FormRegistrUser() {
   // обработка линки на радиобаттом //
@@ -33,25 +34,25 @@ function FormRegistrUser() {
 
   const schema = Yup.object().shape({
     [REGISTR_FORM_NAMES.EMAIL]: Yup.string()
-      .required("Email required.")
-      .email("Input does not correspond with an email"),
+      .required(SITE_MESSAGES.EMAIL_REQUIRED)
+      .email(SITE_MESSAGES.EMAIL_FALSE),
     [REGISTR_FORM_NAMES.PASSWORD]: Yup.string()
-      .required("Password required.")
-      .min(8, "Password must contain at least 8 symbols.")
-      .matches(/[a-z]/, "Password must contain at least one small letter.")
-      .matches(/[A-Z]/, "Password must contain at least one capital letter.")
-      .matches(/\d/, "Password must contain at least one numerical digit.")
+      .required(SITE_MESSAGES.PASSWORD_REQUIRED)
+      .min(8, SITE_MESSAGES.PASSWORD_8S)
+      .matches(/[a-z]/, SITE_MESSAGES.PASSWORD_1S)
+      .matches(/[A-Z]/, SITE_MESSAGES.PASSWORD_1K)
+      .matches(/\d/, SITE_MESSAGES.PASSWORD_1N)
       .matches(
         /[!@#$%^&*(),.?":{}|<>]/,
-        "Password must contain at least one special symbol",
+        SITE_MESSAGES.PASSWORD_1SS,
       ),
     [REGISTR_FORM_NAMES.REPEAT_PASSWORD]: Yup.string()
       .oneOf(
         [Yup.ref(REGISTR_FORM_NAMES.PASSWORD), undefined],
-        "Passwords must coincide.",
+        SITE_MESSAGES.REPEAT_PASSWORD_WRONG,
       )
       .required(
-        "Repeat password is required. It must coincide with your password.",
+        SITE_MESSAGES.REPEAT_PASSWORD_REQUIRED,
       ),
   })
 

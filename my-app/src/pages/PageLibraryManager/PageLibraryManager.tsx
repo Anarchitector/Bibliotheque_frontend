@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "store/store";
-import { PageComponent } from "./styles";
+import { ButtonCushion, PageComponent } from "./styles";
 import LibraryManager from "components/LibraryManager/LibraryManager";
 import Button from "components/Button/Button";
 
@@ -26,7 +26,7 @@ function PageLibraryManager() {
   return (
     <PageComponent>
       <LibraryManager/>
-
+      <ButtonCushion></ButtonCushion>
       {userRole === "ROLE_LIBRARY" && (
         // Добавляем кнопку на странице, только если соответствует роли пользователя
         <Button 

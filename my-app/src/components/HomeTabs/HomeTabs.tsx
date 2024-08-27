@@ -3,7 +3,7 @@ import LibrariesList from 'components/LibrariesList/LibrariesList';
 import React, { useState } from 'react';
 import { TabsContainer, Tab, TabContent, TabsHeader } from './style';
 import { useSelector } from 'react-redux';
-import { RootState } from 'store/store';
+import type { RootState } from 'store/store';
 import BookListOld from 'components/BookListOld/BookListOld';
 
 function HomeTabs () {
