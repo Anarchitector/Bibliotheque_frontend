@@ -33,6 +33,8 @@ function CartUserInfo() {
   // Получаем данные пользователя и корзины из глобального состояния
   const user = useSelector((state: RootState) => state.USER)
   const cartItems = useSelector((state: RootState) => state.cart.items)
+  // console.log(cartItems);
+  
 
   // Инициализация полей формы значениями из глобального состояния
   const formik = useFormik<UserRegistrationFormValues>({
@@ -84,20 +86,18 @@ function CartUserInfo() {
     }),
     onSubmit: async values => {
       try {
-        const response = await axios.put(
-          "http://localhost:8080/api/users",
-          {
-            email: user.email,
-            name: values[USER_REGISTR_FORM_NAMES.FIRST_NAME],
-            surname: values[USER_REGISTR_FORM_NAMES.LAST_NAME],
-            country: values[USER_REGISTR_FORM_NAMES.COUNTRY],
-            city: values[USER_REGISTR_FORM_NAMES.CITY],
-            street: values[USER_REGISTR_FORM_NAMES.STREET],
-            number: values[USER_REGISTR_FORM_NAMES.HOUSE_NUMBER],
-            zip: values[USER_REGISTR_FORM_NAMES.ZIP],
-            phone: values[USER_REGISTR_FORM_NAMES.PHONE],
-          },
-        )
+        // Обновляем данные пользователя
+        const response = await axios.put("http://localhost:8080/api/users", {
+          email: user.email,
+          name: values[USER_REGISTR_FORM_NAMES.FIRST_NAME],
+          surname: values[USER_REGISTR_FORM_NAMES.LAST_NAME],
+          country: values[USER_REGISTR_FORM_NAMES.COUNTRY],
+          city: values[USER_REGISTR_FORM_NAMES.CITY],
+          street: values[USER_REGISTR_FORM_NAMES.STREET],
+          number: values[USER_REGISTR_FORM_NAMES.HOUSE_NUMBER],
+          zip: values[USER_REGISTR_FORM_NAMES.ZIP],
+          phone: values[USER_REGISTR_FORM_NAMES.PHONE],
+        })
 
         // Обновляем глобальное состояние пользователя
         dispatch(
@@ -119,29 +119,29 @@ function CartUserInfo() {
         toast.success("User data updated successfully")
         console.log("User data updated successfully", response.data)
 
+        // Подготовка данных для отправки на сервер
+        const reservedBooks = cartItems.map(item => ({
+          id: item.id,
+          libraryId: item.libraryId,
+        }))
+
+        // console.log("Reserved Book" + reservedBooks);
+        
+
         // Отправка данных о заказе
-        const orderData = {
-          user: {
-            ...response.data,
-            id: user.id, // сохраняем id без изменений
-            email: user.email, // сохраняем email без изменений
-            role: user.role, // сохраняем role без изменений
-          },
-          cart: cartItems,
-        }
+        await axios.post(
+          `http://localhost:8080/api/reserved/${user.id}`,
+          reservedBooks,
+        )
 
-        // Здесь должна быть отправка данных заказа на сервер
-        // Например:
-        // await axios.post("http://localhost:8080/api/orders/create", orderData);
-
-        // Очистка корзины
-        dispatch(cartSliceActions.clearCart()) // Очистка корзины
+        // Очистка корзины после успешного заказа
+        dispatch(cartSliceActions.clearCart())
 
         // Перенаправление на главную страницу
-        navigate("/") // Перенаправление на главную страницу
+        navigate("/")
 
-        toast.success("Order confirmed with data:")
-        console.log("Order confirmed with data:", orderData)
+        toast.success("Order confirmed!")
+        console.log("Order confirmed with data:", reservedBooks)
       } catch (error) {
         toast.error("Failed to update user data or confirm order")
         console.error("Failed to update user data or confirm order", error)
@@ -275,7 +275,12 @@ function CartUserInfo() {
             id={USER_REGISTR_FORM_NAMES.TERMS}
             name={USER_REGISTR_FORM_NAMES.TERMS}
             checked={formik.values[USER_REGISTR_FORM_NAMES.TERMS]}
-            onChange={formik.handleChange}
+            onChange={e => {
+              formik.setFieldValue(
+                USER_REGISTR_FORM_NAMES.TERMS,
+                e.target.checked,
+              )
+            }}
           />
           By submitting an application, you confirm that the information you
           have filled in is up-to-date and agree to the processing of your data.

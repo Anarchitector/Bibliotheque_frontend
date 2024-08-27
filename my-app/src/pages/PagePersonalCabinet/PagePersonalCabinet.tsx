@@ -4,6 +4,7 @@ import PersonalCabinet from "components/PersonalCabinet/PersonalCabinet";
 import Button from "components/Button/Button";
 import { ButtonCushion, PageComponent } from "./styles";
 import { RootState } from "store/store";
+import BookReservedList from "components/BookItem/BookReservedList";
 
 function PagePersonalCabinet() {
   
@@ -41,6 +42,8 @@ function PagePersonalCabinet() {
         />
       )}
      
+
+     <BookReservedList />
     </PageComponent>
   );
 }
