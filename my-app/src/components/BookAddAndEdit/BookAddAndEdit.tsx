@@ -168,10 +168,10 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
     [BOOK_FORM_NAMES.PUBLISHER]: Yup.string()
       .required(SITE_MESSAGES.PUBLISHER_REQUIRED),
     [BOOK_FORM_NAMES.QUANTITY]: Yup.number()
-      .min(1, "No fewer than 1 book") 
+      .min(1, SITE_MESSAGES.QUANTITY_LOW_1 ) 
       .required(SITE_MESSAGES.QUANTITY_REQUIRED),
     [BOOK_FORM_NAMES.AVAILABLE]: Yup.number()
-      .min(0, "No fewer than 0 books") 
+      .min(0, SITE_MESSAGES.QUANTITY_LOW_0) 
       .required(SITE_MESSAGES.QUANTITY_REQUIRED)     
   })
 
