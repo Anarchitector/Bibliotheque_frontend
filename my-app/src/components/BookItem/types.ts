@@ -10,7 +10,7 @@ export interface BookProps {
     libraryId: string
     quantity: string
     available: string
-    picture?: string
+    picture: string
   };
   librarianFunction?: boolean
 }

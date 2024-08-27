@@ -9,5 +9,5 @@ export interface BookSliceState {
   libraryId: string | null
   quantity: string | null
   available: string | null
-  picture?: string | null  
+  picture: string | null  
 }

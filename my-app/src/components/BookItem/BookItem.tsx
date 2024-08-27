@@ -61,8 +61,8 @@ function BookItem({ book, librarianFunction }: BookProps) {
 
     if (response.ok) {
       const data = await response.json()
-      console.log(`Library data procured`);  
-      console.log(data)  
+      // console.log(`Library data procured`);  
+      // console.log(data)  
       setLibName(data.name)
       setLibLoc(data.country+", "+data.city+", "+data.street+" "+data.number)
       //libraryLocation = data.country+", "+data.city+", "+data.street+" "+data.number 
@@ -133,7 +133,7 @@ function BookItem({ book, librarianFunction }: BookProps) {
     {/* // ----- NORMAL REPRESENTATION ------ // */}
     {bookState===BookItemStates.NORMAL && (<BookItemComponent>
       <BookPhotoComponent>
-        <BookPhoto src="src/assets/Vectordefault-photo.webp" alt={book.title} />
+        <BookPhoto src="/src/assets/Vectordefault-photo.webp" alt={book.title} />
       </BookPhotoComponent>
       <BookInfoComponent>
         <BookInfo>
@@ -173,7 +173,7 @@ function BookItem({ book, librarianFunction }: BookProps) {
 
     {bookState===BookItemStates.LIBRARIAN && (<BookItemComponent>
       <BookPhotoComponent>
-        <BookPhoto src="src/assets/Vectordefault-photo.webp" alt={book.title} />
+        <BookPhoto src="/src/assets/Vectordefault-photo.webp" alt={book.title} />
       </BookPhotoComponent>
       <BookInfoComponent>
         <BookInfo>
