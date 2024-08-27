@@ -24,7 +24,6 @@ import { switchSliceActions } from "store/redux/switchSlice/switchSlice"
 
 
 function BookItem({ book, librarianFunction }: BookProps) {
-
   const [bookState, setBookState] = useState<BookItemStates>(BookItemStates.NORMAL)
   const [libName, setLibName] = useState<string>("");
   const [libLoc, setLibLoc] = useState<string>("");
