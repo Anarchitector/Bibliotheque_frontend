@@ -3,10 +3,11 @@ import axios from "axios";
 import BookItem from "./BookItem";
 import Pagination from "components/Pagination/Pagination";
 import { BooksListComponent } from "./stylesList";
-import { BookProps } from "./types";
+import type { BookProps } from "./types";
 import Loader from "components/Loader/Loader";
 import { useSelector } from "react-redux"; // Добавляем импорт useSelector
 import { RootState } from "../../store/store"; // Импортируем RootState для типа глобального состояния
+import { ErrorMessage } from "./styles";
 
 function BookReservedList() {
   const [books, setBooks] = useState<BookProps["book"][]>([]);
@@ -56,15 +57,20 @@ function BookReservedList() {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <ErrorMessage>{error}</ErrorMessage>;
   }
 
   return (
     <>
-      <BooksListComponent>
-        <h3>Your reserved books</h3>
+    { currentBooks.length === 0 ? (
+      <ErrorMessage>You haven't reserved any books yet...</ErrorMessage>
+      
+    ) : (
+      <>
+        <BooksListComponent>
+        <h1>Your reserved books</h1>
         {currentBooks.map((book) => (
-          <BookItem key={book.id} book={book} cartView={true}/>
+          <BookItem key={book.id} book={book} specialFunction={"cart"}/>
         ))}
       </BooksListComponent>
       {books.length > booksPerPage && (
@@ -75,6 +81,14 @@ function BookReservedList() {
           currentPage={currentPage}
         />
       )}
+      
+      </>
+
+
+    ) }
+      
+
+
     </>
   );
 }

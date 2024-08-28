@@ -23,7 +23,7 @@ import { switchSliceActions } from "store/redux/switchSlice/switchSlice"
 
 
 
-function BookItem({ book, librarianFunction, cartView }: BookProps) {
+function BookItem({ book, specialFunction, orderedBy }: BookProps) {
   const [bookState, setBookState] = useState<BookItemStates>(BookItemStates.NORMAL)
   const [libName, setLibName] = useState<string>("");
   const [libLoc, setLibLoc] = useState<string>("");
@@ -32,14 +32,21 @@ function BookItem({ book, librarianFunction, cartView }: BookProps) {
   ////// Handle the view of the book
 
   useEffect(() => {
-    if (librarianFunction) {
-      setBookState(BookItemStates.LIBRARIAN);
-    } else if (cartView) {
-      setBookState(BookItemStates.CART);
-    } else {
-      setBookState(BookItemStates.NORMAL);
-    }    
-  }, [librarianFunction]);
+    switch (specialFunction) {
+      case "librarian":
+        setBookState(BookItemStates.LIBRARIAN);
+        break;
+      case "cart":
+        setBookState(BookItemStates.CART);
+        break;
+      case "orderByLibrary":
+        setBookState(BookItemStates.OBL);
+        break;
+      default:
+        setBookState(BookItemStates.NORMAL);
+        break;
+    }
+  }, []);
 
   useEffect(()=> {
 
@@ -131,6 +138,39 @@ function BookItem({ book, librarianFunction, cartView }: BookProps) {
 
   return (
     <>
+    {/* // ----- LIST OF BOOK ORDERED FROM X LIBRARY REPRESENTATION ------ // */}
+
+    {bookState===BookItemStates.OBL && (<BookItemComponent>
+      <BookPhotoComponent>
+        <BookPhoto src="/src/assets/Vectordefault-photo.webp" alt={book.title} />
+      </BookPhotoComponent>
+      <BookInfoComponent>
+        <BookInfo>
+          <p>
+            <BookTitle>{book.title}</BookTitle>
+          </p>
+          <p>
+            <SpanInfo>Author:</SpanInfo>{" "}
+            <BookInfoSpan>{book.authorName} {book.authorSurname}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>ISBN:</SpanInfo> <BookInfoSpan>{book.isbn}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Publisher:</SpanInfo>{" "}
+            <BookInfoSpan>{book.publisher}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Year:</SpanInfo> <BookInfoSpan>{book.year}</BookInfoSpan>
+          </p>
+          <p>
+            <SpanInfo>Ordered by:</SpanInfo>{" "}
+            <BookInfoSpan>{orderedBy}</BookInfoSpan>
+          </p>
+        </BookInfo>          
+      </BookInfoComponent>
+    </BookItemComponent>)}
+
     {/* // ----- NORMAL REPRESENTATION ------ // */}
 
     {bookState===BookItemStates.NORMAL && (<BookItemComponent>
@@ -242,7 +282,7 @@ function BookItem({ book, librarianFunction, cartView }: BookProps) {
             <BookInfoSpan>{libLoc}</BookInfoSpan>
           </p>
         </BookInfo>
-            <BtnComponent librarianFunction={true}>
+            <BtnComponent specialFunction={"librarian"}>
               <Button name="Edit" onClick={handleEditClick} color="#4A90E2"/>
               <Button name="Delete" onClick={() => handleDeleteClick()} />
             </BtnComponent>
