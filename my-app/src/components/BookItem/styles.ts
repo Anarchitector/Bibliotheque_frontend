@@ -1,5 +1,13 @@
 import styled from "@emotion/styled"
 
+export const ErrorMessage = styled.h2`
+  padding:20px 10px 20px 10px;
+  @media (max-width: 600px) {
+    padding:10px 0px 10px 0px;
+    font-size: 20px;
+  }
+`
+
 export const BookItemComponent = styled.div`
   min-width: 950px;
   display: flex;
@@ -36,16 +44,16 @@ export const BookPhoto = styled.img`
   border-radius: 5px;
 `
 
-export const BtnComponent = styled.div<{ librarianFunction?: boolean }>`
+export const BtnComponent = styled.div<{ specialFunction: string }>`
   display: flex;
-  flex-direction: ${({ librarianFunction }) => (librarianFunction ? 'column' : 'column-reverse')};
-  justify-content: ${({ librarianFunction }) => (librarianFunction ? 'space-between' : 'flex-start')};
-  height: ${({ librarianFunction }) => (librarianFunction ? '100%' : 'auto')}; /* Optional: Stretch to fill the container if needed */
+  flex-direction: ${({ specialFunction }) => (specialFunction === 'librarian' ? 'column' : 'column-reverse')};
+  justify-content: ${({ specialFunction }) => (specialFunction === 'librarian' ? 'space-between' : 'flex-start')};
+  height: ${({ specialFunction }) => (specialFunction === 'librarian' ? '100%' : 'auto')};
 
   @media (max-width: 768px) {
     margin-top: 10px;
-    ${({ librarianFunction }) =>
-      librarianFunction &&
+    ${({ specialFunction }) =>
+      specialFunction === 'librarian' &&
       `
       flex-direction: row; /* Assemble into a row */
       justify-content: space-evenly; /* Evenly distribute elements in the row */

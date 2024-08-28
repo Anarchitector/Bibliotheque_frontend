@@ -5,16 +5,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { BookListOldProps, IBook } from "./types";
 import type { RootState } from "store/store";
-import { PageTitle } from "./styles";
+import { PageTitle, TwoTopButtons } from "./styles";
 import Button from "components/Button/Button";
 import { switchSliceActions } from "store/redux/switchSlice/switchSlice";
 import type { ILibrary } from "./types";
 import { TwoButtons } from "components/LibrariesList/styles";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 function BookListOld({ front }: BookListOldProps) {
+
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   // storage for procured books
@@ -26,6 +29,10 @@ function BookListOld({ front }: BookListOldProps) {
     (state: RootState) => state.LIBRARIES_LIST.selectedLibrary,
 
   )
+
+  const handleOrdersView = () => {
+    navigate("/api/bibliotek/orders")
+  }
 
   const fetchLibrary = async () => {
     try {
@@ -116,15 +123,20 @@ function BookListOld({ front }: BookListOldProps) {
         </BooksListComponent>
       ) : (
         <BooksListComponent>
-            <TwoButtons>
+            <TwoTopButtons>
           <Button
             name="Add new book(s)"
             type="submit"
             color="#45A42D"
             onClick={() => dispatch(switchSliceActions.setLbmState("add"))}
           />
+          <Button
+              name="Show library orders"
+              type="submit"
+              onClick={handleOrdersView}
+            />
           
-        </TwoButtons>
+        </TwoTopButtons>
           <PageTitle>
             <p>{currentLib?.name}: List of books</p>
           </PageTitle>
@@ -135,7 +147,7 @@ function BookListOld({ front }: BookListOldProps) {
               {currentBooks.map((book: { id: any; title?: string; author?: string; isbn?: string; publisher?: string; year?: string; picture?: string }) => (
                 <BookItem
                   key={book.id}
-                  librarianFunction={true}
+                  specialFunction={"librarian"}
                   book={book} // Передаем книгу в компонент BookItem
                 />
               ))}

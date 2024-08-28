@@ -21,6 +21,8 @@ import PageLibrariesList from "pages/PageLibrariesList/PageLibrariesList";
 import SearchPage from "pages/SearchPage/SearchPage";
 import { useEffect } from "react";
 import { userSliceActions } from "store/redux/userSlice/userSlice";
+import PageLibraryOrderedBooks from "pages/PageLibraryOrderedBooks/PageLibraryOrderedBooks";
+
 
 
 const App = () => {
@@ -61,6 +63,12 @@ const App = () => {
               element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
             >
             <Route path="/api/bibliotek" element={<PageLibraryManager />} />
+            </Route>
+
+            <Route
+              element={<ProtectedRoute allowedRoles={["ROLE_LIBRARY", "ROLE_ADMIN"]} />}
+            >
+            <Route path="/api/bibliotek/orders" element={<PageLibraryOrderedBooks />} />
             </Route>
 
             <Route

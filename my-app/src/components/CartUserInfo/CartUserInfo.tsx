@@ -125,12 +125,12 @@ function CartUserInfo() {
           libraryId: item.libraryId,
         }))
 
-        // console.log("Reserved Book" + reservedBooks);
+        //console.log("Reserved Book" + reservedBooks);
         
 
         // Отправка данных о заказе
         await axios.post(
-          `http://localhost:8080/api/reserved/${user.id}`,
+          `http://localhost:8080/api/reserved/user/${user.id}`,
           reservedBooks,
         )
 

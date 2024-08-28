@@ -12,11 +12,14 @@ export interface BookProps {
     available: string
     picture: string
   };
-  librarianFunction?: boolean
+  specialFunction?: "librarian" | "cart" | "orderByLibrary"
+  orderedBy?: string 
 }
 
 export enum BookItemStates {
   NORMAL = "normal",
   LIBRARIAN = "librarian",
-  DELETED = "deleted"
+  DELETED = "deleted",
+  CART = "cart",
+  OBL = "obl"
 }

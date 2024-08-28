@@ -87,9 +87,8 @@ function RegistrationOfLibrary() {
     [LIB_REGISTR_FORM_NAMES.ZIP]: Yup.string()
       .required(SITE_MESSAGES.ZIP_REQUIRED_LIBRARY)
       .matches(zipRegex, SITE_MESSAGES.ZIP_WRONG),
-    [LIB_REGISTR_FORM_NAMES.PHONE]: Yup.string().required(
-      SITE_MESSAGES.PHONE_REQUIRED_LIBRARY,
-    ),
+    [LIB_REGISTR_FORM_NAMES.PHONE]: Yup.string()
+      .required(SITE_MESSAGES.PHONE_REQUIRED_LIBRARY),
   })
 
   // GETTING USER's ID //
@@ -186,7 +185,7 @@ function RegistrationOfLibrary() {
             name={LIB_REGISTR_FORM_NAMES.NAME}
             type="text"
             label="Library's name"
-            placeholder="Berlin Free Library"
+            placeholder="Enter your library's name"
             value={formik.values[LIB_REGISTR_FORM_NAMES.NAME]}
             onChange={formik.handleChange}
             error={formik.errors[LIB_REGISTR_FORM_NAMES.NAME]}
@@ -195,7 +194,7 @@ function RegistrationOfLibrary() {
             name={LIB_REGISTR_FORM_NAMES.COUNTRY}
             type="text"
             label="Country"
-            placeholder="Germany"
+            placeholder="Enter country of origin"
             value={formik.values[LIB_REGISTR_FORM_NAMES.COUNTRY]}
             onChange={formik.handleChange}
             error={formik.errors[LIB_REGISTR_FORM_NAMES.COUNTRY]}
@@ -204,7 +203,7 @@ function RegistrationOfLibrary() {
             name={LIB_REGISTR_FORM_NAMES.ZIP}
             type="text"
             label="ZIP"
-            placeholder="96148"
+            placeholder="Enter ZIP code"
             value={formik.values[LIB_REGISTR_FORM_NAMES.ZIP]}
             onChange={formik.handleChange}
             error={formik.errors[LIB_REGISTR_FORM_NAMES.ZIP]}
@@ -213,7 +212,7 @@ function RegistrationOfLibrary() {
             name={LIB_REGISTR_FORM_NAMES.CITY}
             type="text"
             label="City"
-            placeholder="Bamberg"
+            placeholder="Enter city of origin"
             value={formik.values[LIB_REGISTR_FORM_NAMES.CITY]}
             onChange={formik.handleChange}
             error={formik.errors[LIB_REGISTR_FORM_NAMES.CITY]}
@@ -224,7 +223,7 @@ function RegistrationOfLibrary() {
             name={LIB_REGISTR_FORM_NAMES.STREET}
             type="text"
             label="Street"
-            placeholder="Marktplatz"
+            placeholder="Enter the street"
             value={formik.values[LIB_REGISTR_FORM_NAMES.STREET]}
             onChange={formik.handleChange}
             error={formik.errors[LIB_REGISTR_FORM_NAMES.STREET]}
@@ -233,7 +232,7 @@ function RegistrationOfLibrary() {
             name={LIB_REGISTR_FORM_NAMES.NUMBER}
             type="text"
             label="House number"
-            placeholder="25"
+            placeholder="Enter the house number"
             value={formik.values[LIB_REGISTR_FORM_NAMES.NUMBER]}
             onChange={formik.handleChange}
             error={formik.errors[LIB_REGISTR_FORM_NAMES.NUMBER]}
@@ -246,7 +245,7 @@ function RegistrationOfLibrary() {
                 type="text"
                 mask={phoneNumberMask}
                 guide={true}
-                placeholder="Enter your phone number"
+                placeholder="Enter the phone number"
                 onChange={formik.handleChange}
                 value={formik.values[LIB_REGISTR_FORM_NAMES.PHONE]}
               />

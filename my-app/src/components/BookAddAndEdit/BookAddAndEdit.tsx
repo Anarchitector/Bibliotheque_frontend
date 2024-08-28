@@ -17,14 +17,16 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { RootState } from "store/store";
+import type { RootState } from "store/store";
 import { SITE_MESSAGES } from "assets/messages";
 import { switchSliceActions } from "store/redux/switchSlice/switchSlice";
+import { useNavigate } from "react-router-dom";
 
 function BookAddAndEdit({ editSwitch }: BookAEProps) {
 
   // SETUP - Edit or Add?
   const [bookEdit, setBookEdit] = useState(false);
+  const navigate = useNavigate();
   
   useEffect(() => {
     if (editSwitch) {
@@ -149,6 +151,10 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
   const handleChangeEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
     formikEdit.handleChange(event)
     setHasUnsavedChanges(true)
+  }
+
+  const handleOrdersView = () => {
+    navigate("/api/bibliotek/orders")
   }
 
   const schemaEdit = Yup.object().shape({    
