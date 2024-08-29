@@ -86,8 +86,7 @@ function FormRegistrUserNew() {
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ${aT}`
+              "Content-Type": "application/json"
             },
             body: JSON.stringify(dataToSubmit),
           },
