@@ -5,6 +5,9 @@ import Pagination from 'components/Pagination/Pagination';
 import { BooksListComponent } from './stylesList';
 import type { BookProps } from './types';
 import Loader from 'components/Loader/Loader';
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
+import { useSelector } from 'react-redux';
+import type { RootState } from 'store/store';
 
 function BookList() {
   const [books, setBooks] = useState<BookProps['book'][]>([]); // Состояние для списка книг
@@ -12,7 +15,8 @@ function BookList() {
   const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
   const [error, setError] = useState<string | null>(null); // Состояние для отслеживания ошибок
   const booksPerPage = 10; // Количество книг на одной странице
-
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
+  
   useEffect(() => {
     const fetchBooks = async () => {
       try {

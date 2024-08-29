@@ -27,6 +27,8 @@ import { toast } from "react-toastify"
 
 function RegistrationOfLibrary() {
 
+  const aT = useSelector((state: RootState) => state.USER.accessToken)?.trim()
+
   // navigation //
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -121,7 +123,6 @@ function RegistrationOfLibrary() {
         number: values[LIB_REGISTR_FORM_NAMES.NUMBER],
         zip: values[LIB_REGISTR_FORM_NAMES.ZIP],
         phone: values[LIB_REGISTR_FORM_NAMES.PHONE],
-        //TODO
         librarian_id: currentUserID,
       }
       console.log("submitted data");
@@ -130,12 +131,15 @@ function RegistrationOfLibrary() {
 
 
       try {
+        console.log("access token")
+        console.log(aT)
         const response = await fetch(
           "http://localhost:8080/api/libraries/register",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": `Bearer ${aT}`
             },
             body: JSON.stringify(dataToSubmit),
           },

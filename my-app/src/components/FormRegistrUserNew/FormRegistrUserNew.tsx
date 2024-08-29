@@ -10,19 +10,22 @@ import {
   LinkComponent,
   RadioBatComponent,
 } from "./styles"
-import { REGISTR_FORM_NAMES, LoginFormValues } from "./types"
+
+import type { LoginFormValues } from "./types";
+import { REGISTR_FORM_NAMES } from "./types"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { userSliceActions } from "../../store/redux/userSlice/userSlice"
 import { toast } from "react-toastify"
 import { SITE_MESSAGES } from "assets/messages"
+import type { RootState } from "store/store"
 
 function FormRegistrUserNew() {
   const [selectedOption, setSelectedOption] = useState("user")
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
     // Inside your UserLogin component after a successful login:
     const params = new URLSearchParams(window.location.search);
     const redirectPath = params.get('redirect');
@@ -84,6 +87,7 @@ function FormRegistrUserNew() {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${aT}`
             },
             body: JSON.stringify(dataToSubmit),
           },

@@ -23,6 +23,7 @@ import { switchSliceActions } from "store/redux/switchSlice/switchSlice";
 import { useNavigate } from "react-router-dom";
 
 function BookAddAndEdit({ editSwitch }: BookAEProps) {
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   // SETUP - Edit or Add?
   const [bookEdit, setBookEdit] = useState(false);
@@ -121,6 +122,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${aT}`
             },
             body: JSON.stringify(dataToSubmit),
           },
@@ -224,6 +226,7 @@ function BookAddAndEdit({ editSwitch }: BookAEProps) {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${aT}`
             },
             body: JSON.stringify(dataToSubmit),
           },

@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function BookListOld({ front }: BookListOldProps) {
-
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -41,7 +41,7 @@ function BookListOld({ front }: BookListOldProps) {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
         },
       )
@@ -66,7 +66,7 @@ function BookListOld({ front }: BookListOldProps) {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
         },
       )

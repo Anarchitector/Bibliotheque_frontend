@@ -4,8 +4,11 @@ import axios from "axios"
 import BookItem from "./BookItem"
 import Pagination from "components/Pagination/Pagination"
 import { BooksListComponent } from "./stylesList"
-import { BookProps } from "./types"
+import type { BookProps } from "./types"
 import Loader from "components/Loader/Loader"
+import type { RootState } from "store/store"
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
+import { useSelector } from "react-redux"
 
 function BookSearchResult() {
   const [books, setBooks] = useState<BookProps["book"][]>([])
@@ -13,6 +16,7 @@ function BookSearchResult() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const booksPerPage = 10
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   const location = useLocation()
 
@@ -33,7 +37,11 @@ function BookSearchResult() {
       }
 
       try {
-        const response = await axios.get(url)
+        const response = await axios.get(url, {
+          headers: {
+            "Authorization": `Bearer ${aT}`, // Add the Authorization header with the access token
+          },
+        });
         setBooks(response.data)
       } catch (err) {
         setError("Failed to fetch books")

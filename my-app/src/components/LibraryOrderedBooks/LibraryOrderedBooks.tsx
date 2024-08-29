@@ -28,6 +28,7 @@ function LibraryOrderedBooks() {
   console.log("Selected Library ID " + libraryId)
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   const handleBookList = () => {
     navigate("/api/books")
@@ -41,7 +42,11 @@ function LibraryOrderedBooks() {
       const url = `http://localhost:8080/api/reserved/library/${libraryId}`;
 
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+          headers: {
+            "Authorization": `Bearer ${aT}`, // Add the Authorization header with the access token
+          },
+        })
         setOrders(response.data);
       } catch (err) {
         setError("Failed to fetch reserved books");

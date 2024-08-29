@@ -34,6 +34,7 @@ function LibraryProfileEdit() {
   console.log("Library about ot be edited has id "+editedLibraryId)
   const editedLibrary = useSelector((state:RootState) => state.LIBRARIES_LIST.librariesList.find(library => library.id === editedLibraryId))
   console.log("That's the library we are about to edit "+JSON.stringify(editedLibrary))
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   // American, German, English postal codes //
   const zipRegex =
@@ -139,6 +140,7 @@ function LibraryProfileEdit() {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${aT}`
             },
             body: JSON.stringify(dataToSubmit),
           },
