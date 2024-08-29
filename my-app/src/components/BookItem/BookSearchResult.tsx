@@ -37,11 +37,7 @@ function BookSearchResult() {
       }
 
       try {
-        const response = await axios.get(url, {
-          headers: {
-            "Authorization": `Bearer ${aT}`, // Add the Authorization header with the access token
-          },
-        });
+        const response = await axios.get(url);
         setBooks(response.data)
       } catch (err) {
         setError("Failed to fetch books")
