@@ -12,7 +12,7 @@ import {
 } from "./styles"
 import type { BookProps } from "./types"
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { cartSliceActions } from "../../store/redux/cartSlice/cartSlice"
 import { useNavigate } from "react-router-dom"
 import { BookItemStates } from "./types"
@@ -20,6 +20,7 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { bookSliceActions } from "store/redux/bookSlice/bookSlice"
 import { switchSliceActions } from "store/redux/switchSlice/switchSlice"
+import type { RootState } from "store/store"
 
 
 
@@ -28,6 +29,7 @@ function BookItem({ book, specialFunction, orderedBy }: BookProps) {
   const [libName, setLibName] = useState<string>("");
   const [libLoc, setLibLoc] = useState<string>("");
   const libId = book.libraryId
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   ////// Handle the view of the book
 
@@ -62,7 +64,7 @@ function BookItem({ book, specialFunction, orderedBy }: BookProps) {
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
       },
     )
@@ -119,6 +121,7 @@ function BookItem({ book, specialFunction, orderedBy }: BookProps) {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${aT}`
           },
         },
       )

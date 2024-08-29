@@ -17,7 +17,7 @@ function LibrariesList() {
       const response = await fetch("http://localhost:8080/api/libraries/all", {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
       });
 

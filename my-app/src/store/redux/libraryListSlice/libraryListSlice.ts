@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import type { LibrariesListState } from "./types"
 import type { ILibrary } from "./types"
 import type { RootState } from "store/store"
+import { useSelector } from "react-redux"
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 
 const librariesListInitialState: LibrariesListState = {
@@ -15,6 +16,7 @@ export const fetchList = createAsyncThunk<ILibrary[], void, { state: RootState }
   //procure the state of 
   const state = thunkAPI.getState();
   const currentUser = state.USER.id;
+  const aT = state.USER.accessToken
 
   /// CREATE A PROPER REQUEST FOR GETTING LIBRARIES LIST for a particular user
   const response = await fetch(
@@ -24,6 +26,7 @@ export const fetchList = createAsyncThunk<ILibrary[], void, { state: RootState }
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${aT}`
       },
     },
   )

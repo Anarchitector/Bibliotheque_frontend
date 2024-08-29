@@ -15,6 +15,7 @@ function BookReservedList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const booksPerPage = 10;
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   // Получаем userId из глобального состояния
   const userId = useSelector((state: RootState) => state.USER.id);
@@ -34,7 +35,11 @@ function BookReservedList() {
       const url = `http://localhost:8080/api/reserved/user/${userId}`;
 
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+          headers: {
+            "Authorization": `Bearer ${aT}`, // Add the Authorization header with the access token
+          },
+        });
         setBooks(response.data);
       } catch (err) {
         setError("Failed to fetch reserved books");

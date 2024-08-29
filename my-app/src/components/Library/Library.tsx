@@ -3,8 +3,8 @@ import { LibraryComponent, LibraryContainer, TwoButtons } from './styles'
 import type { LibraryProps } from './type'
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
-import { useDispatch } from 'react-redux';
-import type { AppDispatch } from 'store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from 'store/store';
 import { libraryListSliceActions } from 'store/redux/libraryListSlice/libraryListSlice';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -14,6 +14,8 @@ import { switchSliceActions } from 'store/redux/switchSlice/switchSlice';
 
 
 function Library({ id, name, country, city, street, number, zip, phone, librarian_id, onClick, clicksDisabled }: LibraryProps) {
+
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   const [libState, setLibState] = useState<ViewState>(ViewState.ENABLED);
   
@@ -57,6 +59,7 @@ function Library({ id, name, country, city, street, number, zip, phone, libraria
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${aT}`
           },
         },
       )

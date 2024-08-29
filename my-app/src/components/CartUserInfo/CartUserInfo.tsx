@@ -29,6 +29,7 @@ import { SITE_MESSAGES } from "assets/messages"
 function CartUserInfo() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   // Получаем данные пользователя и корзины из глобального состояния
   const user = useSelector((state: RootState) => state.USER)
@@ -97,7 +98,13 @@ function CartUserInfo() {
           number: values[USER_REGISTR_FORM_NAMES.HOUSE_NUMBER],
           zip: values[USER_REGISTR_FORM_NAMES.ZIP],
           phone: values[USER_REGISTR_FORM_NAMES.PHONE],
-        })
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${aT}`, // Add the Authorization header with the access token
+          },
+        }
+        )
 
         // Обновляем глобальное состояние пользователя
         dispatch(
@@ -125,13 +132,18 @@ function CartUserInfo() {
           libraryId: item.libraryId,
         }))
 
-        //console.log("Reserved Book" + reservedBooks);
+        console.log("Reserved Book" + reservedBooks);
         
 
         // Отправка данных о заказе
         await axios.post(
           `http://localhost:8080/api/reserved/user/${user.id}`,
           reservedBooks,
+          {
+            headers: {
+              Authorization: `Bearer ${aT}`, // Add the Authorization header with the access token
+            },
+          }
         )
 
         // Очистка корзины после успешного заказа

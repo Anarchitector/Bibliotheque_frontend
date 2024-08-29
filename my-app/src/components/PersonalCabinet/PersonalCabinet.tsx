@@ -39,6 +39,7 @@ function PersonalCabinet() {
   const [initialValues, setInitialValues] = useState<UserRegistrationFormValues | null>(null) // Начальные значения
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false) // Флаг для отслеживания несохраненных изменений
   const dispatch = useDispatch()
+  const aT = useSelector((state: RootState) => state.USER.accessToken)
 
   // Получаем все необходимые данные пользователя из Redux
   const user = useSelector((state: RootState) => state.USER)  
@@ -147,6 +148,11 @@ function PersonalCabinet() {
             zip: values[USER_REGISTR_FORM_NAMES.ZIP],
             phone: values[USER_REGISTR_FORM_NAMES.PHONE],
           },
+          {
+            headers: {
+              Authorization: `Bearer ${aT}`, // Add the Authorization header with the access token
+            },
+          }
         )
 
         dispatch(
